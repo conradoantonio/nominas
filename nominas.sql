@@ -16,6 +16,69 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`nominas` /*!40100 DEFAULT CHARACTER SET
 
 USE `nominas`;
 
+/*Table structure for table `documentacion` */
+
+DROP TABLE IF EXISTS `documentacion`;
+
+CREATE TABLE `documentacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empleado_id` int(11) DEFAULT NULL,
+  `comprobante_domicilio` tinyint(4) DEFAULT NULL,
+  `identificacion` tinyint(4) DEFAULT NULL,
+  `curp` tinyint(4) DEFAULT NULL,
+  `rfc` tinyint(4) DEFAULT NULL,
+  `hoja_imss` tinyint(4) DEFAULT NULL,
+  `carta_no_antecedentes_penales` tinyint(4) DEFAULT NULL,
+  `acta_nacimiento` tinyint(4) DEFAULT NULL,
+  `comprobante_estudios` tinyint(4) DEFAULT NULL,
+  `resultado_psicometrias` tinyint(4) DEFAULT NULL,
+  `examen_socieconomico` tinyint(4) DEFAULT NULL,
+  `examen_toxicologico` tinyint(4) DEFAULT NULL,
+  `solicitud_frente_vuelta` tinyint(4) DEFAULT NULL,
+  `deposito_uniforme` tinyint(4) DEFAULT NULL,
+  `constancia_recepcion_uniforme` tinyint(4) DEFAULT NULL,
+  `comprobante_recepcion_reglamento_interno_trabajo` tinyint(4) DEFAULT NULL,
+  `autorizacion_pago_tarjeta` tinyint(4) DEFAULT NULL,
+  `carta_aceptacion_cambio_lugar` tinyint(4) DEFAULT NULL,
+  `finiquito` tinyint(4) DEFAULT NULL,
+  `calendario` tinyint(4) DEFAULT NULL,
+  `formato_datos_personales` tinyint(4) DEFAULT NULL,
+  `solicitud_autorizacion_consulta` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `documentacion` */
+
+insert  into `documentacion`(`id`,`empleado_id`,`comprobante_domicilio`,`identificacion`,`curp`,`rfc`,`hoja_imss`,`carta_no_antecedentes_penales`,`acta_nacimiento`,`comprobante_estudios`,`resultado_psicometrias`,`examen_socieconomico`,`examen_toxicologico`,`solicitud_frente_vuelta`,`deposito_uniforme`,`constancia_recepcion_uniforme`,`comprobante_recepcion_reglamento_interno_trabajo`,`autorizacion_pago_tarjeta`,`carta_aceptacion_cambio_lugar`,`finiquito`,`calendario`,`formato_datos_personales`,`solicitud_autorizacion_consulta`,`created_at`,`updated_at`) values (1,1,1,1,1,0,0,1,1,1,0,1,1,0,1,0,1,0,0,1,1,1,1,'2017-11-07 14:53:28','2017-11-07 14:55:11');
+
+/*Table structure for table `empleados` */
+
+DROP TABLE IF EXISTS `empleados`;
+
+CREATE TABLE `empleados` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido` varchar(50) DEFAULT NULL,
+  `num_empleado` varchar(20) DEFAULT NULL,
+  `domicilio` text,
+  `ciudad` varchar(40) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `rfc` varchar(13) DEFAULT NULL,
+  `curp` varchar(20) DEFAULT NULL,
+  `nss` varchar(30) DEFAULT NULL,
+  `telefono_emergencia` varchar(30) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `empleados` */
+
+insert  into `empleados`(`id`,`nombre`,`apellido`,`num_empleado`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`status`,`created_at`,`updated_at`) values (1,'Conrado Antonio','Carrillo Rosales','458464','Hector hernández #5712 A Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','7845692','9801010',1,'2017-11-07 14:51:34','0000-00-00 00:00:00');
+
 /*Table structure for table `empresas` */
 
 DROP TABLE IF EXISTS `empresas`;
@@ -70,11 +133,11 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$hPxSH9GAcKTrI1zqP.beROrfWbsYCoFH7bODs5nZ5XYvL6dX5yTQW','anton_con@hotmail.com','img/user_perfil/default.jpg','zNJHa1o6nOLfOnmtC8RdxGFpOEWYEihR2simXAsp7NFd8tYg7gXYNQ0UeP0x',1,'2017-03-23 11:30:45','2017-07-12 18:18:23'),(5,'admin.cocoinbox','$2y$10$WKY9J1RDcn9/5Va9C9QDWOHCbfWSdXYTAf6akZgQFhJEBfmVh8eL6','admin@cocoinbox.coom','img/user_perfil/default.jpg',NULL,1,'2017-10-24 18:23:27','2017-10-24 18:23:27');
+insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$hPxSH9GAcKTrI1zqP.beROrfWbsYCoFH7bODs5nZ5XYvL6dX5yTQW','anton_con@hotmail.com','img/user_perfil/default.jpg','zNJHa1o6nOLfOnmtC8RdxGFpOEWYEihR2simXAsp7NFd8tYg7gXYNQ0UeP0x',1,'2017-03-23 11:30:45','2017-07-12 18:18:23');
 
 /*Table structure for table `usuario` */
 
