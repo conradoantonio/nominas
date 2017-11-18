@@ -88,7 +88,7 @@
                     <td class="hide">{{$empleado->documentacion->formato_datos_personales}}</td>
                     <td class="hide">{{$empleado->documentacion->solicitud_autorizacion_consulta}}</td>
                     <td>
-                        <button type="button" class="btn btn-info editar_empleado">Editar</button>
+                        <a href="{{url('empleados/editar')}}/{{$empleado->id}}"><button type="button" class="btn btn-info editar_empleado">Editar</button></a>
                         <button type="button" class="btn btn-danger eliminar_empleado">Borrar</button>
                     </td>
                 </tr>

@@ -36,7 +36,7 @@ Route::post('/usuarios/sistema/eliminar_usuario', 'UsersController@eliminar_usua
 Route::post('/usuarios/sistema/change_password', 'UsersController@change_password');//Elimina un usuario del sistema
 
 /*-- Rutas para la pestaña de empresas--*/
-Route::group(['prefix' => 'empresas'], function () {
+Route::group(['prefix' => 'empresas', 'middleware' => 'auth'], function () {
 	Route::get('/','EmpresasController@index');//Carga la tabla de empresas
 	Route::post('guardar','EmpresasController@guardar');//Guarda los datos de una empresa
 	Route::post('editar','EmpresasController@editar');//Edita los datos de una empresa
@@ -45,10 +45,11 @@ Route::group(['prefix' => 'empresas'], function () {
 });
 
 /*-- Rutas para la pestaña de empleados--*/
-Route::group(['prefix' => 'empleados'], function () {
+Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 	Route::get('/','EmpleadosController@index');//Carga la tabla de empleados
+	Route::get('formulario/{id?}','EmpleadosController@cargar_formulario');//Carga el formulario para editar un sólo empleado
 	Route::post('guardar','EmpleadosController@guardar');//Guarda los datos de una empleado
-	Route::post('editar','EmpleadosController@editar');//Edita los datos de una empleado
+	Route::post('actualizar','EmpleadosController@actualizar');//Actualiza los datos de una empleado
 	Route::post('baja','EmpleadosController@dar_baja');//Cambia el status de una empleado
 	Route::post('baja/multiple','EmpleadosController@dar_baja_multiples_empresas');//Cambia el status de un empleado
 });

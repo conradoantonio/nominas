@@ -27,97 +27,6 @@ input:-webkit-autofill {
 </style>
 <div class="text-center" style="margin: 20px;">
 
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="titulo_form_empleado" id="formulario_empleado">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="titulo_form_empleado">Nuevo empleado</h4>
-                </div>
-                <form id="form_empleado" action="" enctype="multipart/form-data" method="POST" autocomplete="off">
-                    <input type="hidden" name="_token" id="token" value="{!! csrf_token() !!}" base-url="<?php echo url();?>">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12 hidden">
-                                <div class="form-group">
-                                    <label for="id">ID</label>
-                                    <input type="text" class="form-control" id="id" name="id">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="apellido">Apellido</label>
-                                    <input type="text" class="form-control" id="nombre" name="apellido" placeholder="Apellido">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="num_empleado">Número de empleado mpleado</label>
-                                    <input type="text" class="form-control" id="num_empleado" name="num_empleado" placeholder="Número de empleado mpleado">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="domicilio">Domicilio</label>
-                                    <textarea class="form-control" id="domicilio" name="domicilio" placeholder="Domicilio"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="ciudad">Ciudad</label>
-                                    <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="telefono">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="rfc">RFC</label>
-                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="curp">CURP</label>
-                                    <input type="text" class="form-control" id="curp" name="curp" placeholder="CURP">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="nss">NSS</label>
-                                    <input type="text" class="form-control" id="nss" name="nss" placeholder="NSS">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="telefono_emergencia">Télefono de emergencia</label>
-                                    <input type="text" class="form-control" id="telefono_emergencia" name="telefono_emergencia" placeholder="Télefono de emergencia">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="guardar_empleado">
-                            <i class="fa fa-spinner fa-spin" style="display: none;"></i>
-                            Guardar
-                        </button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
     <h2>Lista de empleados</h2>
 
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="importar-excel">
@@ -172,7 +81,7 @@ input:-webkit-autofill {
                         <button type="button" class="btn btn-danger {{count($empleados) ? '' : 'hide'}}" id="eliminar_multiples_empleados"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empleados</button>
                         
                         {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importar-excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Importar empleados</button> --}}
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empleado" id="nuevo_empleado"><i class="fa fa-plus" aria-hidden="true"></i> Nueva empleado</button>
+                        <a href="{{url('empleados/formulario')}}"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empleado" id="nuevo_empleado"><i class="fa fa-plus" aria-hidden="true"></i> Nueva empleado</button></a>
                     </div>
                     <div class="grid-body">
                         <div class="table-responsive" id="div_tabla_empleados">
@@ -206,15 +115,7 @@ $('#formulario_empleado').on('hidden.bs.modal', function (e) {
     $("#formulario_empleado input#oferta").prop('checked', false);
 });
 
-$('body').delegate('button#nuevo_empleado','click', function() {
-    $('select.form-control').val(0);
-    $('input.form-control').val('');
-    $('div#logo_empleado').hide();
-    $("h4#titulo_form_empleado").text('Nuevo empleado');
-    $("form#form_empleado").get(0).setAttribute('action', '{{url('empleados/guardar')}}');
-});
-
-$('body').delegate('.editar_empleado','click', function() {
+/*$('body').delegate('.editar_empleado','click', function() {
     $('input.form-control').val('');
 
     //Apartado del empleado (inputs)
@@ -273,7 +174,7 @@ $('body').delegate('.editar_empleado','click', function() {
     $("#formulario_empleado input#telefono_emergencia").val(telefono_emergencia);
 
     $('#formulario_empleado').modal();
-});
+});*/
 
 $('body').delegate('#eliminar_multiples_empleados','click', function() {
     var checking = [];
