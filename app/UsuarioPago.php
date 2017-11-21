@@ -1,0 +1,20 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class UsuarioPago extends Model
+{
+	public $timestamps = false;
+
+	protected $table = "usuario_pagos";
+
+	public function pago(){
+		return $this->belongsTo('App\Pago');
+	}
+
+	public function usuarios(){
+		return $this->belongsTo('App\Usuario', 'trabajador_id', 'id');
+	}
+}
