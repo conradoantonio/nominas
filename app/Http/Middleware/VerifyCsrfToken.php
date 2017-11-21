@@ -21,7 +21,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/app/validar_cargo_oxxo',
         '/procesar_orden',
         '/app/orden_empresa',
-/*        '/pedidos/obtener_info_pedido',*/
         //Fin de los de conekta prueba
         '/productos/cargar_subcategorias',
         '/subir_imagenes',
@@ -48,5 +47,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/app/enviar_correo_detalle_cotizacion',
         '/app/calificar_servicio',
         '/app/actualizar_contra',
+        '/empleados/actualizar'
     ];
 }

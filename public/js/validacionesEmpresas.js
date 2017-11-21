@@ -16,12 +16,11 @@ btn_enviar.on('click', function() {
     msgError = '';
 
     validarInput($('input#nombre'), regExprTexto) ? '' : inputs.push('Nombre')
+    validarInput($('input#oficina_cargo'), regExprTexto) ? '' : inputs.push('Oficina a cargo')
     validarInput($('textarea#direccion'), regExprTexto) ? '' : inputs.push('Dirección')
+    validarInput($('input#contacto'), regExprTexto) ? '' : inputs.push('Contacto')
     validarInput($('input#telefono'), regExprTel) ? '' : inputs.push('Teléfono')
-    validarInput($('input#numero_ext'), regExprNumCasaReq) ? '' : inputs.push('Número exterior')
-    validarInput($('input#numero_int'), regExprNumCasa) ? '' : inputs.push('Número interior')
-    validarInput($('input#codigo_postal'), regExprNumReq) ? '' : inputs.push('Código postal')
-    validarArchivo($('input#logo')) ? '' : inputs.push('Logo')
+    validarInput($('input#marcacion_corta'), regExprTel) ? '' : inputs.push('Marcación corta')
 
     if (inputs.length == 0) {
         $(this).children('i').show();
@@ -36,20 +35,20 @@ btn_enviar.on('click', function() {
 $( "input#nombre" ).blur(function() {
     validarInput($(this), regExprTexto);
 });
+$( "input#oficina_cargo" ).blur(function() {
+    validarInput($(this), regExprTexto);
+});
 $( "textarea#direccion" ).blur(function() {
+    validarInput($(this), regExprTexto);
+});
+$( "input#contacto" ).blur(function() {
     validarInput($(this), regExprTexto);
 });
 $( "input#telefono" ).blur(function() {
     validarInput($(this), regExprTel);
 });
-$( "input#numero_ext" ).blur(function() {
-    validarInput($(this), regExprNumCasaReq);
-});
-$( "input#numero_int" ).blur(function() {
-    validarInput($(this), regExprNumCasa);
-});
-$( "input#codigo_postal" ).blur(function() {
-    validarInput($(this), regExprNumReq);
+$( "input#marcacion_corta" ).blur(function() {
+    validarInput($(this), regExprTel);
 });
 
 function validarInput (campo,regExpr) {

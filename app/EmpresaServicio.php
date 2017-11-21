@@ -4,17 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Empresa extends Model
+class EmpresaServicio extends Model
 {
     /**
      * Define el nombre de la tabla del modelo.
      */
-    protected $table = 'empresas';
+    protected $table = 'empresa_servicio';
 
     /**
      * Define el nombre de los campos que podrán ser alterados de la tabla del modelo.
      */
     protected $fillable = [
-    	'nombre', 'oficina_cargo', 'direccion', 'contacto', 'telefono', 'marcacion_corta', 'status', 'created_at'
+    	'empresa_id', 'servicio', 'horario', 'sueldo', 'created_at'
     ];
 }

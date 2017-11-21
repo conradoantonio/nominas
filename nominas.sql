@@ -79,6 +79,23 @@ CREATE TABLE `empleados` (
 
 insert  into `empleados`(`id`,`nombre`,`apellido`,`num_empleado`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`status`,`created_at`,`updated_at`) values (1,'Conrado Antonio','Carrillo Rosales','458464','Hector hernández #5712 A Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','7845692','9801010',1,'2017-11-07 14:51:34','0000-00-00 00:00:00');
 
+/*Table structure for table `empresa_servicio` */
+
+DROP TABLE IF EXISTS `empresa_servicio`;
+
+CREATE TABLE `empresa_servicio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empresa_id` int(11) DEFAULT NULL,
+  `servicio` varchar(200) DEFAULT NULL,
+  `horario` varchar(200) DEFAULT NULL,
+  `sueldo` decimal(6,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `empresa_servicio` */
+
 /*Table structure for table `empresas` */
 
 DROP TABLE IF EXISTS `empresas`;
@@ -86,12 +103,11 @@ DROP TABLE IF EXISTS `empresas`;
 CREATE TABLE `empresas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) DEFAULT NULL,
+  `oficina_cargo` varchar(100) DEFAULT NULL,
   `direccion` text,
+  `contacto` varchar(100) DEFAULT NULL,
   `telefono` varchar(18) DEFAULT NULL,
-  `numero_ext` varchar(20) DEFAULT NULL,
-  `numero_int` varchar(20) DEFAULT NULL,
-  `codigo_postal` varchar(10) DEFAULT NULL,
-  `logo` varchar(100) DEFAULT NULL,
+  `marcacion_corta` varchar(10) DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -100,7 +116,7 @@ CREATE TABLE `empresas` (
 
 /*Data for the table `empresas` */
 
-insert  into `empresas`(`id`,`nombre`,`direccion`,`telefono`,`numero_ext`,`numero_int`,`codigo_postal`,`logo`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Colonia Chapalita, Cuautitlan','33658974','211','','44500','img/logo_empresa/1509138857.png',1,'2017-10-27 16:14:17','2017-10-27 16:14:17');
+insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116',1,'2017-11-21 11:19:47','2017-11-21 11:19:47');
 
 /*Table structure for table `estado` */
 

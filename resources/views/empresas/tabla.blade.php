@@ -4,17 +4,17 @@
             <th></th>
             <th>ID</th>
             <th>Nombre</th>
-            <th class="">direccion</th>
+            <th>Oficina a cargo</th>
+            <th class="">Dirección</th>
+            <th class="">Contacto</th>
             <th class="">Teléfono</th>
-            <th class="hide">Número exterior</th>
-            <th class="hide">Número interior</th>
-            <th class="hide">Código postal</th>
-            <th class="hide">Logo</th>
+            <th class="hide">Marcación corta</th>
+            <th class="hide">Status</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @if(count($empresas) > 0)
+        @if (count($empresas) > 0)
             @foreach($empresas as $empresa)
                 <tr class="" id="{{$empresa->id}}">
                     <td class="small-cell v-align-middle">
@@ -25,12 +25,12 @@
                     </td>
                     <td>{{$empresa->id}}</td>
                     <td>{{$empresa->nombre}}</td>
+                    <td class="text">{{$empresa->oficina_cargo}}</td>
                     <td class="text">{{$empresa->direccion}}</td>
+                    <td class=""><span>{{$empresa->contacto}}</span></td>
                     <td class=""><span>{{$empresa->telefono}}</span></td>
-                    <td class="hide"><span>{{$empresa->numero_int}}</span></td>
-                    <td class="hide"><span>{{$empresa->numero_ext}}</span></td>
-                    <td class="hide"><span>{{$empresa->codigo_postal}}</span></td>
-                    <td class="hide"><span>{{$empresa->logo}}</span></td>
+                    <td class="hide"><span>{{$empresa->marcacion_corta}}</span></td>
+                    <td class="hide"><span>{{$empresa->status}}</span></td>
                     <td>
                         <button type="button" class="btn btn-info editar_empresa">Editar</button>
                         <button type="button" class="btn btn-danger eliminar_empresa">Borrar</button>

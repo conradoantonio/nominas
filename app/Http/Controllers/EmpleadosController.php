@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Empleado;
+use App\Documentacion;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -36,8 +37,68 @@ class EmpleadosController extends Controller
     {
         $title = "Formulario de empleados";
         $menu = "Empleados";
-        $empleado = Empleado::find($id);
-        
+        $empleado = null;
+        if ($id) {
+            $empleado = Empleado::find($id);
+            $empleado->documentacion = $empleado->documentacion;
+        }
+
         return view('empleados.formulario', ['empleado' => $empleado, 'menu' => $menu, 'title' => $title]);
+    }
+
+    /**
+     * Guarda los datos de un empleado.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function guardar(Request $request)
+    {
+        $empleado = New Empleado;
+
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido = $request->apellido;
+        $empleado->num_empleado = $request->num_empleado;
+        $empleado->domicilio = $request->domicilio;
+        $empleado->ciudad = $request->ciudad;
+        $empleado->telefono = $request->telefono;
+        $empleado->rfc = $request->rfc;
+        $empleado->curp = $request->curp;
+        $empleado->nss = $request->nss;
+        $empleado->telefono_emergencia = $request->telefono_emergencia;
+
+        $empleado->save();
+
+        $documentacion = New Documentacion;
+        
+        //return response(['msg' => 'Empleado actualizado correctamente', 'status' => 'ok'], 200);
+        return response(['msg' => 'Error al actualizar el cliente', 'status' => 'Bad request'], 400);
+    }
+
+    /**
+     * Actualiza los datos de un empleado.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function actualizar(Request $request)
+    {
+        $empleado = Empleado::find($request->id);
+
+        if ($empleado) {
+            $empleado->nombre = $request->nombre;
+            $empleado->apellido = $request->apellido;
+            $empleado->num_empleado = $request->num_empleado;
+            $empleado->domicilio = $request->domicilio;
+            $empleado->ciudad = $request->ciudad;
+            $empleado->telefono = $request->telefono;
+            $empleado->rfc = $request->rfc;
+            $empleado->curp = $request->curp;
+            $empleado->nss = $request->nss;
+            $empleado->telefono_emergencia = $request->telefono_emergencia;
+
+            $empleado->save();
+
+            return response(['msg' => 'Empleado actualizado correctamente', 'status' => 'ok'], 200);
+        }
+        return response(['msg' => 'Error al actualizar el cliente', 'status' => 'Bad request'], 400);
     }
 }

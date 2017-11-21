@@ -52,8 +52,8 @@ input:-webkit-autofill {
                             </div>
                             <div class="col-sm-6 col-xs-12">
                                 <div class="form-group">
-                                    <label for="telefono">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
+                                    <label for="oficina_cargo">Oficina a cargo</label>
+                                    <input type="text" class="form-control" id="oficina_cargo" name="oficina_cargo" placeholder="Oficina a cargo">
                                 </div>
                             </div>
                             <div class="col-sm-12 col-xs-12">
@@ -62,44 +62,22 @@ input:-webkit-autofill {
                                     <textarea class="form-control" id="direccion" name="direccion" placeholder="Dirección"></textarea>
                                 </div>
                             </div>
-                            <div class="col-sm-4 col-xs-12">
-                                <div class="form-group">
-                                    <label for="numero_ext">Número exterior</label>
-                                    <input type="text" class="form-control" id="numero_ext" name="numero_ext" placeholder="Número exterior">
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-xs-12">
-                                <div class="form-group">
-                                    <label for="numero_int">Número interior</label>
-                                    <input type="text" class="form-control" id="numero_int" name="numero_int" placeholder="Número interior">
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-xs-12">
-                                <div class="form-group">
-                                    <label for="codigo_postal">Código postal</label>
-                                    <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" placeholder="Código postal">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-xs-12">
-                                <div class="alert alert-info alert-dismissible text-left" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Nota: </strong>
-                                    Solo se permiten subir imágenes con formato jpg, png, jpeg y gif con un tamaño menor a 5mb. 
-                                    Procure que su resolución sea de 460x460 px o su equivalente a escala.
-                                </div>
-                            </div>
-                            <div id="input_logo_empresa" class="col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="logo_empresa">Foto empresa</label>
-                                    <input type="file" class="form-control" id="logo" name="logo">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row" id="logo_empresa">
                             <div class="col-sm-12 col-xs-12">
                                 <div class="form-group">
-                                    <label>Foto actual</label>
+                                    <label for="contacto">Contacto</label>
+                                    <input type="text" class="form-control" id="contacto" name="contacto" placeholder="Contacto">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="telefono">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="marcacion_corta">Marcación corta</label>
+                                    <input type="text" class="form-control" id="marcacion_corta" name="marcacion_corta" placeholder="Marcación corta">
                                 </div>
                             </div>
                         </div>
@@ -222,29 +200,22 @@ $('body').delegate('.editar_empresa','click', function() {
     $('input.form-control').val('');
     id = $(this).parent().siblings("td:nth-child(2)").text(),
     nombre = $(this).parent().siblings("td:nth-child(3)").text(),
-    direccion = $(this).parent().siblings("td:nth-child(4)").text(),
-    telefono = $(this).parent().siblings("td:nth-child(5)").text(),
-    numero_int = $(this).parent().siblings("td:nth-child(6)").text(),
-    numero_ext = $(this).parent().siblings("td:nth-child(7)").text(),
-    codigo_postal = $(this).parent().siblings("td:nth-child(8)").text(),
-    logo = $(this).parent().siblings("td:nth-child(9)").text(),
+    oficina_cargo = $(this).parent().siblings("td:nth-child(4)").text(),
+    direccion = $(this).parent().siblings("td:nth-child(5)").text(),
+    contacto = $(this).parent().siblings("td:nth-child(6)").text(),
+    telefono = $(this).parent().siblings("td:nth-child(7)").text(),
+    marcacion_corta = $(this).parent().siblings("td:nth-child(8)").text(),
     token = $('#token').val();
 
     $("h4#titulo_form_empresa").text('Editar empresa');
     $("form#form_empresa").get(0).setAttribute('action', '{{url('empresas/editar')}}');
     $("#formulario_empresa input#id").val(id);
     $("#formulario_empresa input#nombre").val(nombre);
+    $("#formulario_empresa input#oficina_cargo").val(oficina_cargo);
     $("#formulario_empresa textarea#direccion").val(direccion);
+    $("#formulario_empresa input#contacto").val(contacto);
     $("#formulario_empresa input#telefono").val(telefono);
-    $("#formulario_empresa input#numero_int").val(numero_int);
-    $("#formulario_empresa input#numero_ext").val(numero_ext);
-    $("#formulario_empresa input#codigo_postal").val(codigo_postal);
-
-    $('div#logo_empresa').children().children().children().remove('img#logo_empresa');
-    $('div#logo_empresa').children().children().append(
-        "<img src='<?php echo asset('');?>/"+logo+"' class='img-responsive img-thumbnail' alt='Responsive image' id='logo_empresa'>"
-    );
-    $("div#logo_empresa").show();
+    $("#formulario_empresa input#marcacion_corta").val(marcacion_corta);
 
     $('#formulario_empresa').modal();
 });

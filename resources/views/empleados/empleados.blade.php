@@ -100,8 +100,8 @@ input:-webkit-autofill {
 <script src="{{ asset('plugins/datatables-responsive/js/lodash.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/tabs_accordian.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}"></script>
-<script src="{{ asset('js/empleadosAjax.js') }}"></script>
-<script src="{{ asset('js/validacionesEmpleados.js') }}"></script>
+{{-- <script src="{{ asset('js/empleadosAjax.js') }}"></script>
+<script src="{{ asset('js/validacionesEmpleados.js') }}"></script> --}}
 <script type="text/javascript">
 /**
  *=============================================================================================================================================

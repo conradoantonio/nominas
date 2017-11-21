@@ -47,15 +47,15 @@ class EmpresasController extends Controller
         $empresa = new Empresa;
 
         $empresa->nombre = $request->nombre;
+        $empresa->oficina_cargo = $request->oficina_cargo;
         $empresa->direccion = $request->direccion;
+        $empresa->contacto = $request->contacto;
         $empresa->telefono = $request->telefono;
-        $empresa->numero_ext = $request->numero_ext;
-        $empresa->numero_int = $request->numero_int;
-        $empresa->codigo_postal = $request->codigo_postal;
+        $empresa->marcacion_corta = $request->marcacion_corta;
         $empresa->status = 1;
         $empresa->created_at = $this->actual_datetime;
 
-        $logo = $request->file('logo');
+        /*$logo = $request->file('logo');
         if ($logo) {
             $extensiones_permitidas = array("1"=>"jpeg", "2"=>"jpg", "3"=>"png", "4"=>"gif");
             $extension_archivo = $logo->getClientOriginalExtension();
@@ -66,7 +66,7 @@ class EmpresasController extends Controller
                 ->save($name);
                 $empresa->logo = $name;
             }
-        }
+        }*/
    
         $empresa->save();
 
@@ -85,15 +85,15 @@ class EmpresasController extends Controller
 
         if ($empresa) {
             $empresa->nombre = $request->nombre;
+            $empresa->oficina_cargo = $request->oficina_cargo;
             $empresa->direccion = $request->direccion;
+            $empresa->contacto = $request->contacto;
             $empresa->telefono = $request->telefono;
-            $empresa->numero_ext = $request->numero_ext;
-            $empresa->numero_int = $request->numero_int;
-            $empresa->codigo_postal = $request->codigo_postal;
-            $empresa->status = 1;
+            $empresa->marcacion_corta = $request->marcacion_corta;
+            //$empresa->status = 1;
             $empresa->created_at = $this->actual_datetime;
 
-            $logo = $request->file('logo');
+            /*$logo = $request->file('logo');
             if ($logo) {
                 $extensiones_permitidas = array("1"=>"jpeg", "2"=>"jpg", "3"=>"png", "4"=>"gif");
                 $extension_archivo = $logo->getClientOriginalExtension();
@@ -104,7 +104,7 @@ class EmpresasController extends Controller
                     ->save($name);
                     $empresa->logo = $name;
                 }
-            }
+            }*/
        
             $empresa->save();
 
