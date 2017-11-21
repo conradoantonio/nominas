@@ -22,7 +22,7 @@ class Usuario extends Model
      * Define los atributos del modelo que no serán visibles en una instancia.
      */
     protected $hidden = ['password', 'customer_id_conekta'];
-    
+
     /**
      * Busca usuarios que coincidan con un correo.
      */
@@ -31,8 +31,8 @@ class Usuario extends Model
         $query = Usuario::where('correo', '=', $correo);
 
         $query = $correo_viejo ? $query->where('correo', '!=', $correo_viejo)->get() : $query->get();
-    	
-        return $query;        
+
+        return $query;
     }
 
     public static function buscar_id_conekta_usuario_app($correo)
@@ -102,5 +102,9 @@ class Usuario extends Model
         }
 
         return $servicios;
+    }
+
+    public function UsuarioPagos(){
+        return $this->hasMany('App\UsuarioPago');
     }
 }

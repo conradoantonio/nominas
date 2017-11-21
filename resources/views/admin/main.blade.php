@@ -31,36 +31,36 @@
         <!-- BEGIN TOP NAVIGATION BAR -->
         <div class="navbar-inner">
             <!-- BEGIN NAVIGATION HEADER -->
-            <div class="header-seperation"> 
+            <div class="header-seperation">
                 <!-- BEGIN MOBILE HEADER -->
-                <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">    
+                <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
                     <li class="dropdown">
                         <a id="main-menu-toggle" href="#main-menu" class="">
                             <div class="iconset top-menu-toggle-white"></div>
                         </a>
-                    </li>        
+                    </li>
                 </ul>
                 <!-- END MOBILE HEADER -->
-                <!-- BEGIN LOGO --> 
+                <!-- BEGIN LOGO -->
                 <a href="{{url('dashboard')}}">
                     <img src="{{ asset('img/logo.png') }}" class="logo" alt="" data-src="{{ asset('img/logo.png') }}" data-src-retina="{{ asset('img/logo.png') }}" width="106" height="21"/>
                 </a>
-                <!-- END LOGO --> 
+                <!-- END LOGO -->
                 <!-- BEGIN LOGO NAV BUTTONS -->
-                <ul class="nav pull-right notifcation-center">  
+                <ul class="nav pull-right notifcation-center">
                     <li class="dropdown" id="header_task_bar">
                         <a href="{{url('dashboard')}}" class="dropdown-toggle active" data-toggle="">
                             <div class="iconset top-home"></div>
                         </a>
-                    </li>               
+                    </li>
                 </ul>
                 <!-- END LOGO NAV BUTTONS -->
             </div>
             <!-- END NAVIGATION HEADER -->
             <!-- BEGIN CONTENT HEADER -->
-            <div class="header-quick-nav"> 
+            <div class="header-quick-nav">
                 <!-- BEGIN HEADER LEFT SIDE SECTION -->
-                <div class="pull-left"> 
+                <div class="pull-left">
                     <!-- BEGIN SLIM NAVIGATION TOGGLE -->
                     <ul class="nav quick-section">
                         <li class="quicklinks">
@@ -69,40 +69,40 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- END SLIM NAVIGATION TOGGLE -->                         
+                    <!-- END SLIM NAVIGATION TOGGLE -->
                 </div>
                 <!-- END HEADER LEFT SIDE SECTION -->
                 <!-- BEGIN HEADER RIGHT SIDE SECTION -->
-                <div class="pull-right"> 
-                    <div class="chat-toggler">  
+                <div class="pull-right">
+                    <div class="chat-toggler">
                         <!-- BEGIN NOTIFICATION CENTER -->
                         <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom" data-content="">
-                            <div class="user-details"> 
+                            <div class="user-details">
                                 <div class="username">
-                                    <span class="badge badge-important"></span><span>{{auth()->user()->user}}</span>                                  
-                                </div>                      
-                            </div> 
+                                    <span class="badge badge-important"></span><span>{{auth()->user()->user}}</span>
+                                </div>
+                            </div>
                             <div class="iconset"></div>
-                        </a>    
-                        
+                        </a>
+
                         <!-- END NOTIFICATION CENTER -->
                         <!-- BEGIN PROFILE PICTURE -->
-                        <div class="profile-pic"> 
-                            <img src="{{ asset(auth()->user()->foto_usuario) }}" alt="" data-src="{{ asset(auth()->user()->foto_usuario) }}" data-src-retina="{{ asset(auth()->user()->foto_usuario) }}" width="35" height="35" /> 
-                        </div>  
-                        <!-- END PROFILE PICTURE -->                
+                        <div class="profile-pic">
+                            <img src="{{ asset(auth()->user()->foto_usuario) }}" alt="" data-src="{{ asset(auth()->user()->foto_usuario) }}" data-src-retina="{{ asset(auth()->user()->foto_usuario) }}" width="35" height="35" />
+                        </div>
+                        <!-- END PROFILE PICTURE -->
                     </div>
                     <!-- BEGIN HEADER NAV BUTTONS -->
                     <ul class="nav quick-section">
                         <!-- BEGIN SETTINGS -->
-                        <li class="quicklinks"> 
-                            <a data-toggle="dropdown" class="dropdown-toggle pull-right" href="#" id="user-options">                        
-                                <div class="iconset top-settings-dark"></div>   
+                        <li class="quicklinks">
+                            <a data-toggle="dropdown" class="dropdown-toggle pull-right" href="#" id="user-options">
+                                <div class="iconset top-settings-dark"></div>
                             </a>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
                                 <li><a data-toggle="modal" data-target="#cambiar_foto_usuario_sistema" href="#"><i class="fa fa-picture-o" aria-hidden="true"></i> Cambiar foto perfil</a></li>
                                 <li><a data-toggle="modal" data-target="#change-pass" href="#"><i class="fa fa-key" aria-hidden="true"></i> Cambiar contraseña</a></li>
-                                <li class="divider"></li>  
+                                <li class="divider"></li>
                                 <li class="loggingOut"><a href="#"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
                             </ul>
                         </li>
@@ -111,21 +111,21 @@
                     <!-- END HEADER NAV BUTTONS -->
                 </div>
                 <!-- END HEADER RIGHT SIDE SECTION -->
-            </div> 
-            <!-- END CONTENT HEADER --> 
+            </div>
+            <!-- END CONTENT HEADER -->
         </div>
-        <!-- END TOP NAVIGATION BAR --> 
+        <!-- END TOP NAVIGATION BAR -->
     </div>
     <!-- END HEADER -->
-        
+
     <!-- BEGIN CONTENT -->
     <div class="page-container row-fluid">
         <!-- BEGIN SIDEBAR -->
         <!-- BEGIN MENU -->
-        <div class="page-sidebar" id="main-menu"> 
+        <div class="page-sidebar" id="main-menu">
             <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
             <!-- BEGIN MINI-PROFILE -->
-            <div class="user-info-wrapper"> 
+            <div class="user-info-wrapper">
                 <div class="profile-wrapper">
                     <img src=" {{ asset(auth()->user()->foto_usuario) }}" alt="" data-src=" {{ asset(auth()->user()->foto_usuario) }}" data-src-retina=" {{ asset(auth()->user()->foto_usuario) }}" width="69" height="69" />
                 </div>
@@ -136,9 +136,9 @@
                 </div>
             </div>
             <!-- END MINI-PROFILE -->
-            <!-- BEGIN SIDEBAR MENU --> 
+            <!-- BEGIN SIDEBAR MENU -->
             <p class="menu-title">Secciones<span class="pull-right"><a href=""><i class="fa fa-refresh"></i></a></span></p>
-            <ul>    
+            <ul>
                 <!-- BEGIN SELECTED LINK -->
                 <li class="start {{$menu == 'Inicio' ? 'active' : ''}}">
                     <a href="{{url('dashboard')}}">
@@ -166,7 +166,7 @@
                     </a>
                 </li>
                 <!-- END SINGLE LINK -->
-                
+
                 <!-- BEGIN ONE LEVEL MENU -->
                 <li class="{{$menu == 'Usuarios' ? 'open start' : ''}}">
                     <a href="javascript:;">
@@ -175,11 +175,18 @@
                         <span class="{{$menu == 'Usuarios' ? 'arrow open' : 'arrow'}}"></span>
                     </a>
                     <ul class="sub-menu" style="{{$menu == 'Usuarios' ? 'display: block;' : ''}}">
-                        <li class="{{$title == 'Usuarios Sistema' ? 'active' : ''}}"><a href="{{url('usuarios/sistema')}}">Usuarios (sistema)</a></li> 
+                        <li class="{{$title == 'Usuarios Sistema' ? 'active' : ''}}"><a href="{{url('usuarios/sistema')}}">Usuarios (sistema)</a></li>
                     </ul>
                 </li>
                 <!-- END ONE LEVEL MENU -->
-
+                <!-- BEGIN SINGLE LINK -->
+                <li class="{{$menu == 'Nominas' ? 'active' : ''}}">
+                    <a href="{{url('nominas')}}">
+                        <i class="fa fa-money" aria-hidden="true"></i>
+                        <span class="title">Pagos</span>
+                    </a>
+                </li>
+                <!-- END SINGLE LINK -->
                 <!-- BEGIN SINGLE LINK -->
                 <li class="loggingOut">
                     <a href="#">
@@ -196,8 +203,8 @@
                         <span class="title"></span>
                     </a>
                 </li>
-                <!-- END SINGLE LINK --> 
-                <!-- END ONE LEVEL MENU -->     
+                <!-- END SINGLE LINK -->
+                <!-- END ONE LEVEL MENU -->
             </ul>
             <!-- END SIDEBAR MENU -->
         </div>
@@ -207,19 +214,19 @@
         <!-- END SCROLL UP HOVER -->
         <!-- END MENU -->
         <!-- BEGIN SIDEBAR FOOTER WIDGET -->
-        <div class="footer-widget">     
+        <div class="footer-widget">
             <div class="progress transparent progress-small no-radius no-margin">
-                <div data-percentage="100%" class="progress-bar progress-bar-success animate-progress-bar"></div>       
+                <div data-percentage="100%" class="progress-bar progress-bar-success animate-progress-bar"></div>
             </div>
             <div class="pull-right">
                 <div class="details-status">
                     <span data-animation-duration="1200" data-value="100" class="animate-number"></span>%
-                </div>  
+                </div>
                 <a href="#" class="loggingOut"><i class="fa fa-power-off"></i></a>
             </div>
         </div>
         <!-- END SIDEBAR FOOTER WIDGET -->
-        <!-- END SIDEBAR --> 
+        <!-- END SIDEBAR -->
         <!-- BEGIN PAGE CONTAINER-->
 
         <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="titulo-form-cambiar-contra-main" id="change-pass">
@@ -300,35 +307,35 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-    
+
 
         <script src="{{ asset('js/jquery.js') }}"></script>
-        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --> 
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
         <script src="{{ asset('js/sweetalert.min.js') }}"></script>
         <script src="{{ asset('js/lightbox.js') }}"></script>
 
-        <!-- BEGIN CORE JS FRAMEWORK--> 
-        <!--<script src="{{ asset('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js') }}" type="text/javascript"></script>--> 
+        <!-- BEGIN CORE JS FRAMEWORK-->
+        <!--<script src="{{ asset('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js') }}" type="text/javascript"></script>-->
         <script src="{{ asset('plugins/boostrapv3/js/bootstrap.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('plugins/breakpoints.js') }}" type="text/javascript"></script> 
-        <script src="{{ asset('plugins/jquery-unveil/jquery.unveil.min.js') }}" type="text/javascript"></script> 
-        <script src="{{ asset('plugins/jquery-block-ui/jqueryblockui.js') }}" type="text/javascript"></script> 
-        <!-- END CORE JS FRAMEWORK --> 
-        <!-- BEGIN PAGE LEVEL JS -->    
+        <script src="{{ asset('plugins/breakpoints.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/jquery-unveil/jquery.unveil.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/jquery-block-ui/jqueryblockui.js') }}" type="text/javascript"></script>
+        <!-- END CORE JS FRAMEWORK -->
+        <!-- BEGIN PAGE LEVEL JS -->
         <script src="{{ asset('plugins/jquery-scrollbar/jquery.scrollbar.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('plugins/pace/pace.min.js') }}" type="text/javascript"></script>  
+        <script src="{{ asset('plugins/pace/pace.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('plugins/jquery-numberAnimate/jquery.animateNumbers.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/select2.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/chart.js') }}" type="text/javascript"></script>
         <script src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type='text/javascript'></script>
 
-        <!-- END PAGE LEVEL PLUGINS -->     
+        <!-- END PAGE LEVEL PLUGINS -->
 
         <!-- BEGIN CORE TEMPLATE JS -->
-        <script src="{{ asset('js/core.js') }}" type="text/javascript"></script> 
-        <script src="{{ asset('js/chat.js') }}" type="text/javascript"></script> 
-        <script src="{{ asset('js/demo.js') }}" type="text/javascript"></script> 
-        <!-- END CORE TEMPLATE JS --> 
+        <script src="{{ asset('js/core.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/chat.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/demo.js') }}" type="text/javascript"></script>
+        <!-- END CORE TEMPLATE JS -->
 
 
         <div class="page-content">
@@ -340,8 +347,8 @@
         </div>
         <!-- END PAGE CONTAINER -->
     </div>
-    <!-- END CONTENT --> 
-    <!-- BEGIN CORE JS FRAMEWORK--> 
+    <!-- END CONTENT -->
+    <!-- BEGIN CORE JS FRAMEWORK-->
 
 
     <script type="text/javascript">

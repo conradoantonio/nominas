@@ -1,8 +1,9 @@
 /*
-SQLyog Ultimate v9.63 
+SQLyog Ultimate v9.63
 MySQL - 5.5.5-10.1.21-MariaDB : Database - nominas
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -178,6 +179,37 @@ CREATE TABLE `usuario` (
 /*Data for the table `usuario` */
 
 insert  into `usuario`(`id`,`password`,`nombre`,`apellido`,`correo`,`foto_perfil`,`celular`,`customer_id_conekta`,`tipo`,`status`,`created_at`,`updated_at`) values (1,'a83f0f76c2afad4f5d7260824430b798','Conrado Antonios','Carrillo Rosales','anton_con@hotmail.com','img/usuario_app/default.jpg','9801010',NULL,1,1,'2017-10-24 22:40:39','2017-10-25 16:16:05'),(2,'a83f0f76c2afad4f5d7260824430b798','Manuel','Rosales','many@hotmail.com','img/usuario_app/default.jpg','6699333627',NULL,2,1,'2017-10-25 13:12:13','0000-00-00 00:00:00'),(11,'a83f0f76c2afad4f5d7260824430b798','sdasdasd','asdasdsda','admin@topali.com','img/usuario_app/default.jpg','213123',NULL,2,1,'2017-10-25 18:35:34','2017-10-25 18:35:34');
+
+DROP TABLE IF EXISTS `pagos`;
+
+CREATE TABLE `pagos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empresa_id` int(11) NOT NULL,
+  `servicio_id` int(11) NOT NULL,
+  `intervalo` varchar(5) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+/*Data for the table `pagos` */
+
+insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`intervalo`,`status`,`created_at`) values (1,1,1,'21474',0,'2017-11-21 12:21:20'),(2,1,1,'21474',0,'2017-11-21 12:21:20'),(3,1,1,'21474',0,'2017-11-21 12:21:20'),(4,1,1,'21474',0,'2017-11-21 12:21:20'),(5,1,1,'0',0,'2017-11-21 12:24:15'),(6,1,1,'1/15',0,'2017-11-21 12:30:07'),(7,1,1,'16/31',0,'2017-11-21 12:51:42');
+
+/*Table structure for table `usuario_pagos` */
+
+DROP TABLE IF EXISTS `usuario_pagos`;
+
+CREATE TABLE `usuario_pagos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trabajador_id` int(11) NOT NULL,
+  `pago_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+/*Data for the table `usuario_pagos` */
+
+insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`) values (1,1,4),(2,2,4),(3,11,4),(4,1,5),(5,2,5),(6,11,6),(7,1,7),(8,2,7);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
