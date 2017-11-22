@@ -45,7 +45,7 @@ Route::group(['prefix' => 'empresas', 'middleware' => 'auth'], function () {
 });
 
 /*-- Rutas para la pestaña de empleados--*/
-Route::group(['prefix' => 'empleados'], function () {
+Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 	Route::get('/','EmpleadosController@index');//Carga la tabla de empleados
 	Route::get('formulario/{id?}','EmpleadosController@cargar_formulario');//Carga el formulario para editar un sólo empleado
 	Route::post('guardar','EmpleadosController@guardar');//Guarda los datos de una empleado

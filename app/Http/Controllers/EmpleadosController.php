@@ -69,9 +69,33 @@ class EmpleadosController extends Controller
         $empleado->save();
 
         $documentacion = New Documentacion;
+        $documentacion->empleado_id = $empleado->id;
+        $documentacion->comprobante_domicilio = $request->comprobante_domicilio ? 1 : 0;
+        $documentacion->identificacion = $request->identificacion ? 1 : 0;
+        $documentacion->curp = $request->curp_documento ? 1 : 0;
+        $documentacion->rfc = $request->rfc_documento ? 1 : 0;
+        $documentacion->hoja_imss = $request->hoja_imss ? 1 : 0;
+        $documentacion->carta_no_antecedentes_penales = $request->carta_no_antecedentes_penales ? 1 : 0;
+        $documentacion->acta_nacimiento = $request->acta_nacimiento ? 1 : 0;
+        $documentacion->comprobante_estudios = $request->comprobante_estudios ? 1 : 0;
+        $documentacion->resultado_psicometrias = $request->resultado_psicometrias ? 1 : 0;
+        $documentacion->examen_socieconomico = $request->examen_socieconomico ? 1 : 0;
+        $documentacion->examen_toxicologico = $request->examen_toxicologico ? 1 : 0;
+        $documentacion->solicitud_frente_vuelta = $request->solicitud_frente_vuelta ? 1 : 0;
+        $documentacion->deposito_uniforme = $request->deposito_uniforme ? 1 : 0;
+        $documentacion->constancia_recepcion_uniforme = $request->constancia_recepcion_uniforme ? 1 : 0;
+        $documentacion->comprobante_recepcion_reglamento_interno_trabajo = $request->comprobante_recepcion_reglamento_interno_trabajo ? 1 : 0;
+        $documentacion->autorizacion_pago_tarjeta = $request->autorizacion_pago_tarjeta ? 1 : 0;
+        $documentacion->carta_aceptacion_cambio_lugar = $request->carta_aceptacion_cambio_lugar ? 1 : 0;
+        $documentacion->finiquito = $request->finiquito ? 1 : 0;
+        $documentacion->calendario = $request->calendario ? 1 : 0;
+        $documentacion->formato_datos_personales = $request->formato_datos_personales ? 1 : 0;
+        $documentacion->solicitud_autorizacion_consulta = $request->solicitud_autorizacion_consulta ? 1 : 0;
+
+        $documentacion->save();
         
-        //return response(['msg' => 'Empleado actualizado correctamente', 'status' => 'ok'], 200);
-        return response(['msg' => 'Error al actualizar el cliente', 'status' => 'Bad request'], 400);
+        return redirect()->to('empleados');
+        return response(['msg' => 'Empleado actualizado correctamente', 'status' => 'ok'], 200);
     }
 
     /**
@@ -82,8 +106,10 @@ class EmpleadosController extends Controller
     public function actualizar(Request $request)
     {
         $empleado = Empleado::find($request->id);
+        $documentacion = Documentacion::find($request->documentacion_id);
 
-        if ($empleado) {
+        if ($empleado && $documentacion) {
+            /*Información del empleado*/
             $empleado->nombre = $request->nombre;
             $empleado->apellido = $request->apellido;
             $empleado->num_empleado = $request->num_empleado;
@@ -97,6 +123,32 @@ class EmpleadosController extends Controller
 
             $empleado->save();
 
+            /*Documentación del empleado*/
+            $documentacion->comprobante_domicilio = $request->comprobante_domicilio ? 1 : 0;
+            $documentacion->identificacion = $request->identificacion ? 1 : 0;
+            $documentacion->curp = $request->curp_documento ? 1 : 0;
+            $documentacion->rfc = $request->rfc_documento ? 1 : 0;
+            $documentacion->hoja_imss = $request->hoja_imss ? 1 : 0;
+            $documentacion->carta_no_antecedentes_penales = $request->carta_no_antecedentes_penales ? 1 : 0;
+            $documentacion->acta_nacimiento = $request->acta_nacimiento ? 1 : 0;
+            $documentacion->comprobante_estudios = $request->comprobante_estudios ? 1 : 0;
+            $documentacion->resultado_psicometrias = $request->resultado_psicometrias ? 1 : 0;
+            $documentacion->examen_socieconomico = $request->examen_socieconomico ? 1 : 0;
+            $documentacion->examen_toxicologico = $request->examen_toxicologico ? 1 : 0;
+            $documentacion->solicitud_frente_vuelta = $request->solicitud_frente_vuelta ? 1 : 0;
+            $documentacion->deposito_uniforme = $request->deposito_uniforme ? 1 : 0;
+            $documentacion->constancia_recepcion_uniforme = $request->constancia_recepcion_uniforme ? 1 : 0;
+            $documentacion->comprobante_recepcion_reglamento_interno_trabajo = $request->comprobante_recepcion_reglamento_interno_trabajo ? 1 : 0;
+            $documentacion->autorizacion_pago_tarjeta = $request->autorizacion_pago_tarjeta ? 1 : 0;
+            $documentacion->carta_aceptacion_cambio_lugar = $request->carta_aceptacion_cambio_lugar ? 1 : 0;
+            $documentacion->finiquito = $request->finiquito ? 1 : 0;
+            $documentacion->calendario = $request->calendario ? 1 : 0;
+            $documentacion->formato_datos_personales = $request->formato_datos_personales ? 1 : 0;
+            $documentacion->solicitud_autorizacion_consulta = $request->solicitud_autorizacion_consulta ? 1 : 0;
+
+            $documentacion->save();
+
+            return redirect()->to('empleados');
             return response(['msg' => 'Empleado actualizado correctamente', 'status' => 'ok'], 200);
         }
         return response(['msg' => 'Error al actualizar el cliente', 'status' => 'Bad request'], 400);

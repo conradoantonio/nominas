@@ -13,9 +13,10 @@
             <div class="grid simple ">
                 <div class="grid-title">
                     <div class="grid-body">
+                        <h3>Datos generales</h3>
                     	<div class="container-fluid content-body">
                             <form id="form_empleado" action="{{url('empleados')}}/{{ $empleado ? 'actualizar' : 'guardar' }}" enctype="multipart/form-data" method="POST" autocomplete="off">
-                                <input type="hidden" name="_token" id="token" value="{!! csrf_token() !!}" base-url="<?php echo url();?>">
+                                <input type="hidden" name="_token" id="token" value="{!! csrf_token() !!}">
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12 hidden">
                                         <div class="form-group">
@@ -44,7 +45,7 @@
                                     <div class="col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label for="domicilio">Domicilio</label>
-                                            <textarea class="form-control" id="domicilio" name="domicilio" placeholder="Domicilio">{{$empleado ? $empleado->domicilio : ''}}</textarea>
+                                            <textarea class="form-control" rows="3" id="domicilio" name="domicilio" placeholder="Domicilio">{{$empleado ? $empleado->domicilio : ''}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
@@ -84,6 +85,176 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <hr>
+                                <div class="row">
+                                    <h3>Documentación</h3>
+                                    <div class="col-sm-6 col-xs-12 hidden">
+                                        <div class="form-group">
+                                            <label for="empleado_id">Empleado ID</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->documentacion->empleado_id : ''}}" id="empleado_id" name="empleado_id">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 hidden">
+                                        <div class="form-group">
+                                            <label for="documentacion_id">Empleado ID</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->documentacion->id : ''}}" id="documentacion_id" name="documentacion_id">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="comprobante_domicilio">Comprobante de domicilio</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="comprobante_domicilio" name="comprobante_domicilio" type="checkbox" {{($empleado ? ($empleado->documentacion->comprobante_domicilio ? 'checked' : '') : '')}}>
+                                            <label for="comprobante_domicilio" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="identificacion">Identificación</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="identificacion" name="identificacion" type="checkbox" {{($empleado ? ($empleado->documentacion->identificacion ? 'checked' : '') : '')}}>
+                                            <label for="identificacion" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="curp_documento">CURP</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="curp_documento" name="curp_documento" type="checkbox" {{($empleado ? ($empleado->documentacion->curp ? 'checked' : '') : '')}}>
+                                            <label for="curp_documento" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="rfc_documento">RFC</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="rfc_documento" name="rfc_documento" type="checkbox" {{($empleado ? ($empleado->documentacion->rfc ? 'checked' : '') : '')}}>
+                                            <label for="rfc_documento" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="hoja_imss">Hoja del IMSS</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="hoja_imss" name="hoja_imss" type="checkbox" {{($empleado ? ($empleado->documentacion->hoja_imss ? 'checked' : '') : '')}}>
+                                            <label for="hoja_imss" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="carta_no_antecedentes_penales">Carta de no antecedentes penales</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="carta_no_antecedentes_penales" name="carta_no_antecedentes_penales" type="checkbox" {{($empleado ? ($empleado->documentacion->carta_no_antecedentes_penales ? 'checked' : '') : '')}}>
+                                            <label for="carta_no_antecedentes_penales" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="acta_nacimiento">Acta de nacimiento</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="acta_nacimiento" name="acta_nacimiento" type="checkbox" {{($empleado ? ($empleado->documentacion->acta_nacimiento ? 'checked' : '') : '')}}>
+                                            <label for="acta_nacimiento" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="comprobante_estudios">Comprobante de estudios</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="comprobante_estudios" name="comprobante_estudios" type="checkbox" {{($empleado ? ($empleado->documentacion->comprobante_estudios ? 'checked' : '') : '')}}>
+                                            <label for="comprobante_estudios" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="resultado_psicometrias">Resultados de psicometrías</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="resultado_psicometrias" name="resultado_psicometrias" type="checkbox" {{($empleado ? ($empleado->documentacion->resultado_psicometrias ? 'checked' : '') : '')}}>
+                                            <label for="resultado_psicometrias" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="examen_socieconomico">Examen socioeconómico</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="examen_socieconomico" name="examen_socieconomico" type="checkbox" {{($empleado ? ($empleado->documentacion->examen_socieconomico ? 'checked' : '') : '')}}>
+                                            <label for="examen_socieconomico" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="examen_toxicologico">Examen toxicológico</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="examen_toxicologico" name="examen_toxicologico" type="checkbox" {{($empleado ? ($empleado->documentacion->examen_toxicologico ? 'checked' : '') : '')}}>
+                                            <label for="examen_toxicologico" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <hr>
+                                <div class="row">
+                                    <h3>Solicitud</h3>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="solicitud_frente_vuelta">Solicitud frente y vuelta</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="solicitud_frente_vuelta" name="solicitud_frente_vuelta" type="checkbox" {{($empleado ? ($empleado->documentacion->solicitud_frente_vuelta ? 'checked' : '') : '')}}>
+                                            <label for="solicitud_frente_vuelta" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="deposito_uniforme">Depósito de uniforme</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="deposito_uniforme" name="deposito_uniforme" type="checkbox" {{($empleado ? ($empleado->documentacion->deposito_uniforme ? 'checked' : '') : '')}}>
+                                            <label for="deposito_uniforme" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="constancia_recepcion_uniforme">Constancia de recepción de uniforme</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="constancia_recepcion_uniforme" name="constancia_recepcion_uniforme" type="checkbox" {{($empleado ? ($empleado->documentacion->constancia_recepcion_uniforme ? 'checked' : '') : '')}}>
+                                            <label for="constancia_recepcion_uniforme" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="comprobante_recepcion_reglamento_interno_trabajo">Comprobante de recepción del reglamento interno de trabajo</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="comprobante_recepcion_reglamento_interno_trabajo" name="comprobante_recepcion_reglamento_interno_trabajo" type="checkbox" {{($empleado ? ($empleado->documentacion->comprobante_recepcion_reglamento_interno_trabajo ? 'checked' : '') : '')}}>
+                                            <label for="comprobante_recepcion_reglamento_interno_trabajo" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="autorizacion_pago_tarjeta">Autorización para pago con tarjeta</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="autorizacion_pago_tarjeta" name="autorizacion_pago_tarjeta" type="checkbox" {{($empleado ? ($empleado->documentacion->autorizacion_pago_tarjeta ? 'checked' : '') : '')}}>
+                                            <label for="autorizacion_pago_tarjeta" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="carta_aceptacion_cambio_lugar">Carta de aceptación por cambio de lugar</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="carta_aceptacion_cambio_lugar" name="carta_aceptacion_cambio_lugar" type="checkbox" {{($empleado ? ($empleado->documentacion->carta_aceptacion_cambio_lugar ? 'checked' : '') : '')}}>
+                                            <label for="carta_aceptacion_cambio_lugar" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="finiquito">Finiquito</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="finiquito" name="finiquito" type="checkbox" {{($empleado ? ($empleado->documentacion->finiquito ? 'checked' : '') : '')}}>
+                                            <label for="finiquito" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="calendario">Calendario</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="calendario" name="calendario" type="checkbox" {{($empleado ? ($empleado->documentacion->calendario ? 'checked' : '') : '')}}>
+                                            <label for="calendario" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="formato_datos_personales">Formato de datos personales</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="formato_datos_personales" name="formato_datos_personales" type="checkbox" {{($empleado ? ($empleado->documentacion->formato_datos_personales ? 'checked' : '') : '')}}>
+                                            <label for="formato_datos_personales" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="solicitud_autorizacion_consulta">Solicitud de autorización de consulta</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="solicitud_autorizacion_consulta" name="solicitud_autorizacion_consulta" type="checkbox" {{($empleado ? ($empleado->documentacion->solicitud_autorizacion_consulta ? 'checked' : '') : '')}}>
+                                            <label for="solicitud_autorizacion_consulta" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-primary" id="guardar_empleado">
                                     <i class="fa fa-spinner fa-spin" style="display: none;"></i>
                                     Guardar
@@ -97,6 +268,6 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('js/empleadosAjax.js') }}"></script>
+{{-- <script src="{{ asset('js/empleadosAjax.js') }}"></script> --}}
 <script src="{{ asset('js/validacionesEmpleados.js') }}"></script>
 @endsection
