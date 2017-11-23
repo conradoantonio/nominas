@@ -16,6 +16,21 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`nominas` /*!40100 DEFAULT CHARACTER SET
 
 USE `nominas`;
 
+/*Table structure for table `asistencias` */
+
+DROP TABLE IF EXISTS `asistencias`;
+
+CREATE TABLE `asistencias` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_pago_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `asistencias` */
+
 /*Table structure for table `documentacion` */
 
 DROP TABLE IF EXISTS `documentacion`;
@@ -47,11 +62,11 @@ CREATE TABLE `documentacion` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `documentacion` */
 
-insert  into `documentacion`(`id`,`empleado_id`,`comprobante_domicilio`,`identificacion`,`curp`,`rfc`,`hoja_imss`,`carta_no_antecedentes_penales`,`acta_nacimiento`,`comprobante_estudios`,`resultado_psicometrias`,`examen_socieconomico`,`examen_toxicologico`,`solicitud_frente_vuelta`,`deposito_uniforme`,`constancia_recepcion_uniforme`,`comprobante_recepcion_reglamento_interno_trabajo`,`autorizacion_pago_tarjeta`,`carta_aceptacion_cambio_lugar`,`finiquito`,`calendario`,`formato_datos_personales`,`solicitud_autorizacion_consulta`,`created_at`,`updated_at`) values (1,1,1,1,1,0,0,1,1,1,0,1,1,0,1,0,1,0,0,1,1,1,1,'2017-11-07 14:53:28','2017-11-07 14:55:11');
+insert  into `documentacion`(`id`,`empleado_id`,`comprobante_domicilio`,`identificacion`,`curp`,`rfc`,`hoja_imss`,`carta_no_antecedentes_penales`,`acta_nacimiento`,`comprobante_estudios`,`resultado_psicometrias`,`examen_socieconomico`,`examen_toxicologico`,`solicitud_frente_vuelta`,`deposito_uniforme`,`constancia_recepcion_uniforme`,`comprobante_recepcion_reglamento_interno_trabajo`,`autorizacion_pago_tarjeta`,`carta_aceptacion_cambio_lugar`,`finiquito`,`calendario`,`formato_datos_personales`,`solicitud_autorizacion_consulta`,`created_at`,`updated_at`) values (1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,'2017-11-21 23:28:19','2017-11-21 23:28:19'),(2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,'2017-11-21 23:30:09','2017-11-22 00:03:18');
 
 /*Table structure for table `empleados` */
 
@@ -73,11 +88,11 @@ CREATE TABLE `empleados` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `empleados` */
 
-insert  into `empleados`(`id`,`nombre`,`apellido`,`num_empleado`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`status`,`created_at`,`updated_at`) values (1,'Conrado Antonio','Carrillo Rosales','458464','Hector hernández #5712 A Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','7845692','9801010',1,'2017-11-07 14:51:34','0000-00-00 00:00:00');
+insert  into `empleados`(`id`,`nombre`,`apellido`,`num_empleado`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO ROSALES','1','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',1,'2017-11-21 23:28:19','2017-11-21 23:28:19'),(2,'DANIELA','GONZALES CASTRO','2','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632',1,'2017-11-21 23:30:09','2017-11-21 23:30:09');
 
 /*Table structure for table `empresa_servicio` */
 
@@ -142,15 +157,17 @@ CREATE TABLE `pagos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `empresa_id` int(11) NOT NULL,
   `servicio_id` int(11) NOT NULL,
-  `intervalo` varchar(5) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pagos` */
 
-insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`intervalo`,`status`,`created_at`) values (1,1,1,'1/15',0,'2017-11-21 15:02:23'),(2,1,1,'1/15',0,'2017-11-21 15:02:23'),(3,1,1,'1/15',0,'2017-11-21 15:02:24'),(4,1,1,'1/15',0,'2017-11-21 15:02:25'),(5,1,1,'16/31',0,'2017-11-21 15:02:27'),(6,1,1,'1/15',0,'2017-11-21 12:30:07'),(7,1,1,'16/31',0,'2017-11-21 12:51:42'),(8,1,1,'16/31',0,'2017-11-21 15:02:58'),(9,1,1,'1/15',0,'2017-11-21 15:15:11');
+insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`status`,`created_at`,`updated_at`) values (1,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:23',NULL),(2,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:23',NULL),(3,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:24',NULL),(4,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:25',NULL),(5,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:27',NULL),(6,1,1,'0000-00-00',NULL,0,'2017-11-21 12:30:07',NULL),(7,1,1,'0000-00-00',NULL,0,'2017-11-21 12:51:42',NULL),(8,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:58',NULL),(9,1,1,'0000-00-00',NULL,0,'2017-11-21 15:15:11',NULL);
 
 /*Table structure for table `users` */
 
