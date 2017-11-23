@@ -55,7 +55,7 @@ $( "input#celular" ).blur(function() {
 });
 
 function validarInput (campo,regExpr) {
-    if($('form#form_repartidores input#id').val() != '' && $(campo).attr('name') == 'password' && $(campo).val() == '') {
+    if ($('form#form_repartidores input#id').val() != '' && $(campo).attr('name') == 'password' && $(campo).val() == '') {
         return true;
     } else if (!$(campo).val().match(regExpr)) {
         $(campo).parent().addClass("has-error");
