@@ -17,4 +17,8 @@ class UsuarioPago extends Model
 	public function usuarios(){
 		return $this->belongsTo('App\Usuario', 'trabajador_id', 'id');
 	}
+
+	public function asistencia(){
+		return $this->hasMany('App\Asistencia');
+	}
 }

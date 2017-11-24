@@ -64,6 +64,7 @@ td.cell.disabled{
                         <div class="table-responsive" id="div_tabla_empresas">
                             <table class="table table-bordered table-responsive" id="nomina">
                             	<thead>
+                            		<th>ID</th>
                             		<th>Nombre</th>
                             		@foreach( $dias as $day )
 										@if( $day['dia'] == 0 )
@@ -103,10 +104,12 @@ td.cell.disabled{
 											</th>
 										@endif
                             		@endforeach
+                            		<th>Notas</th>
                             	</thead>
                             	<tbody>
                             		@foreach( $pago->PagoUsuarios as $trabajador )
                             			<tr>
+                            				<td>{{$trabajador->usuarios->id}}</td>
                             				<td data-user={{$trabajador->usuarios->id}} data-pago={{$trabajador->id}}>{{$trabajador->usuarios->nombre}}</td>
                             				@if( count($asistencias) == 0 )
 	                            				@foreach( $dias as $day )
@@ -115,12 +118,11 @@ td.cell.disabled{
                             				@else
                             					@foreach( $asistencias as $asistencia )
                             						@if( $asistencia->pago->trabajador_id == $trabajador->usuarios->id)
-														<td class="cell" data-dia="{{$asistencia->dia}}">
-															{{$asistencia->status}}
-														</td>
+														<td class="cell" data-dia="{{$asistencia->dia}}">{{$asistencia->status}}</td>
                             						@endif
                             					@endforeach
                             				@endif
+                            				<td data-notes="1"><input type="text" name="notas" id="notas" value="{{$trabajador->notas?$trabajador->notas:''}}"></td>
                             			</tr>
                             		@endforeach
                             	</tbody>
@@ -151,13 +153,13 @@ td.cell.disabled{
 	})*/
 
 	$(function(){
-		$('table').find('td.cell').each (function() {
+		$('table#nomina tbody').find('td.cell').each (function() {
 			var col = $(this).prevAll().length;
 			if (  !$(this).parents('table').find('th').eq(col).hasClass('edit') ){
 				$(this).addClass('disabled')
-				if ( $.inArray($(this).text(), ['D', 'F', 'X', '-']) < 0 ){
+				/*if ( $.inArray($(this).text(), ['D', 'F', 'X', '-']) < 0 ){
 					$(this).text('F')
-				}
+				}*/
 			}
 		});
 
@@ -180,6 +182,22 @@ td.cell.disabled{
 	})
 
 	$('#guardar').on('click', function(){
+		var empty = 0;
+
+		$('table#nomina tbody').find('td.cell').each (function() {
+			var col = $(this).prevAll().length;
+			if ( $(this).parents('table').find('th').eq(col).hasClass('edit') ){
+				if ( $.inArray($(this).text().trim(), ['D', 'F', 'X', '-']) < 0 ){
+					empty++;
+				}
+			}
+		});
+
+		if( empty > 0 ){
+			swal('Error', 'Necesita llenar los campos disponibles', 'error')
+			return false;
+		}
+
 		var collection = [];
 		$('table#nomina tbody').find('tr').each (function() {
 			var obj = new Object();
@@ -190,7 +208,9 @@ td.cell.disabled{
 				if ( $(this).data('user') ){
 					obj.user_id = $(this).data('user');
 					obj.pago_id = $(this).data('pago');
-				} else {
+				} else if( $(this).data('notes') ){
+					obj.notas = $(this).find('input').val()
+				}else if( $(this).hasClass('cell') ){
 					if ( $.inArray(ele.text(), ['D', 'F', 'X', '-']) >= 0 ){
 						var txt = ele.text();
 					} else {
@@ -224,7 +244,7 @@ td.cell.disabled{
 			},
 			success: function(response){
 				if( response.save ){
-					alert('saved')
+					swal('Éxito', 'Los cambios se han realizado correctamente', 'success')
 				}
 			}
 		});

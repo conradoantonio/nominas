@@ -26,6 +26,7 @@ class PagosController extends Controller
 			$menu = "Pagos";
 			$pagos = Pago::all();
 
+			$check = 0;
 			return view('pagos.pagos', ['pagos' => $pagos, 'menu' => $menu, 'title' => $title]);
 		} else {
 			return redirect()->to('/');
@@ -134,22 +135,36 @@ class PagosController extends Controller
 		$collection = json_decode($req->collection);
 
 		foreach ($collection as $key => $value) {
-
+			$aux = 0;
 			$value = collect($value);
-			if ( $value === reset($collection) ){
-				Asistencia::where('usuario_pago_id', $value['pago_id'])->delete();
-			}
+			/*if ( $aux == 0 ){
+
+			}*/
+			Asistencia::where('usuario_pago_id', $value['pago_id'])->delete();
+			$UsuarioPago = UsuarioPago::find($value['pago_id']);
+			$UsuarioPago->notas = $value['notas'];
+
 			$days = $value['days'];
 
 			foreach ($days as $val) {
 				$asistencias = collect($val);
-
 				$asistencia = new Asistencia();
 				$asistencia->usuario_pago_id = $value['pago_id'];
 				$asistencia->dia = $asistencias['dia'];
 				$asistencia->status = $asistencias['status'];
 				$asistencia->save();
 			}
+
+
+			if ( $UsuarioPago->asistencia->where('status','')->count() > 0 && $UsuarioPago->pago->status != 3 ){
+				$UsuarioPago->pago->status = 1;
+			} else {
+				$UsuarioPago->pago->status = 2;
+			}
+
+			$UsuarioPago->save();
+			$UsuarioPago->pago->save();
+			$aux = 1;
 		}
 
 		return [ 'save' => true ];

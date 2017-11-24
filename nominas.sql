@@ -1,8 +1,9 @@
 /*
-SQLyog Ultimate v9.63 
+SQLyog Ultimate v9.63
 MySQL - 5.5.5-10.1.21-MariaDB : Database - nominas
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -23,13 +24,16 @@ DROP TABLE IF EXISTS `asistencias`;
 CREATE TABLE `asistencias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_pago_id` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `dia` int(11) DEFAULT NULL,
+  `status` varchar(1) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=785 DEFAULT CHARSET=latin1;
 
 /*Data for the table `asistencias` */
+
+insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (753,16,15,'','2017-11-24 21:36:25','2017-11-24 21:36:25'),(754,16,16,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(755,16,17,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(756,16,18,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(757,16,19,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(758,16,20,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(759,16,21,'D','2017-11-24 21:36:26','2017-11-24 21:36:26'),(760,16,22,'F','2017-11-24 21:36:26','2017-11-24 21:36:26'),(761,16,23,'F','2017-11-24 21:36:26','2017-11-24 21:36:26'),(762,16,24,'F','2017-11-24 21:36:26','2017-11-24 21:36:26'),(763,16,25,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(764,16,26,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(765,16,27,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(766,16,28,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(767,16,29,'','2017-11-24 21:36:26','2017-11-24 21:36:26'),(768,16,30,'','2017-11-24 21:36:27','2017-11-24 21:36:27'),(769,17,15,'','2017-11-24 21:36:27','2017-11-24 21:36:27'),(770,17,16,'','2017-11-24 21:36:27','2017-11-24 21:36:27'),(771,17,17,'','2017-11-24 21:36:27','2017-11-24 21:36:27'),(772,17,18,'','2017-11-24 21:36:27','2017-11-24 21:36:27'),(773,17,19,'','2017-11-24 21:36:27','2017-11-24 21:36:27'),(774,17,20,'','2017-11-24 21:36:27','2017-11-24 21:36:27'),(775,17,21,'-','2017-11-24 21:36:27','2017-11-24 21:36:27'),(776,17,22,'-','2017-11-24 21:36:27','2017-11-24 21:36:27'),(777,17,23,'-','2017-11-24 21:36:27','2017-11-24 21:36:27'),(778,17,24,'-','2017-11-24 21:36:27','2017-11-24 21:36:27'),(779,17,25,'','2017-11-24 21:36:27','2017-11-24 21:36:27'),(780,17,26,'','2017-11-24 21:36:28','2017-11-24 21:36:28'),(781,17,27,'','2017-11-24 21:36:28','2017-11-24 21:36:28'),(782,17,28,'','2017-11-24 21:36:28','2017-11-24 21:36:28'),(783,17,29,'','2017-11-24 21:36:28','2017-11-24 21:36:28'),(784,17,30,'','2017-11-24 21:36:28','2017-11-24 21:36:28');
 
 /*Table structure for table `documentacion` */
 
@@ -163,11 +167,11 @@ CREATE TABLE `pagos` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pagos` */
 
-insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`status`,`created_at`,`updated_at`) values (1,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:23',NULL),(2,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:23',NULL),(3,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:24',NULL),(4,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:25',NULL),(5,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:27',NULL),(6,1,1,'0000-00-00',NULL,0,'2017-11-21 12:30:07',NULL),(7,1,1,'0000-00-00',NULL,0,'2017-11-21 12:51:42',NULL),(8,1,1,'0000-00-00',NULL,0,'2017-11-21 15:02:58',NULL),(9,1,1,'0000-00-00',NULL,0,'2017-11-21 15:15:11',NULL);
+insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`status`,`created_at`,`updated_at`) values (1,1,1,'0000-00-00',NULL,1,'2017-11-24 12:57:15',NULL),(2,1,1,'0000-00-00',NULL,1,'2017-11-24 12:57:15',NULL),(3,1,1,'0000-00-00',NULL,1,'2017-11-24 12:57:15',NULL),(4,1,1,'0000-00-00',NULL,2,'2017-11-24 13:06:04',NULL),(5,1,1,'0000-00-00',NULL,2,'2017-11-24 13:06:04',NULL),(6,1,1,'0000-00-00',NULL,2,'2017-11-24 13:06:04',NULL),(7,1,1,'0000-00-00',NULL,2,'2017-11-24 13:06:05',NULL),(8,1,1,'0000-00-00',NULL,2,'2017-11-24 13:06:05',NULL),(9,1,1,'0000-00-00',NULL,2,'2017-11-24 13:06:05',NULL),(10,1,1,'0000-00-00',NULL,2,'2017-11-24 13:06:05',NULL),(11,1,1,'2017-11-15','2017-11-30',1,'2017-11-24 15:30:00',NULL);
 
 /*Table structure for table `users` */
 
@@ -222,12 +226,13 @@ CREATE TABLE `usuario_pagos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `trabajador_id` int(11) NOT NULL,
   `pago_id` int(11) DEFAULT NULL,
+  `notas` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 /*Data for the table `usuario_pagos` */
 
-insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`) values (1,1,4),(2,2,4),(3,11,4),(4,1,5),(5,2,5),(6,11,6),(7,1,7),(8,2,7),(9,1,8),(10,2,8),(11,11,8),(12,1,9),(13,2,9);
+insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (1,1,4,NULL),(2,2,4,NULL),(3,11,4,NULL),(4,1,5,NULL),(5,2,5,NULL),(6,11,6,NULL),(7,1,7,NULL),(8,2,7,NULL),(9,1,8,NULL),(10,2,8,NULL),(11,11,8,NULL),(12,1,9,NULL),(13,2,9,NULL),(14,1,10,NULL),(15,2,10,NULL),(16,1,11,'asd'),(17,11,11,'qwe');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

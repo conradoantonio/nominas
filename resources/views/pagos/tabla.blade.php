@@ -3,6 +3,7 @@
         <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <td>Estado</td>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -12,6 +13,15 @@
                 <tr class="" id="{{$pago->id}}">
                     <td>{{$pago->id}}</td>
                     <td>{{$pago->empresa->nombre}}</td>
+                    <td>
+                        @if( $pago->status == 1 )
+                            Asistencia
+                        @elseif( $pago->status == 2 )
+                            Pendiente a pagar
+                        @else
+                            Pagado
+                        @endif
+                    </td>
                     <td>
                         <a href="{{url('detalle-nomina/'.$pago->id)}}" class="btn btn-info editar_pago">Detalle</a>
                     </td>
