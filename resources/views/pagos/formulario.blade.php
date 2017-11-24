@@ -48,13 +48,19 @@ input:-webkit-autofill {
 									<option value="0">Seleccionar servicio</option>
 								</select>
 							</div>
-							<div class="form-group col-md-12">
-								<label for="intervalo">Intervalo</label>
-								<select name="intervalo" id="intervalo" class="col-md-12">
-									<option value="0">Seleccionar interavlo</option>
-									<option value="1/15">1 - 15</option>
-									<option value="16/31">16 - 30/31</option>
-								</select>
+							<div class="form-group col-md-6">
+								<label for="intervalo">Fecha inicio</label>
+								<div class="input-append success date col-md-11 no-padding">
+									<input type="text" class="form-control" name="fecha_inicio" id="fecha_inicio">
+									<span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label for="intervalo">Fecha fin</label>
+								<div class="input-append success date col-md-11 no-padding">
+									<input type="text" class="form-control" name="fecha_fin" id="fecha_fin">
+									<span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
+								</div>
 							</div>
 							<div class="form-group col-md-12">
 								<label for="trabajadores_id">Trabajadores</label>
@@ -65,7 +71,7 @@ input:-webkit-autofill {
 									@endforeach
 								</select>
 							</div>
-							<div class="botonera">
+							<div class="botonera col-md-12">
 								<a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
 								<button type="submit" class="btn btn-primary">Generar</button>
 							</div>
@@ -76,18 +82,25 @@ input:-webkit-autofill {
         </div>
     </div>
 </div>
-
-<script src="{{ asset('plugins/jquery-datatable/js/jquery.dataTables.js') }}" type="text/javascript"></script>
-<script src="{{ asset('plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('plugins/datatables-responsive/js/datatables.responsive.js') }}" type="text/javascript"></script>
-<script src="{{ asset('plugins/datatables-responsive/js/lodash.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/tabs_accordian.js') }}"></script>
-<script src="{{ asset('js/datatables.js') }}"></script>
-<script src="{{ asset('js/empresasAjax.js') }}"></script>
-<script src="{{ asset('js/validacionesEmpresas.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 <script>
 	$(function(){
 		$(".select2").select2();
+		$( "#fecha_inicio" ).datepicker({
+			autoclose: true,
+			todayHighlight: true,
+			format: "yyyy-mm-dd",
+		}).on( "changeDate", function(e) {
+			$( "#fecha_fin" ).setStartDate = e.date;
+		});
+
+		$( "#fecha_fin" ).datepicker({
+			autoclose: true,
+			todayHighlight: true,
+			format: "yyyy-mm-dd",
+		}).on( "changeDate", function(e) {
+			$( "#fecha_inicio" ).setEndDate = e.date;
+		});
 	})
 </script>
 @endsection

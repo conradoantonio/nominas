@@ -67,3 +67,4 @@ Route::get('nominas', 'PagosController@index');
 Route::get('detalle-nomina/{id}', 'PagosController@show');
 Route::get('altaNomina', 'PagosController@formulario');
 Route::post('guardarPago', 'PagosController@store');
+Route::post('guardarNominas', 'PagosController@save');

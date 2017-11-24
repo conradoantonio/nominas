@@ -24,6 +24,16 @@ input:-webkit-autofill {
     display: inline-block;
     max-width: 100%;
 }
+td.cell{
+	cursor: pointer;
+}
+td.cell.selected{
+	background: #7db2d2d9;
+}
+td.cell.disabled{
+	background-color: #cacaca91;
+	cursor: context-menu;
+}
 </style>
 <div class="text-center" style="margin: 20px;">
      @if(session('msg'))
@@ -52,42 +62,42 @@ input:-webkit-autofill {
 					</div>
                     <div class="grid-body">
                         <div class="table-responsive" id="div_tabla_empresas">
-                            <table class="table table-bordered table-responsive">
+                            <table class="table table-bordered table-responsive" id="nomina">
                             	<thead>
                             		<th>Nombre</th>
                             		@foreach( $dias as $day )
 										@if( $day['dia'] == 0 )
-											<th>
+											<th class="{{$day['edit']?'edit':''}}">
 												<h6>D</h6>
 												<h6>{{$day['num']}}</h6>
 											</th>
 										@elseif( $day['dia'] == 1 )
-											<th>
+											<th class="{{$day['edit']?'edit':''}}">
 												<h6>L</h6>
 												<h6>{{$day['num']}}</h6>
 											</th>
 										@elseif( $day['dia'] == 2 )
-											<th>
+											<th class="{{$day['edit']?'edit':''}}">
 												<h6>M</h6>
 												<h6>{{$day['num']}}</h6>
 											</th>
 										@elseif( $day['dia'] == 3 )
-											<th>
+											<th class="{{$day['edit']?'edit':''}}">
 												<h6>M</h6>
 												<h6>{{$day['num']}}</h6>
 											</th>
 										@elseif( $day['dia'] == 4 )
-											<th>
+											<th class="{{$day['edit']?'edit':''}}">
 												<h6>J</h6>
 												<h6>{{$day['num']}}</h6>
 											</th>
 										@elseif( $day['dia'] == 5 )
-											<th>
+											<th class="{{$day['edit']?'edit':''}}">
 												<h6>V</h6>
 												<h6>{{$day['num']}}</h6>
 											</th>
 										@else
-											<th>
+											<th class="{{$day['edit']?'edit':''}}">
 												<h6>S</h6>
 												<h6>{{$day['num']}}</h6>
 											</th>
@@ -97,12 +107,20 @@ input:-webkit-autofill {
                             	<tbody>
                             		@foreach( $pago->PagoUsuarios as $trabajador )
                             			<tr>
-                            				<td>{{$trabajador->usuarios->nombre}}</td>
-	                            			@for( $i = count($dias); $i > 0 ; $i--)
-	                            				<td>
-
-	                            				</td>
-	                            			@endfor
+                            				<td data-user={{$trabajador->usuarios->id}} data-pago={{$trabajador->id}}>{{$trabajador->usuarios->nombre}}</td>
+                            				@if( count($asistencias) == 0 )
+	                            				@foreach( $dias as $day )
+													<td class="cell" data-dia="{{$day['num']}}"></td>
+												@endforeach
+                            				@else
+                            					@foreach( $asistencias as $asistencia )
+                            						@if( $asistencia->pago->trabajador_id == $trabajador->usuarios->id)
+														<td class="cell" data-dia="{{$asistencia->dia}}">
+															{{$asistencia->status}}
+														</td>
+                            						@endif
+                            					@endforeach
+                            				@endif
                             			</tr>
                             		@endforeach
                             	</tbody>
@@ -112,6 +130,7 @@ input:-webkit-autofill {
                 </div>
             </div>
             <a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
+            <button id="guardar" class="btn btn-primary">Guardar</button>
         </div>
     </div>
 </div>
@@ -122,4 +141,93 @@ input:-webkit-autofill {
 <script src="{{ asset('plugins/datatables-responsive/js/lodash.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/tabs_accordian.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}"></script>
+<script type="text/javascript">
+	/*$('table').each('td',function(){
+		console.log($(this))
+		var col = $(this).prevAll().length;
+		if (  !$(this).parents('table').find('th').eq(col).hasClass('edit') ){
+			$(this).css('background','black')
+		}
+	})*/
+
+	$(function(){
+		$('table').find('td.cell').each (function() {
+			var col = $(this).prevAll().length;
+			if (  !$(this).parents('table').find('th').eq(col).hasClass('edit') ){
+				$(this).addClass('disabled')
+				if ( $.inArray($(this).text(), ['D', 'F', 'X', '-']) < 0 ){
+					$(this).text('F')
+				}
+			}
+		});
+
+		$('td').on('click',function(){
+			var col = $(this).prevAll().length;
+			if ( $(this).parents('table').find('th').eq(col).hasClass('edit') ){
+				if ( !$(this).hasClass('selected') ){
+					$(this).addClass('selected')
+				} else {
+					$(this).removeClass('selected')
+				}
+			}
+		})
+
+		$(document).keypress(function(e){
+			if ( e.which == 100 || e.which == 102 || e.which == 120 || e.which == 68 || e.which == 70 || e.which == 88 || e.which == 45 ) {
+				$(document).find('.selected').text(e.key.toUpperCase()).removeClass('edit, selected').addClass('done')
+			}
+		});
+	})
+
+	$('#guardar').on('click', function(){
+		var collection = [];
+		$('table#nomina tbody').find('tr').each (function() {
+			var obj = new Object();
+			obj.days = [];
+			$(this).find('td').each(function(){
+				var ele = $(this);
+				var array = [];
+				if ( $(this).data('user') ){
+					obj.user_id = $(this).data('user');
+					obj.pago_id = $(this).data('pago');
+				} else {
+					if ( $.inArray(ele.text(), ['D', 'F', 'X', '-']) >= 0 ){
+						var txt = ele.text();
+					} else {
+						var txt = '';
+					}
+					array = {
+						'dia' : ele.data('dia'),
+						'status' : txt
+					}
+					obj.days.push(
+						array
+					)
+				}
+			})
+			collection.push(obj);
+		});
+
+		var json = JSON.stringify(collection);
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		$.ajax({
+			url:"{{url('guardarNominas')}}",
+			type:'POST',
+			data: {
+				'collection': json
+			},
+			success: function(response){
+				if( response.save ){
+					alert('saved')
+				}
+			}
+		});
+	})
+</script>
 @endsection
