@@ -249,7 +249,7 @@ $(document).ready(function() {
 			"sInfo": "Mostrando <b>_START_ a _END_</b> de _TOTAL_ registros"
 		},
     });
-	var oTable3 = $('#example3, #categoria').dataTable( {
+	var oTable3 = $('#example3, #tabla_servicio').dataTable( {
 	   "sDom": "<'row'<'col-md-6'l <'toolbar'>><'col-md-6'f>r>t<'row'<'col-md-12'p i>>",
         			"oTableTools": {
 			"aButtons": [

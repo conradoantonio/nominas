@@ -9,8 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Pago;
 use App\Empresa;
 use App\Usuario;
-use App\UsuarioPago;
 use App\Asistencia;
+use App\UsuarioPago;
+use App\EmpresaServicio;
 
 class PagosController extends Controller
 {
@@ -88,41 +89,7 @@ class PagosController extends Controller
 		return view('pagos.detalle', ['pago' => $pago, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update(Request $request, $id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
-	public function formulario(){
+	public function formulario() {
 		$title = "Pagos nominas";
 		$menu = "Pagos";
 		$empresas = Empresa::where('status',1)->get();
@@ -131,7 +98,7 @@ class PagosController extends Controller
 		return view('pagos.formulario', ['empresas' => $empresas, 'trabajadores' => $trabajadores, 'menu' => $menu, 'title' => $title]);
 	}
 
-	public function save(Request $req){
+	public function save(Request $req) {
 		$collection = json_decode($req->collection);
 
 		foreach ($collection as $key => $value) {
@@ -168,5 +135,22 @@ class PagosController extends Controller
 		}
 
 		return [ 'save' => true ];
+	}
+
+	/**
+     *===============================================================================================================================================================================
+     *=                                                           Empiezan las funciones relacionadas a la vista de pagos                                                           =
+     *===============================================================================================================================================================================
+     */
+
+	/**
+	 * Obtiene los servicios de una empresa
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function servicios_empresa()
+	{
+		$servicios = EmpresaServicio::where('empresa_id', $empresa_id)->where('status', 1)->get();
+		return $servicios;
 	}
 }

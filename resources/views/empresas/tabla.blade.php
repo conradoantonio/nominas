@@ -33,6 +33,10 @@
                     <td class="hide"><span>{{$empresa->status}}</span></td>
                     <td>
                         <button type="button" class="btn btn-info editar_empresa">Editar</button>
+                        <button type="button" class="btn btn-success ver_servicios">
+                                <i class="fa fa-spinner fa-spin" style="display: none"></i>
+                                Servicios
+                        </button>
                         <button type="button" class="btn btn-danger eliminar_empresa">Borrar</button>
                     </td>
                 </tr>

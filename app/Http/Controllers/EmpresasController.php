@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Empresa;
+use App\EmpresaServicio;
 use Image;
 
 class EmpresasController extends Controller
@@ -15,6 +16,12 @@ class EmpresasController extends Controller
         date_default_timezone_set('America/Mexico_City');
         $this->actual_datetime = date('Y-m-d H:i:s');
     }
+
+    /**
+     *===============================================================================================================================================================================
+     *=                                                         Empiezan las funciones relacionadas al CRUD de las empresas                                                         =
+     *===============================================================================================================================================================================
+     */
 
     /**
      * Carga la tabla de productos.
@@ -146,6 +153,95 @@ class EmpresasController extends Controller
             return ["msg" => 'All rows selected were deleted!'];
         } catch(\Illuminate\Database\QueryException $ex) {
             return $ex->getMessage();
+        }
+    }
+
+    /**
+     *===============================================================================================================================================================================
+     *=                                                     Empiezan las funciones relacionadas a los servicios de las empresas                                                     =
+     *===============================================================================================================================================================================
+     */
+
+    /**
+     * Guarda un servicio de una empresa
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return json($msg)
+     */
+    public function cargar_servicios_empresa(Request $request)
+    {
+        return $this->servicios_empresa($request->empresa_id);
+    }
+
+    /**
+     * Guarda un servicio de una empresa
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return json($msg)
+     */
+    public function servicios_empresa($empresa_id)
+    {
+        $servicios = EmpresaServicio::where('empresa_id', $empresa_id)->get();
+        return view('empresas.tabla_servicio', ['servicios' => $servicios]);
+    }
+
+    /**
+     * Guarda un servicio de una empresa
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return json($msg)
+     */
+    public function guardar_servicio(Request $request)
+    {
+        $servicio = new EmpresaServicio;
+
+        $servicio->empresa_id = $request->empresa_id;
+        $servicio->servicio = $request->servicio;
+        $servicio->horario = $request->horario;
+        $servicio->sueldo = $request->sueldo;
+        $servicio->created_at = $this->actual_datetime;
+
+        $servicio->save();
+        
+        return $this->servicios_empresa($request->empresa_id);
+    }
+
+    /**
+     * Edita un servicio de una empresa
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return json($msg)
+     */
+    public function editar_servicio(Request $request)
+    {
+        $servicio = EmpresaServicio::find($request->servicio_id);
+
+        if ($servicio) {
+            $servicio->servicio = $request->servicio;
+            $servicio->horario = $request->horario;
+            $servicio->sueldo = $request->sueldo;
+
+            $servicio->save();
+
+            return $this->servicios_empresa($request->empresa_id);
+        }
+        return response(['msg' => 'Record not found'], 404);
+    }
+
+    /**
+     * Elimina un servicio de una empresa.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return json($msg)
+     */
+    public function eliminar_servicio(Request $request)
+    {
+        $servicio = EmpresaServicio::find($request->servicio_id);
+        if ($servicio) {
+            $servicio->delete();
+            return $this->servicios_empresa($request->empresa_id);
+        } else {
+            return response(["msg" => 'Record not found'], 404);
         }
     }
 }

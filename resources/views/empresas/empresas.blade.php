@@ -27,113 +27,84 @@ input:-webkit-autofill {
 </style>
 <div class="text-center" style="margin: 20px;">
 
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="titulo_form_empresa" id="formulario_empresa">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="titulo_form_empresa">Nuevo empresa</h4>
-                </div>
-                <form id="form_empresa" action="" enctype="multipart/form-data" method="POST" autocomplete="off">
-                    <input type="hidden" name="_token" id="token" value="{!! csrf_token() !!}" base-url="<?php echo url();?>">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12 hidden">
-                                <div class="form-group">
-                                    <label for="id">ID</label>
-                                    <input type="text" class="form-control" id="id" name="id">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="oficina_cargo">Oficina a cargo</label>
-                                    <input type="text" class="form-control" id="oficina_cargo" name="oficina_cargo" placeholder="Oficina a cargo">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="direccion">Dirección</label>
-                                    <textarea class="form-control" id="direccion" name="direccion" placeholder="Dirección"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="contacto">Contacto</label>
-                                    <input type="text" class="form-control" id="contacto" name="contacto" placeholder="Contacto">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="telefono">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="marcacion_corta">Marcación corta</label>
-                                    <input type="text" class="form-control" id="marcacion_corta" name="marcacion_corta" placeholder="Marcación corta">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="guardar_empresa">
-                            <i class="fa fa-spinner fa-spin" style="display: none;"></i>
-                            Guardar
-                        </button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    @include('empresas.form_empresa')
 
     <h2>Lista de empresas</h2>
 
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="importar-excel">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="titulo_tipo_servicio" id="servicio_dialogo">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Importar empresas desde Excel</h4>
+                    <h4 class="modal-title" id="titulo_tipo_servicio">Servicios</h4>
                 </div>
-                <form method="POST" onsubmit="return false" action="{{url('empresas/importar_empresas')}}" enctype="multipart/form-data" autocomplete="off">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                 <div class="alert alert-info alert-dismissible text-justify" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Instrucciones de uso: </strong><br>
-                                    Para importar empresas a través de Excel, los datos deben estar acomodados como se describe a continuación: <br>
-                                    Los campos de la primera fila de la hoja de excel deben de ir los campos llamados 
-                                    <strong>"nombre, descripcion, precio, cantidad_porcion, precio_porcion, categoria, foto"</strong>, posteriormente, debajo de cada uno de estos campos deberán de ir los datos correspondientes de los empresas.
-                                    <br><strong>Nota: </strong>
-                                    <br>- Solo se aceptan archivos con extensión <kbd>xls y xlsx</kbd> y los empresas repetidos en el excel no serán creados.
-                                    <br>- Esta acción puede llevar hasta 1 minuto, porfavor espere y permanezca en esta ventana hasta que un mensaje sea mostrado en su pantalla.
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs" id="tab-01">
+                                <li class="active"><a href="#tabTablaServicio">Tabla servicios</a></li>
+                                <li><a href="#tabNuevoServicio">Nuevo servicio</a></li>
+                            </ul>
+                            <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="#grid-config" data-toggle="modal" class="config"></a> <a href="javascript:;" class="reload"></a> <a href="javascript:;" class="remove"></a> </div>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tabTablaServicio">
+                                    <button type="button" class="btn btn-primary" id="nuevo_servicio"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo servicio</button>
+                                    <h3>Tabla de servicios disponibles: </h3>
+                                    <div class="table-responsive" id="tabla-servicios">
+                                        {{-- @include('empresas.tabla_servicio') --}}
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tabNuevoServicio">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form enctype="multipart/form-data" action="" method="POST" onsubmit="return false;" autocomplete="off" id="form_servicios">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-xs-12 hide">
+                                                        <div class="form-group">
+                                                            <label for="id">ID</label>
+                                                            <input type="text" class="form-control" id="servicio_id" name="servicio_id">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-12 hide">
+                                                        <div class="form-group">
+                                                            <label for="id">Empresa ID</label>
+                                                            <input type="text" class="form-control" id="empresa_id" name="empresa_id">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label for="servicio">Servicio</label>
+                                                            <input type="text" class="form-control" id="servicio" name="servicio" placeholder="Ej. 01 servicio de 24x24 hrs.">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label for="horario">Horario</label>
+                                                            <input type="text" class="form-control" id="horario" name="horario" placeholder="Ej. Lunes a Viernes de 7:00 a 7:00">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label for="sueldo">Sueldo</label>
+                                                            <input type="text" class="form-control" id="sueldo" name="sueldo" maxlength="6" placeholder="Ej. 2600">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary" id="guardar_servicio">
+                                                    <i class="fa fa-spinner fa-spin" style="display: none;"></i>
+                                                    Guardar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <input class="form-control" type="file" id="archivo-excel" name="archivo-excel">
-                            </div>
-                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="enviar-excel">
-                            Importar
-                            <i class="fa fa-spinner fa-spin" style="display: none;"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -168,12 +139,14 @@ input:-webkit-autofill {
 <script src="{{ asset('js/tabs_accordian.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}"></script>
 <script src="{{ asset('js/empresasAjax.js') }}"></script>
+<script src="{{ asset('js/serviciosAjax.js') }}"></script>
 <script src="{{ asset('js/validacionesEmpresas.js') }}"></script>
+<script src="{{ asset('js/validacionesServicios.js') }}"></script>
 <script type="text/javascript">
 /**
- *=============================================================================================================================================
- *=                                        Empiezan las funciones relacionadas a la tabla de empresas                                        =
- *=============================================================================================================================================
+ *==================================================================================================================================================================================
+ *=                                                           Empiezan las funciones relacionadas a la tabla de empresas                                                           =
+ *==================================================================================================================================================================================
  */
 
 $('#formulario_empresa').on('hidden.bs.modal', function (e) {
@@ -181,12 +154,6 @@ $('#formulario_empresa').on('hidden.bs.modal', function (e) {
     $('input.form-control, textarea.form-control').val('');
     $("#formulario_empresa input#oferta").prop('checked', false);
 });
-
-/*$('body').delegate('button#exportar_empresas_excel','click', function() {
-    fecha_inicio = false;
-    fecha_fin = false;
-    window.location.href = "<?php echo url();?>/empresas/exportar_empresas/"+fecha_inicio+"/"+fecha_fin;
-});*/
 
 $('body').delegate('button#nuevo_empresa','click', function() {
     $('select.form-control').val(0);
@@ -273,5 +240,77 @@ $('body').delegate('.eliminar_empresa','click', function() {
     });
 });
 
+/**
+ *==================================================================================================================================================================================
+ *=                                                           Empiezan las funciones relacionadas a la tabla de empresas                                                           =
+ *==================================================================================================================================================================================
+ */
+
+$('body').delegate('.ver_servicios','click', function() {
+    btn = $(this);
+    empresa_id = $(this).parent().siblings("td:nth-child(2)").text();
+    $('#nuevo_servicio').attr('empresa_id', empresa_id);
+    btn.find('i.fa-spin').show();
+    btn.attr('disabled', true);
+    $('#form_servicios input.form-control').val('');
+    $('#form_servicios div.form-group').removeClass('has-error');
+    $("#form_servicios").get(0).setAttribute('action', "{{url('empresas/servicios/guardar')}}");
+
+    cargarServicios(empresa_id, btn);
+});
+
+$('body').delegate('#nuevo_servicio, a[href="#tabNuevoServicio"]','click', function() {
+    $("#form_servicios input#empresa_id").val($('#nuevo_servicio').attr('empresa_id'));
+});
+
+$('body').delegate('#nuevo_servicio','click', function() {
+    $('#form_servicios input.form-control').val('');
+    $('#form_servicios div.form-group').removeClass('has-error');
+    $("#form_servicios").get(0).setAttribute('action', "{{url('empresas/servicios/guardar')}}");
+    $("#form_servicios input#empresa_id").val($('#nuevo_servicio').attr('empresa_id'));
+    $('a[href="#tabNuevoServicio"]').text('Nuevo servicio').tab('show');
+});
+
+$('body').delegate('button.editar_servicio','click', function() {
+    $('#form_servicios div.form-group').removeClass('has-error');
+
+    servicio_id = $(this).parent().siblings("td:nth-child(1)").text(),
+    empresa_id = $(this).parent().siblings("td:nth-child(2)").text(),
+    servicio = $(this).parent().siblings("td:nth-child(3)").text(),
+    horario = $(this).parent().siblings("td:nth-child(4)").text(),
+    sueldo = $(this).parent().siblings("td:nth-child(5)").text();
+
+    $("#form_servicios").get(0).setAttribute('action', "{{url('empresas/servicios/editar')}}");
+    $("#form_servicios input#servicio_id").val(servicio_id);
+    $("#form_servicios input#empresa_id").val(empresa_id);
+    $("#form_servicios input#servicio").val(servicio);
+    $("#form_servicios input#horario").val(horario);
+    $("#form_servicios input#sueldo").val(sueldo);
+
+    $('a[href="#tabNuevoServicio"]').text('Editar servicio').tab('show');
+});
+
+$('body').delegate('.eliminar_servicio','click', function() {
+    var servicio_id = $(this).parent().siblings("td:nth-child(1)").text();
+    var empresa_id = $(this).parent().siblings("td:nth-child(2)").text();
+
+    swal({
+        title: "¿Realmente desea eliminar el servicio con el ID <span style='color:#F8BB86'>" + servicio_id + "</span>?",
+        text: "¡Cuidado, esta acción no podrá deshacerse!",
+        html: true,
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si, continuar",
+        showLoaderOnConfirm: true,
+        allowEscapeKey: true,
+        allowOutsideClick: true,
+        closeOnConfirm: false
+    },
+    function() {
+        eliminarServicio(servicio_id,empresa_id);
+    });
+});
 </script>
 @endsection

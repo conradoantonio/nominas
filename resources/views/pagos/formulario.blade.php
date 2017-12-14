@@ -33,43 +33,45 @@ input:-webkit-autofill {
                     <div class="grid-body">
                         <form action="{{url('guardarPago')}}" method="post">
                         	{!! csrf_field() !!}
-							<div class="form-group col-md-12">
-								<label for="empresa_id">Empresa</label>
-								<select name="empresa_id" id="empresa_id" class="select2 col-md-12">
-									<option value="0">Seleccionar empresa</option>
-									@foreach($empresas as $empresa)
-									<option value="{{$empresa->id}}">{{$empresa->nombre}}</option>
-									@endforeach
-								</select>
-							</div>
-							<div class="form-group col-md-12">
-								<label for="servicio_id">Servicio</label>
-								<select name="servicio_id" id="servicio_id" class="select2 col-md-12">
-									<option value="0">Seleccionar servicio</option>
-								</select>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="intervalo">Fecha inicio</label>
-								<div class="input-append success date col-md-11 no-padding">
-									<input type="text" class="form-control" name="fecha_inicio" id="fecha_inicio">
-									<span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
+                        	<div class="row">
+								<div class="form-group col-md-12">
+									<label for="empresa_id">Empresa</label>
+									<select name="empresa_id" id="empresa_id" class="select2" style="width: 100%;">
+										<option value="0">Seleccionar empresa</option>
+										@foreach($empresas as $empresa)
+										<option value="{{$empresa->id}}">{{$empresa->nombre}}</option>
+										@endforeach
+									</select>
 								</div>
-							</div>
-							<div class="col-md-6">
-								<label for="intervalo">Fecha fin</label>
-								<div class="input-append success date col-md-11 no-padding">
-									<input type="text" class="form-control" name="fecha_fin" id="fecha_fin">
-									<span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
+								<div class="form-group col-md-12">
+									<label for="servicio_id">Servicio</label>
+									<select name="servicio_id" id="servicio_id" class="select2" style="width: 100%;">
+										<option value="0">Seleccionar servicio</option>
+									</select>
 								</div>
-							</div>
-							<div class="form-group col-md-12">
-								<label for="trabajadores_id">Trabajadores</label>
-								<select name="trabajadores[]" id="trabajadores_id" class="select2 col-md-12" multiple="multiple">
-									<option value="0">Seleccionar trabajadores</option>
-									@foreach($trabajadores as $trabajador)
-									<option value="{{$trabajador->id}}">{{$trabajador->nombre}}</option>
-									@endforeach
-								</select>
+								<div class="form-group col-md-6">
+									<label for="intervalo">Fecha inicio</label>
+									<div class="input-append success date col-md-11 no-padding">
+										<input type="text" class="form-control" name="fecha_inicio" id="fecha_inicio">
+										<span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="intervalo">Fecha fin</label>
+									<div class="input-append success date col-md-11 no-padding">
+										<input type="text" class="form-control" name="fecha_fin" id="fecha_fin">
+										<span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
+									</div>
+								</div>
+								<div class="form-group col-md-12">
+									<label for="trabajadores_id">Trabajadores</label>
+									<select name="trabajadores[]" id="trabajadores_id" class="select2" multiple="multiple" style="width: 100%;">
+										<option value="0">Seleccionar trabajadores</option>
+										@foreach($trabajadores as $trabajador)
+										<option value="{{$trabajador->id}}">{{$trabajador->nombre}}</option>
+										@endforeach
+									</select>
+								</div>
 							</div>
 							<div class="botonera col-md-12">
 								<a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
@@ -102,5 +104,9 @@ input:-webkit-autofill {
 			$( "#fecha_inicio" ).setEndDate = e.date;
 		});
 	})
+
+	$( "select#empresa_id" ).change(function() {
+		cargarServicios(empresa_id);
+	});
 </script>
 @endsection

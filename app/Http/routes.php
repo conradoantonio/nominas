@@ -42,6 +42,12 @@ Route::group(['prefix' => 'empresas', 'middleware' => 'auth'], function () {
 	Route::post('editar','EmpresasController@editar');//Edita los datos de una empresa
 	Route::post('baja','EmpresasController@dar_baja');//Cambia el status de una empresa
 	Route::post('baja/multiple','EmpresasController@dar_baja_multiples_empresas');//Cambia el status de una empresa
+
+	#Prefijo para servicios
+	Route::post('servicios','EmpresasController@cargar_servicios_empresa');//Carga los servicios de una empresa
+	Route::post('servicios/guardar','EmpresasController@guardar_servicio');//Guarda el servicio de una empresa
+	Route::post('servicios/editar','EmpresasController@editar_servicio');//Edita el servicio de una empresa
+	Route::post('servicios/eliminar','EmpresasController@eliminar_servicio');//Elimina el servicio de una empresa
 });
 
 /*-- Rutas para la pestaña de empleados--*/
