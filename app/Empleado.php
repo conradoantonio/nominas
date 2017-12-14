@@ -15,8 +15,8 @@ class Empleado extends Model
      * Define el nombre de los campos que podrán ser alterados de la tabla del modelo.
      */
     protected $fillable = [
-    	'nombre', 'apellido', 'num_empleado', 'domicilio', 'ciudad', 'telefono', 
-    	'rfc', 'curp', 'nss', 'telefono_emergencia', 'status', 'created_at'
+    	'nombre', 'apellido', 'num_empleado', 'num_cuenta', 'domicilio', 'ciudad',
+        'telefono', 'rfc', 'curp', 'nss', 'telefono_emergencia', 'status', 'created_at'
     ];
 
     /**

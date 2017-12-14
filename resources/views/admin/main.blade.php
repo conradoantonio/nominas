@@ -180,7 +180,7 @@
                 </li>
                 <!-- END ONE LEVEL MENU -->
                 <!-- BEGIN SINGLE LINK -->
-                <li class="{{$menu == 'Nominas' ? 'active' : ''}}">
+                <li class="{{$menu == 'Pagos' ? 'active' : ''}}">
                     <a href="{{url('nominas')}}">
                         <i class="fa fa-money" aria-hidden="true"></i>
                         <span class="title">Pagos</span>
@@ -240,8 +240,8 @@
                         <div class="row">
                             <div class="col-sm-12 col-xs-12 hidden">
                                 <div class="form-group">
-                                    <label for="id">ID</label>
-                                    <input type="text" id="id" value="{{auth()->user()->id}}">
+                                    <label for="user_system_id">ID</label>
+                                    <input type="text" id="user_system_id" value="{{auth()->user()->id}}">
                                 </div>
                             </div>
                             <div class="col-sm-12 col-xs-12">
@@ -384,7 +384,7 @@
             });
         }
         else {
-            var id = $('div#change-pass input#id').val();
+            var id = $('div#change-pass input#user_system_id').val();
             var token = '{{ csrf_token() }}';
             var user = '{{ Auth::user()->user }}';
             var actualPassword = $('div#change-pass input#actualPassword').val();
@@ -400,7 +400,7 @@
             method: "POST",
             url: "{{url('/usuarios/sistema/change_password')}}",
             data:{
-                "id":id,
+                "user_system_id":id,
                 "user":user,
                 "actualPassword":actualPassword,
                 "newPassword":newPassword,

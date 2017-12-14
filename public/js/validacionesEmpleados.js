@@ -16,6 +16,7 @@ btn.on('click', function() {
     !validarInput($('input#nombre'), regExprNombre) ? inputs.push('\n Nombre') : ''
     !validarInput($('input#apellido'), regExprNombre) ? inputs.push('\n Apellido') : ''
     !validarInput($('input#num_empleado'), regExprNum) ? inputs.push('\n Número de empleado') : ''
+    !validarInput($('input#num_cuenta'), regExprNum) ? inputs.push('\n Número de cuenta') : ''
     !validarInput($('textarea#domicilio'), regExprTexto) ? inputs.push('\n Domicilio') : ''
     !validarInput($('input#ciudad'), regExprTexto) ? inputs.push('\n Ciudad') : ''
     !validarInput($('input#telefono'), regExprCel) ? inputs.push('\n Teléfono') : ''
@@ -38,19 +39,37 @@ btn.on('click', function() {
     }
 });
 
-$( "input#password" ).blur(function() {
-    validarInput($(this), regExprNombre);
-});
 $( "input#nombre" ).blur(function() {
     validarInput($(this), regExprNombre);
 });
 $( "input#apellido" ).blur(function() {
     validarInput($(this), regExprNombre);
 });
-$( "input#correo" ).blur(function() {
-    validarInput($(this), regExprEmail);
+$( "input#num_empleado" ).blur(function() {
+    validarInput($(this), regExprNum);
 });
-$( "input#celular" ).blur(function() {
+$( "input#num_cuenta" ).blur(function() {
+    validarInput($(this), regExprNum);
+});
+$( "textarea#domicilio" ).blur(function() {
+    validarInput($(this), regExprTexto);
+});
+$( "input#ciudad" ).blur(function() {
+    validarInput($(this), regExprTexto);
+});
+$( "input#telefono" ).blur(function() {
+    validarInput($(this), regExprCel);
+});
+$( "input#rfc" ).blur(function() {
+    validarInput($(this), regExprTexto);
+});
+$( "input#curp" ).blur(function() {
+    validarInput($(this), regExprTexto);
+});
+$( "input#nss" ).blur(function() {
+    validarInput($(this), regExprNum);
+});
+$( "input#telefono_emergencia" ).blur(function() {
     validarInput($(this), regExprCel);
 });
 

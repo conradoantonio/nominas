@@ -38,8 +38,14 @@
                                     </div>
                                     <div class="col-sm-4 col-xs-12">
                                         <div class="form-group">
-                                            <label for="num_empleado">No. empleado</label>
-                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->num_empleado : ''}}" id="num_empleado" name="num_empleado" placeholder="No. empleado">
+                                            <label for="num_empleado">No. de empleado</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->num_empleado : ''}}" id="num_empleado" name="num_empleado" placeholder="No. de empleado">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="num_cuenta">No. de cuenta</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->num_cuenta : ''}}" id="num_cuenta" name="num_cuenta" maxlength="10" placeholder="No. de cuenta">
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-xs-12">

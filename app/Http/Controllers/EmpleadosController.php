@@ -58,6 +58,7 @@ class EmpleadosController extends Controller
         $empleado->nombre = $request->nombre;
         $empleado->apellido = $request->apellido;
         $empleado->num_empleado = $request->num_empleado;
+        $empleado->num_cuenta = $request->num_cuenta;
         $empleado->domicilio = $request->domicilio;
         $empleado->ciudad = $request->ciudad;
         $empleado->telefono = $request->telefono;
@@ -113,6 +114,7 @@ class EmpleadosController extends Controller
             $empleado->nombre = $request->nombre;
             $empleado->apellido = $request->apellido;
             $empleado->num_empleado = $request->num_empleado;
+            $empleado->num_cuenta = $request->num_cuenta;
             $empleado->domicilio = $request->domicilio;
             $empleado->ciudad = $request->ciudad;
             $empleado->telefono = $request->telefono;

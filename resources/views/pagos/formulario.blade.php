@@ -44,7 +44,7 @@ input:-webkit-autofill {
 									<select name="empresa_id" id="empresa_id" class="select2" style="width: 100%;">
 										<option value="0">Seleccionar empresa</option>
 										@foreach($empresas as $empresa)
-										<option value="{{$empresa->id}}">{{$empresa->nombre}}</option>
+											<option value="{{$empresa->id}}">{{$empresa->nombre}}</option>
 										@endforeach
 									</select>
 								</div>
@@ -73,7 +73,7 @@ input:-webkit-autofill {
 									<select name="trabajadores[]" id="trabajadores_id" class="select2" multiple="multiple" style="width: 100%;">
 										<option value="0">Seleccionar trabajadores</option>
 										@foreach($trabajadores as $trabajador)
-										<option value="{{$trabajador->id}}">{{$trabajador->nombre}}</option>
+											<option value="{{$trabajador->id}}">{{$trabajador->nombre}}</option>
 										@endforeach
 									</select>
 								</div>

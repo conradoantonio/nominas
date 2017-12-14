@@ -51,13 +51,13 @@ class UsersController extends Controller
     {
         $user = DB::table('users')
         ->where('user', '=', $request->user)
-        ->where('id', '=', $request->id)
+        ->where('id', '=', $request->user_system_id)
         ->first();
 
 
         if (Hash::check($request->actualPassword, $user->password)) {
             if ($request->newPassword == $request->confirmPassword) {
-                $change = User::find($request->id);
+                $change = User::find($request->user_system_id);
                 $change->password = bcrypt($request->newPassword);
                 $change->save();
                 return 'contra cambiada';
