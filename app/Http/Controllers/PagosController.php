@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Pago;
 use App\Empresa;
-use App\Usuario;
+use App\Empleado;
 use App\Asistencia;
 use App\UsuarioPago;
 use App\EmpresaServicio;
@@ -93,7 +93,7 @@ class PagosController extends Controller
 		$title = "Pagos nominas";
 		$menu = "Pagos";
 		$empresas = Empresa::where('status',1)->get();
-		$trabajadores = Usuario::where('status',1)->get();
+		$trabajadores = Empleado::where('status',1)->get();
 
 		return view('pagos.formulario', ['empresas' => $empresas, 'trabajadores' => $trabajadores, 'menu' => $menu, 'title' => $title]);
 	}

@@ -22,6 +22,11 @@ input:-webkit-autofill {
     text-overflow: ellipsis;
     display: inline-block;
     max-width: 100%;
+
+}.select-error{
+	border-color: #A94442;
+	border-style: solid;
+	border-width: 1px;
 }
 </style>
 <div class="text-center" style="margin: 20px;">
@@ -75,7 +80,7 @@ input:-webkit-autofill {
 							</div>
 							<div class="botonera col-md-12">
 								<a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
-								<button type="submit" class="btn btn-primary">Generar</button>
+								<button type="submit" id="guardar_pago" class="btn btn-primary">Generar</button>
 							</div>
 						</form>
                     </div>
@@ -86,6 +91,7 @@ input:-webkit-autofill {
 </div>
 <script src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/pagosAjax.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/validacionesPagos.js') }}" type="text/javascript"></script>
 <script>
 	$(function(){
 		$(".select2").select2();
@@ -108,7 +114,9 @@ input:-webkit-autofill {
 	})
 
 	$( "select#empresa_id" ).change(function() {
-		cargarServicios($(this).val());
+		elem_to_block = $('select#servicio_id').parent('div').children('div.select2-container');
+        blockUI(elem_to_block);
+		cargarServicios($(this).val(), elem_to_block);
 	});
 </script>
 @endsection
