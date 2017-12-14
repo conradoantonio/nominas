@@ -28,11 +28,11 @@ CREATE TABLE `asistencias` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
 /*Data for the table `asistencias` */
 
-insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (17,1,13,'F','2017-12-13 16:53:36','2017-12-13 16:53:36'),(18,1,14,'','2017-12-13 16:53:36','2017-12-13 16:53:36'),(19,1,15,'','2017-12-13 16:53:37','2017-12-13 16:53:37'),(20,1,16,'','2017-12-13 16:53:37','2017-12-13 16:53:37'),(21,1,17,'','2017-12-13 16:53:37','2017-12-13 16:53:37'),(22,1,18,'','2017-12-13 16:53:37','2017-12-13 16:53:37'),(23,1,19,'','2017-12-13 16:53:37','2017-12-13 16:53:37'),(24,1,20,'','2017-12-13 16:53:37','2017-12-13 16:53:37');
+insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (33,1,13,'F','2017-12-14 16:40:33','2017-12-14 16:40:33'),(34,1,14,'F','2017-12-14 16:40:33','2017-12-14 16:40:33'),(35,1,15,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(36,1,16,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(37,1,17,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(38,1,18,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(39,1,19,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(40,1,20,'','2017-12-14 16:40:33','2017-12-14 16:40:33');
 
 /*Table structure for table `documentacion` */
 
@@ -80,6 +80,7 @@ CREATE TABLE `empleados` (
   `nombre` varchar(50) DEFAULT NULL,
   `apellido` varchar(50) DEFAULT NULL,
   `num_empleado` varchar(20) DEFAULT NULL,
+  `num_cuenta` varchar(10) DEFAULT NULL,
   `domicilio` text,
   `ciudad` varchar(40) DEFAULT NULL,
   `telefono` varchar(20) DEFAULT NULL,
@@ -95,7 +96,7 @@ CREATE TABLE `empleados` (
 
 /*Data for the table `empleados` */
 
-insert  into `empleados`(`id`,`nombre`,`apellido`,`num_empleado`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO ROSALES','1','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',1,'2017-11-21 23:28:19','2017-11-21 23:28:19'),(2,'DANIELA','GONZALES CASTRO','2','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632',1,'2017-11-21 23:30:09','2017-11-21 23:30:09');
+insert  into `empleados`(`id`,`nombre`,`apellido`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',1,'2017-12-14 13:54:04','2017-12-14 19:54:04'),(2,'DANIELA','GONZALES CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632',1,'2017-12-14 13:54:20','2017-12-14 19:54:20');
 
 /*Table structure for table `empresa_servicio` */
 
@@ -107,6 +108,7 @@ CREATE TABLE `empresa_servicio` (
   `servicio` varchar(200) DEFAULT NULL,
   `horario` varchar(200) DEFAULT NULL,
   `sueldo` decimal(10,0) DEFAULT NULL,
+  `sueldo_diario_guardia` decimal(6,2) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
@@ -114,7 +116,7 @@ CREATE TABLE `empresa_servicio` (
 
 /*Data for the table `empresa_servicio` */
 
-insert  into `empresa_servicio`(`id`,`empresa_id`,`servicio`,`horario`,`sueldo`,`created_at`,`updated_at`) values (1,1,'01 de 24x24 hrs','1 servicio de lunes a viernes de 7:00 a 7:00','2600','2017-12-13 17:46:49','2017-12-13 17:22:52');
+insert  into `empresa_servicio`(`id`,`empresa_id`,`servicio`,`horario`,`sueldo`,`sueldo_diario_guardia`,`created_at`,`updated_at`) values (1,1,'01 de 24x24 hrs','1 servicio de lunes a viernes de 7:00 a 7:00','2600','300.50','2017-12-14 11:35:13','2017-12-13 17:22:52');
 
 /*Table structure for table `empresas` */
 
@@ -172,7 +174,7 @@ CREATE TABLE `pagos` (
 
 /*Data for the table `pagos` */
 
-insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`status`,`created_at`,`updated_at`) values (1,1,1,'2017-12-13','2017-12-20',1,'2017-12-13 10:53:20',NULL);
+insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`status`,`created_at`,`updated_at`) values (1,1,1,'2017-12-13','2017-12-20',1,'2017-12-14 10:43:25',NULL);
 
 /*Table structure for table `users` */
 
@@ -193,7 +195,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$hPxSH9GAcKTrI1zqP.beROrfWbsYCoFH7bODs5nZ5XYvL6dX5yTQW','anton_con@hotmail.com','img/user_perfil/default.jpg','zNJHa1o6nOLfOnmtC8RdxGFpOEWYEihR2simXAsp7NFd8tYg7gXYNQ0UeP0x',1,'2017-03-23 11:30:45','2017-07-12 18:18:23');
+insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','zNJHa1o6nOLfOnmtC8RdxGFpOEWYEihR2simXAsp7NFd8tYg7gXYNQ0UeP0x',1,'2017-03-23 11:30:45','2017-12-14 13:27:34');
 
 /*Table structure for table `usuario` */
 
@@ -217,7 +219,7 @@ CREATE TABLE `usuario` (
 
 /*Data for the table `usuario` */
 
-insert  into `usuario`(`id`,`password`,`nombre`,`apellido`,`correo`,`foto_perfil`,`celular`,`customer_id_conekta`,`tipo`,`status`,`created_at`,`updated_at`) values (1,'a83f0f76c2afad4f5d7260824430b798','Conrado Antonios','Carrillo Rosales','anton_con@hotmail.com','img/usuario_app/default.jpg','9801010',NULL,1,1,'2017-10-24 22:40:39','2017-10-25 16:16:05'),(2,'a83f0f76c2afad4f5d7260824430b798','Manuel','Rosales','many@hotmail.com','img/usuario_app/default.jpg','6699333627',NULL,2,1,'2017-10-25 13:12:13','0000-00-00 00:00:00'),(11,'a83f0f76c2afad4f5d7260824430b798','sdasdasd','asdasdsda','admin@topali.com','img/usuario_app/default.jpg','213123',NULL,2,1,'2017-10-25 18:35:34','2017-10-25 18:35:34');
+insert  into `usuario`(`id`,`password`,`nombre`,`apellido`,`correo`,`foto_perfil`,`celular`,`customer_id_conekta`,`tipo`,`status`,`created_at`,`updated_at`) values (1,'a83f0f76c2afad4f5d7260824430b798','Conrado Antonio','Carrillo Rosales','anton_con@hotmail.com','img/usuario_app/default.jpg','9801010',NULL,1,1,'2017-10-24 22:40:39','2017-10-25 16:16:05'),(2,'a83f0f76c2afad4f5d7260824430b798','Manuel','Rosales','many@hotmail.com','img/usuario_app/default.jpg','6699333627',NULL,2,1,'2017-10-25 13:12:13','0000-00-00 00:00:00'),(11,'a83f0f76c2afad4f5d7260824430b798','sdasdasd','asdasdsda','admin@topali.com','img/usuario_app/default.jpg','213123',NULL,2,1,'2017-10-25 18:35:34','2017-10-25 18:35:34');
 
 /*Table structure for table `usuario_pagos` */
 
@@ -233,7 +235,7 @@ CREATE TABLE `usuario_pagos` (
 
 /*Data for the table `usuario_pagos` */
 
-insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (1,1,1,'');
+insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (1,1,1,'holi');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
