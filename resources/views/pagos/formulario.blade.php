@@ -85,9 +85,11 @@ input:-webkit-autofill {
     </div>
 </div>
 <script src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/pagosAjax.js') }}" type="text/javascript"></script>
 <script>
 	$(function(){
 		$(".select2").select2();
+
 		$( "#fecha_inicio" ).datepicker({
 			autoclose: true,
 			todayHighlight: true,
@@ -106,7 +108,7 @@ input:-webkit-autofill {
 	})
 
 	$( "select#empresa_id" ).change(function() {
-		cargarServicios(empresa_id);
+		cargarServicios($(this).val());
 	});
 </script>
 @endsection

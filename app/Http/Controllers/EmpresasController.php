@@ -199,6 +199,7 @@ class EmpresasController extends Controller
         $servicio->servicio = $request->servicio;
         $servicio->horario = $request->horario;
         $servicio->sueldo = $request->sueldo;
+        $servicio->sueldo_diario_guardia = $request->sueldo_diario_guardia;
         $servicio->created_at = $this->actual_datetime;
 
         $servicio->save();
@@ -220,6 +221,7 @@ class EmpresasController extends Controller
             $servicio->servicio = $request->servicio;
             $servicio->horario = $request->horario;
             $servicio->sueldo = $request->sueldo;
+            $servicio->sueldo_diario_guardia = $request->sueldo_diario_guardia;
 
             $servicio->save();
 

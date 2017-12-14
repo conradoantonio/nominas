@@ -15,6 +15,6 @@ class EmpresaServicio extends Model
      * Define el nombre de los campos que podrán ser alterados de la tabla del modelo.
      */
     protected $fillable = [
-    	'empresa_id', 'servicio', 'horario', 'sueldo', 'created_at'
+    	'empresa_id', 'servicio', 'horario', 'sueldo', 'sueldo_diario_guardia', 'created_at'
     ];
 }

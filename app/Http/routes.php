@@ -69,6 +69,7 @@ Route::post('/configuracion/info_empresa/editar','ConfiguracionController@editar
 Route::get('/data','estadosController@analytics');//Devuelve los datos de google analytics
 
 /*--- Modulo pagos ---*/
+Route::post('pagos/servicios_empresa', 'PagosController@servicios_empresa');
 Route::get('nominas', 'PagosController@index');
 Route::get('detalle-nomina/{id}', 'PagosController@show');
 Route::get('altaNomina', 'PagosController@formulario');

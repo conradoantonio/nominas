@@ -6,6 +6,7 @@
             <th>Servicio</th>
             <th>Horario</th>
             <th>Sueldo</th>
+            <th>Sueldo diario por guardia</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -18,6 +19,7 @@
                     <td>{{$servicio->servicio}}</td>
                     <td>{{$servicio->horario}}</td>
                     <td>{{$servicio->sueldo}}</td>
+                    <td>{{$servicio->sueldo_diario_guardia}}</td>
                     <td>
                         <button type="button" class="btn btn-info editar_servicio">Editar</button>
                         <button type="button" class="btn btn-danger eliminar_servicio">Borrar</button>

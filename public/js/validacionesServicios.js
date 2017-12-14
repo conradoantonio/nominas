@@ -4,6 +4,7 @@ var msgError = '';
 var regExprTexto = /^[a-z ñ # , : ; ¿ ? ! ¡ ' " _ @ ( ) áéíóúäëïöüâêîôûàèìòùç\d_\s \-.]{2,}$/i;
 //var regExprNum = /^[\d .]{1,}$/i;
 var regExprNum = /^[\d \s]{1,10}$/i;
+var regExprNumDec = /^\d+(?:\.\d{0,2})$/i;
 var regExprNumNotReq = /^[\d \s]{0,10}$/i;
 var btn_enviar = $("#guardar_servicio");
 btn_enviar.on('click', function() {
@@ -15,6 +16,7 @@ btn_enviar.on('click', function() {
     validarInput($('input#servicio'), regExprTexto) ? '' : inputs.push('Servicio')
     validarInput($('input#horario'), regExprTexto) ? '' : inputs.push('Horario')
     validarInput($('input#sueldo'), regExprNum) ? '' : inputs.push('Sueldo')
+    validarInput($('input#sueldo_diario_guardia'), regExprNumDec) ? '' : inputs.push('Sueldo diario por guardia')
 
     if (inputs.length == 0) {
         $(this).children('i').show();
@@ -40,6 +42,9 @@ $( "input#horario" ).blur(function() {
 });
 $( "input#sueldo" ).blur(function() {
     validarInput($(this), regExprNum);
+});
+$( "input#sueldo_diario_guardia" ).blur(function() {
+    validarInput($(this), regExprNumDec);
 });
 
 function validarInput (campo,regExpr) {

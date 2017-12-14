@@ -89,6 +89,12 @@ input:-webkit-autofill {
                                                             <input type="text" class="form-control" id="sueldo" name="sueldo" maxlength="6" placeholder="Ej. 2600">
                                                         </div>
                                                     </div>
+                                                    <div class="col-sm-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label for="sueldo_diario_guardia">Sueldo diario por guardia</label>
+                                                            <input type="text" class="form-control" id="sueldo_diario_guardia" name="sueldo_diario_guardia" maxlength="6" placeholder="Ej. 250.50">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary" id="guardar_servicio">
                                                     <i class="fa fa-spinner fa-spin" style="display: none;"></i>
@@ -279,6 +285,7 @@ $('body').delegate('button.editar_servicio','click', function() {
     servicio = $(this).parent().siblings("td:nth-child(3)").text(),
     horario = $(this).parent().siblings("td:nth-child(4)").text(),
     sueldo = $(this).parent().siblings("td:nth-child(5)").text();
+    sueldo_diario_guardia = $(this).parent().siblings("td:nth-child(6)").text();
 
     $("#form_servicios").get(0).setAttribute('action', "{{url('empresas/servicios/editar')}}");
     $("#form_servicios input#servicio_id").val(servicio_id);
@@ -286,6 +293,7 @@ $('body').delegate('button.editar_servicio','click', function() {
     $("#form_servicios input#servicio").val(servicio);
     $("#form_servicios input#horario").val(horario);
     $("#form_servicios input#sueldo").val(sueldo);
+    $("#form_servicios input#sueldo_diario_guardia").val(sueldo_diario_guardia);
 
     $('a[href="#tabNuevoServicio"]').text('Editar servicio').tab('show');
 });

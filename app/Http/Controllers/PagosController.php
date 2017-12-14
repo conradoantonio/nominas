@@ -148,9 +148,9 @@ class PagosController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function servicios_empresa()
+	public function servicios_empresa(Request $request)
 	{
-		$servicios = EmpresaServicio::where('empresa_id', $empresa_id)->where('status', 1)->get();
+		$servicios = EmpresaServicio::where('empresa_id', $request->empresa_id)->get();
 		return $servicios;
 	}
 }
