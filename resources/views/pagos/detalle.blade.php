@@ -41,7 +41,7 @@ td.cell.disabled{
         {{session('msg')}}
     </div>
     @endif
-    <h2>Lista de pagos</h2>
+    <h2>Lista de asistencia</h2>
     <div class="row-fluid">
         <div class="span12" id="contenedor-detalles">
             <div class="grid simple ">

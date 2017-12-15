@@ -144,7 +144,7 @@
                     <a href="{{url('dashboard')}}">
                         <i class="icon-custom-home"></i>
                         <span class="title">Inicio</span>
-                        <span class="selected"></span>
+                        <span class="title"></span>
                     </a>
                 </li>
                 <!-- END SELECTED LINK -->
@@ -182,8 +182,8 @@
                 <!-- BEGIN SINGLE LINK -->
                 <li class="{{$menu == 'Pagos' ? 'active' : ''}}">
                     <a href="{{url('nominas')}}">
-                        <i class="fa fa-money" aria-hidden="true"></i>
-                        <span class="title">Pagos</span>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        <span class="title">Asistencias</span>
                     </a>
                 </li>
                 <!-- END SINGLE LINK -->

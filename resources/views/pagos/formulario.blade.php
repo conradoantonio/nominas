@@ -30,7 +30,7 @@ input:-webkit-autofill {
 }
 </style>
 <div class="text-center" style="margin: 20px;">
-    <h2>Alta pago</h2>
+    <h2>Alta lista de asistencia</h2>
     <div class="row-fluid">
         <div class="span12">
             <div class="grid simple ">

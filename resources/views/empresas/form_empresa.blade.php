@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="titulo_form_empresa">Nueva empresa</h4>
             </div>
-            <form id="form_empresa" action="" enctype="multipart/form-data" method="POST" autocomplete="off">
+            <form id="form_empresa" action="" enctype="multipart/form-data" method="POST" onsubmit="return false" autocomplete="off">
                 <input type="hidden" name="_token" id="token" value="{!! csrf_token() !!}" base-url="<?php echo url();?>">
                 <div class="modal-body">
                     <div class="row">

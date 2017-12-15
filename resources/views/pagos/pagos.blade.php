@@ -31,14 +31,14 @@ input:-webkit-autofill {
         {{session('msg')}}
     </div>
     @endif
-    <h2>Lista de pagos</h2>
+    <h2>Lista de asistencias</h2>
     <div class="row-fluid">
         <div class="span12">
             <div class="grid simple ">
                 <div class="grid-title">
                     <h4>Opciones <span class="semi-bold">adicionales</span></h4>
                     <div>
-                        <a href="{{url('altaNomina')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo pago</a>
+                        <a href="{{url('altaNomina')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Nueva lista de asistencia</a>
                     </div>
                     <div class="grid-body">
                         <div class="table-responsive" id="div_tabla_empresas">

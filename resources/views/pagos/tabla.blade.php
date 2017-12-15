@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Nombre</th>
+            <th>Empresa</th>
             <td>Estado</td>
             <th>Acciones</th>
         </tr>

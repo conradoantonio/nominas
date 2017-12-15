@@ -165,7 +165,7 @@ $('body').delegate('button#nuevo_empresa','click', function() {
     $('select.form-control').val(0);
     $('input.form-control').val('');
     $('div#logo_empresa').hide();
-    $("h4#titulo_form_empresa").text('Nuevo empresa');
+    $("h4#titulo_form_empresa").text('Nueva empresa');
     $("form#form_empresa").get(0).setAttribute('action', '{{url('empresas/guardar')}}');
 });
 

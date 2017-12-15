@@ -46,7 +46,6 @@ class PagosController extends Controller
 	{
 		$pago = new Pago();
 		$pago->fill($req->all());
-		$pago->servicio_id = 1;
 		if ( $pago->save() ){
 			foreach ($req->trabajadores as $value) {
 				$usuarioPago = new UsuarioPago();

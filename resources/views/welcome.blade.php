@@ -46,7 +46,7 @@
                 font-weight: bold;
                 color: black!important;
                 font-size: 5em;
-                padding-top: 2em;
+                padding-top: 4em;
                 padding-bottom: 1.2em;
             }
             input.form-control {
