@@ -12,6 +12,7 @@ use App\Empleado;
 use App\Asistencia;
 use App\UsuarioPago;
 use App\EmpresaServicio;
+use DB;
 
 class PagosController extends Controller
 {
@@ -89,6 +90,23 @@ class PagosController extends Controller
 		return view('pagos.detalle', ['pago' => $pago, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
 	}
 
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function paid($id)
+	{
+		$title = "Pagos nominas";
+		$menu = "Pagos";
+		$pago = Pago::findOrFail($id);
+
+		$asistencias = Asistencia::with(['pago.usuarios', 'pago.pago.servicio'])->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))->whereIn('status',['D','X'])->groupBy('usuario_pago_id')->select(DB::raw('usuario_pago_id, COUNT(usuario_pago_id) AS total'))->get();
+		#dd($asistencias);
+		return view('pagos.pagar', ['pago' => $pago,'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
+	}
+
 	public function formulario() {
 		$title = "Pagos nominas";
 		$menu = "Pagos";
@@ -104,9 +122,7 @@ class PagosController extends Controller
 		foreach ($collection as $key => $value) {
 			$aux = 0;
 			$value = collect($value);
-			/*if ( $aux == 0 ){
 
-			}*/
 			Asistencia::where('usuario_pago_id', $value['pago_id'])->delete();
 			$UsuarioPago = UsuarioPago::find($value['pago_id']);
 			$UsuarioPago->notas = $value['notas'];
@@ -122,17 +138,26 @@ class PagosController extends Controller
 				$asistencia->save();
 			}
 
-
-			if ( $UsuarioPago->asistencia->where('status','')->count() > 0 && $UsuarioPago->pago->status != 3 ){
+			/*if ( $UsuarioPago->asistencia->where('status','')->count() > 0 && $UsuarioPago->pago->status != 3 ){
 				$UsuarioPago->pago->status = 1;
 			} else {
 				$UsuarioPago->pago->status = 2;
-			}
+			}*/
 
 			$UsuarioPago->save();
-			$UsuarioPago->pago->save();
+
 			$aux = 1;
 		}
+
+		$asistencia = Asistencia::with('pago')->whereIn('usuario_pago_id', collect($collection[0]->pago_id))->where('status', '')->get();
+		$pago = Pago::whereIn('id',collect($collection[0]->pago_id))->first();
+
+		if ( !$asistencia->isEmpty() ){
+			$pago->status = 1;
+		} else {
+			$pago->status = 2;
+		}
+		$pago->save();
 
 		return [ 'save' => true ];
 	}

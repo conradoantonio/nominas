@@ -133,6 +133,9 @@ td.cell.disabled{
             </div>
             <a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
             <button id="guardar" class="btn btn-primary">Guardar</button>
+			@if($pago->status == 2)
+			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success">Pagar</a>
+			@endif
         </div>
     </div>
 </div>

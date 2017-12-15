@@ -15,7 +15,7 @@ class UsuarioPago extends Model
 	}
 
 	public function usuarios(){
-		return $this->belongsTo('App\Usuario', 'trabajador_id', 'id');
+		return $this->belongsTo('App\Empleado', 'trabajador_id', 'id');
 	}
 
 	public function asistencia(){

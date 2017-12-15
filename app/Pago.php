@@ -20,8 +20,8 @@ class Pago extends Model
 		return $this->belongsTo('App\Empresa');
 	}
 
-	/*public function servicio(){
-		return $this->belongsTo('App\Servicio');
-	}*/
+	public function servicio(){
+		return $this->belongsTo('App\EmpresaServicio');
+	}
 
 }
