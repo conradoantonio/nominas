@@ -38,10 +38,6 @@ input:-webkit-autofill {
                 <div class="grid-title">
                     <h4>Opciones <span class="semi-bold">adicionales</span></h4>
                     <div>
-                        {{-- <button type="button" class="btn btn-info {{count($pagos) ? '' : 'hide'}}" id="exportar_empresas_excel"><i class="fa fa-download" aria-hidden="true"></i> Exportar empresas</button> --}}
-                        <button type="button" class="btn btn-danger {{count($pagos) ? '' : 'hide'}}" id="eliminar_multiples_empresas"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empresas</button>
-
-                        {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importar-excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Importar empresas</button> --}}
                         <a href="{{url('altaNomina')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo pago</a>
                     </div>
                     <div class="grid-body">

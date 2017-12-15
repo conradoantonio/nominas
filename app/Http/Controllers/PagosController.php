@@ -13,6 +13,7 @@ use App\Asistencia;
 use App\UsuarioPago;
 use App\EmpresaServicio;
 use DB;
+use Excel, File;
 
 class PagosController extends Controller
 {
@@ -104,7 +105,10 @@ class PagosController extends Controller
 
 		$asistencias = Asistencia::with(['pago.usuarios', 'pago.pago.servicio'])->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))->whereIn('status',['D','X'])->groupBy('usuario_pago_id')->select(DB::raw('usuario_pago_id, COUNT(usuario_pago_id) AS total'))->get();
 		#dd($asistencias);
-		return view('pagos.pagar', ['pago' => $pago,'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
+
+		$pago_actualizado = DB::table('pagos')->where('id', $id)->update(['status' => 0]);//Se marca el pago como pagado
+
+		return view('pagos.pagar', ['pago' => $pago,'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias, 'pago_id' => $id]);
 	}
 
 	public function formulario() {
@@ -150,8 +154,7 @@ class PagosController extends Controller
 		}
 
 		$asistencia = Asistencia::with('pago')->whereIn('usuario_pago_id', collect($collection[0]->pago_id))->where('status', '')->get();
-		$pago = Pago::whereIn('id',collect($collection[0]->pago_id))->first();
-
+		$pago = Pago::whereIn('id',collect($collection[0]->real_id_pago))->first();
 		if ( !$asistencia->isEmpty() ){
 			$pago->status = 1;
 		} else {
@@ -159,7 +162,7 @@ class PagosController extends Controller
 		}
 		$pago->save();
 
-		return [ 'save' => true ];
+		return [ 'save' => true, 'status' => $pago->status ];
 	}
 
 	/**
@@ -178,4 +181,41 @@ class PagosController extends Controller
 		$servicios = EmpresaServicio::where('empresa_id', $request->empresa_id)->get();
 		return $servicios;
 	}
+
+	/**
+	 * Exporta el excel que contiene la información de pago del guardia
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function exportar_excel_pagos($id)
+    {
+		$pago = Pago::findOrFail($id);
+
+		$asistencias = Asistencia::leftJoin('usuario_pagos', 'usuario_pagos.id', '=', 'asistencias.usuario_pago_id')
+		->leftJoin('empleados', 'empleados.id', '=', 'usuario_pagos.trabajador_id')
+		->leftJoin('pagos', 'pagos.id', '=', 'usuario_pagos.pago_id')
+		->leftJoin('empresa_servicio', 'empresa_servicio.id', '=', 'pagos.servicio_id')
+		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
+		->whereIn('asistencias.status',['D','X'])
+		->groupBy('usuario_pago_id')
+		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe", empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos", COUNT(usuario_pago_id) AS "Días"'))
+		->get();
+
+        Excel::create("Pagos $id", function($excel) use($asistencias) {
+            $excel->sheet('Hoja 1', function($sheet) use($asistencias) {
+                $sheet->cells('A:F', function($cells) {
+                    $cells->setAlignment('center');
+                    $cells->setValignment('center');
+                });
+                
+                $sheet->cells('A1:F1', function($cells) {
+                    $cells->setFontWeight('bold');
+                });
+
+                $sheet->fromArray($asistencias);
+            });
+        })->export('xlsx');
+
+        return ['msg'=>'Excel creado'];
+    }
 }

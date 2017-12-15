@@ -43,7 +43,7 @@ td.cell.disabled{
     @endif
     <h2>Lista de pagos</h2>
     <div class="row-fluid">
-        <div class="span12">
+        <div class="span12" id="contenedor-detalles">
             <div class="grid simple ">
                 <div class="grid-title">
 					<div class="text-left">
@@ -110,7 +110,7 @@ td.cell.disabled{
                             		@foreach( $pago->PagoUsuarios as $trabajador )
                             			<tr>
                             				<td>{{$trabajador->usuarios->id}}</td>
-                            				<td data-user={{$trabajador->usuarios->id}} data-pago={{$trabajador->id}}>{{$trabajador->usuarios->nombre}}</td>
+                            				<td data-user={{$trabajador->usuarios->id}} data-realid={{$pago->id}} data-pago={{$trabajador->id}}>{{$trabajador->usuarios->nombre}}</td>
                             				@if( count($asistencias) == 0 )
 	                            				@foreach( $dias as $day )
 													<td class="cell" data-dia="{{$day['num']}}"></td>
@@ -132,10 +132,8 @@ td.cell.disabled{
                 </div>
             </div>
             <a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
-            <button id="guardar" class="btn btn-primary">Guardar</button>
-			@if($pago->status == 2)
-			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success">Pagar</a>
-			@endif
+            <button id="guardar" class="btn btn-primary {{$pago->status != 0 ? '' : 'hide'}}">Guardar</button>
+			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar">Pagar</a>
         </div>
     </div>
 </div>
@@ -211,6 +209,7 @@ td.cell.disabled{
 				if ( $(this).data('user') ){
 					obj.user_id = $(this).data('user');
 					obj.pago_id = $(this).data('pago');
+					obj.real_id_pago = $(this).data('realid');
 				} else if( $(this).data('notes') ){
 					obj.notas = $(this).find('input').val()
 				}else if( $(this).hasClass('cell') ){
@@ -246,6 +245,12 @@ td.cell.disabled{
 				'collection': json
 			},
 			success: function(response){
+				console.log(response);
+				if(response.status == 2) {
+					$('a#btn-pagar').removeClass('hide');
+				} /*else if (response.status != 0){
+					$('div.contenedor-detalles button#pagar').removeClass('hide');
+				}*/
 				if( response.save ){
 					swal('Éxito', 'Los cambios se han realizado correctamente', 'success')
 				}

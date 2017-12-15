@@ -24,8 +24,8 @@
                     </td>
                     <td>
                         <a href="{{url('detalle-nomina/'.$pago->id)}}" class="btn btn-info editar_pago">Detalle</a>
-                        @if($pago->status == 2)
-                        <a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success">Pagar</a>
+                        @if($pago->status == 2 || $pago->status == 0)
+                        <a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success">{{$pago->status == 2 ? 'Pagar' : 'Ver hoja de pago'}}</a>
                         @endif
                     </td>
                 </tr>

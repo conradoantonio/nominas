@@ -89,6 +89,7 @@ td.cell.disabled{
                 </div>
             </div>
             <a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
+            <a href="{{url('pagar-nomina/exportar-excel')}}/{{$pago_id}}" class="btn btn-success">Exportar a Excel</a>
         </div>
     </div>
 </div>

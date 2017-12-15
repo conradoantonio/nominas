@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.1.21-MariaDB : Database - nominas
+MySQL - 5.5.5-10.1.28-MariaDB : Database - nominas
 *********************************************************************
 */
 
@@ -28,11 +28,9 @@ CREATE TABLE `asistencias` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `asistencias` */
-
-insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (33,1,13,'F','2017-12-14 16:40:33','2017-12-14 16:40:33'),(34,1,14,'F','2017-12-14 16:40:33','2017-12-14 16:40:33'),(35,1,15,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(36,1,16,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(37,1,17,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(38,1,18,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(39,1,19,'','2017-12-14 16:40:33','2017-12-14 16:40:33'),(40,1,20,'','2017-12-14 16:40:33','2017-12-14 16:40:33');
 
 /*Table structure for table `documentacion` */
 
@@ -166,15 +164,13 @@ CREATE TABLE `pagos` (
   `servicio_id` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date DEFAULT NULL,
-  `status` int(1) NOT NULL DEFAULT '0',
+  `status` int(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `pagos` */
-
-insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`status`,`created_at`,`updated_at`) values (1,1,1,'2017-12-13','2017-12-20',1,'2017-12-14 10:43:25',NULL);
 
 /*Table structure for table `users` */
 
@@ -231,11 +227,9 @@ CREATE TABLE `usuario_pagos` (
   `pago_id` int(11) DEFAULT NULL,
   `notas` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `usuario_pagos` */
-
-insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (1,1,1,'holi');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

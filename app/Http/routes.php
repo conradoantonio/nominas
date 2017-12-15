@@ -76,3 +76,4 @@ Route::get('altaNomina', 'PagosController@formulario');
 Route::post('guardarPago', 'PagosController@store');
 Route::post('guardarNominas', 'PagosController@save');
 Route::get('pagar-nomina/{id}', 'PagosController@paid');
+Route::get('pagar-nomina/exportar-excel/{id}', 'PagosController@exportar_excel_pagos');
