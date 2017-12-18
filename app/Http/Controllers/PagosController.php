@@ -182,6 +182,18 @@ class PagosController extends Controller
 	}
 
 	/**
+	 * Obtiene los servicios de una empresa
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function descargar_excel_master(Request $request)
+	{
+		$file = public_path()."/excel/master.xlsm";
+		return response()->download($file, 'master.xlsm');
+	}
+		
+
+	/**
      *===============================================================================================================================================================================
      *=                                                           Empiezan las funciones relacionadas a la vista de pagos                                                           =
      *===============================================================================================================================================================================

@@ -40,6 +40,7 @@ input:-webkit-autofill {
                         <div id="opciones-adicionales">
                             <h4>Opciones <span class="semi-bold">adicionales</span></h4>
                             <div>
+                                <button class="btn btn-default" id="download"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar excel master</button>
                                 <a href="{{url('altaNomina')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Nueva lista de asistencia</a>
                             </div>
                         </div>
@@ -61,4 +62,9 @@ input:-webkit-autofill {
 <script src="{{ asset('plugins/datatables-responsive/js/lodash.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/tabs_accordian.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}"></script>
+<script type="text/javascript">
+    $('body').delegate('#download','click', function() {
+        window.location.href = "{{url('nominas/excel_master')}}";
+    });
+</script>
 @endsection

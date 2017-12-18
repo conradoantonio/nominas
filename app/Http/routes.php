@@ -60,15 +60,8 @@ Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 	Route::post('baja/multiple','EmpleadosController@dar_baja_multiples_empresas');//Cambia el status de un empleado
 });
 
-/*-- Rutas para la subpestaña de información empresa --*/
-Route::get('/configuracion/info_empresa','ConfiguracionController@info_empresa');//Carga la vista para la información de la empresa.
-Route::post('/configuracion/info_empresa/guardar','ConfiguracionController@guardar_info_empresa');//Guarda la información de la empresa.
-Route::post('/configuracion/info_empresa/editar','ConfiguracionController@editar_info_empresa');//Edita la información de la empresa.
-
-/*-- google analytics --*/
-Route::get('/data','estadosController@analytics');//Devuelve los datos de google analytics
-
 /*--- Modulo pagos ---*/
+Route::get('nominas/excel_master', 'PagosController@descargar_excel_master');
 Route::post('pagos/servicios_empresa', 'PagosController@servicios_empresa');
 Route::get('nominas', 'PagosController@index');
 Route::get('historial', 'PagosController@historial');
