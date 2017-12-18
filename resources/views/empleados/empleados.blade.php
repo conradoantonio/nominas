@@ -115,67 +115,6 @@ $('#formulario_empleado').on('hidden.bs.modal', function (e) {
     $("#formulario_empleado input#oferta").prop('checked', false);
 });
 
-/*$('body').delegate('.editar_empleado','click', function() {
-    $('input.form-control').val('');
-
-    //Apartado del empleado (inputs)
-    id = $(this).parent().parent().children('td')[1].innerHTML,
-    nombre = $(this).parent().parent().children('td')[2].innerHTML,
-    apellido = $(this).parent().parent().children('td')[3].innerHTML,
-    num_empleado = $(this).parent().parent().children('td')[4].innerHTML,
-    domicilio = $(this).parent().parent().children('td')[5].innerHTML,
-    ciudad = $(this).parent().parent().children('td')[6].innerHTML,
-    telefono = $(this).parent().parent().children('td')[7].innerHTML,
-    rfc = $(this).parent().parent().children('td')[8].innerHTML,
-    curp = $(this).parent().parent().children('td')[9].innerHTML,
-    nss = $(this).parent().parent().children('td')[10].innerHTML,
-    telefono_emergencia = $(this).parent().parent().children('td')[11].innerHTML,
-    status = $(this).parent().parent().children('td')[12].innerHTML,
-
-    //Apartado de documentación (checkbox)
-    empleado_id = $(this).parent().parent().children('td')[13].innerHTML,
-    comprobante_domicilio = $(this).parent().parent().children('td')[14].innerHTML,
-    identificacion = $(this).parent().parent().children('td')[15].innerHTML,
-    curp = $(this).parent().parent().children('td')[16].innerHTML,
-    rfc = $(this).parent().parent().children('td')[17].innerHTML,
-    hoja_imss = $(this).parent().parent().children('td')[18].innerHTML,
-    carta_no_antecedentes_penales = $(this).parent().parent().children('td')[19].innerHTML,
-    acta_nacimiento = $(this).parent().parent().children('td')[20].innerHTML,
-    comprobante_estudios = $(this).parent().parent().children('td')[21].innerHTML,
-    resultado_psicometrias = $(this).parent().parent().children('td')[22].innerHTML,
-    examen_socieconomico = $(this).parent().parent().children('td')[23].innerHTML,
-    examen_toxicologico = $(this).parent().parent().children('td')[24].innerHTML,
-
-    //Apartado de documentación (checkbox)
-    solicitud_frente_vuelta = $(this).parent().parent().children('td')[25].innerHTML,
-    deposito_uniforme = $(this).parent().parent().children('td')[26].innerHTML,
-    constancia_recepcion_uniforme = $(this).parent().parent().children('td')[26].innerHTML,
-    comprobante_recepcion_reglamento_interno_trabajo = $(this).parent().parent().children('td')[27].innerHTML,
-    autorizacion_pago_tarjeta = $(this).parent().parent().children('td')[28].innerHTML,
-    carta_aceptacion_cambio_lugar = $(this).parent().parent().children('td')[29].innerHTML,
-    finiquito = $(this).parent().parent().children('td')[30].innerHTML,
-    calendario = $(this).parent().parent().children('td')[31].innerHTML,
-    formato_datos_personales = $(this).parent().parent().children('td')[32].innerHTML,
-    solicitud_autorizacion_consulta = $(this).parent().parent().children('td')[33].innerHTML,
-
-    $("h4#titulo_form_empleado").text('Editar empleado');
-    $("form#form_empleado").get(0).setAttribute('action', '{{url('empleados/editar')}}');
-    //Apartado del empleado (inputs)
-    $("#formulario_empleado input#id").val(id);
-    $("#formulario_empleado input#nombre").val(nombre);
-    $("#formulario_empleado input#apellido").val(apellido);
-    $("#formulario_empleado input#num_empleado").val(num_empleado);
-    $("#formulario_empleado textarea#domicilio").val(domicilio);
-    $("#formulario_empleado input#ciudad").val(ciudad);
-    $("#formulario_empleado input#telefono").val(telefono);
-    $("#formulario_empleado input#rfc").val(rfc);
-    $("#formulario_empleado input#curp").val(curp);
-    $("#formulario_empleado input#nss").val(nss);
-    $("#formulario_empleado input#telefono_emergencia").val(telefono_emergencia);
-
-    $('#formulario_empleado').modal();
-});*/
-
 $('body').delegate('#eliminar_multiples_empleados','click', function() {
     var checking = [];
     $("input.checkDelete").each(function() {

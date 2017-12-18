@@ -3,6 +3,7 @@
         <tr>
             <th>ID</th>
             <th>Empresa</th>
+            <th>Intervalo fechas</th>
             <td>Estado</td>
             <th>Acciones</th>
         </tr>
@@ -13,6 +14,8 @@
                 <tr class="" id="{{$pago->id}}">
                     <td>{{$pago->id}}</td>
                     <td>{{$pago->empresa->nombre}}</td>
+                    <td>{{date('d/M/Y', strtotime($pago->fecha_inicio))}} - {{date('d/M/Y', strtotime($pago->fecha_fin))}}</td>
+
                     <td>
                         @if( $pago->status == 1 )
                             Asistencia

@@ -17,4 +17,12 @@ class EmpresaServicio extends Model
     protected $fillable = [
     	'empresa_id', 'servicio', 'horario', 'sueldo', 'sueldo_diario_guardia', 'created_at'
     ];
+
+    /**
+     * Obtiene la empresa asociada al servicio.
+     */
+    public function empresa()
+    {
+        return $this->belongsTo('App\Empresa', 'id', 'empresa_id');
+    }
 }

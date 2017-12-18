@@ -41,7 +41,7 @@ td.cell.disabled{
         {{session('msg')}}
     </div>
     @endif
-    <h2>Lista de pagos</h2>
+    <h2>Resumen de hoja de asistencias</h2>
     <div class="row-fluid">
         <div class="span12">
             <div class="grid simple ">
@@ -69,6 +69,7 @@ td.cell.disabled{
 									<th>Cuenta</th>
 									<th>Intervalo fechas</th>
 									<th>Dias a pagar</th>
+									<th>Empresa</th>
 									<th>Subtotal</th>
 								</thead>
 								<tbody>
@@ -79,6 +80,7 @@ td.cell.disabled{
 										<td>{{$asistencia->pago->usuarios->num_cuenta}}</td>
 										<td>{{date('d/M/Y', strtotime($asistencia->pago->pago->fecha_inicio))}} - {{date('d/M/Y', strtotime($asistencia->pago->pago->fecha_fin))}}</td>
 										<td>{{$asistencia->total}}</td>
+										<td>{{$pago->empresa->nombre}}</td>
 										<td>${{number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2)}}</td>
 									</tr>
 									@endforeach
@@ -89,7 +91,7 @@ td.cell.disabled{
                 </div>
             </div>
             <a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
-            <a href="{{url('pagar-nomina/exportar-excel')}}/{{$pago_id}}" class="btn btn-success">Exportar a Excel</a>
+            <button id="exportar" class="btn btn-success">Exportar a Excel</button>
         </div>
     </div>
 </div>
@@ -100,5 +102,10 @@ td.cell.disabled{
 <script src="{{ asset('plugins/datatables-responsive/js/lodash.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/tabs_accordian.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}"></script>
+<script type="text/javascript">
+	$('body').delegate('#exportar','click', function() {
+		window.location.href = "{{url('pagar-nomina/exportar-excel')}}/{{$pago_id}}";
+	});
+</script>
 
 @endsection

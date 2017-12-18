@@ -18,16 +18,33 @@ use Excel, File;
 class PagosController extends Controller
 {
 	/**
-	 * Display a listing of the resource.
+	 * Muestra la lista de asistencias pendientes por terminar/pagar.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index()
 	{
 		 if (auth()->check()) {
-			$title = "Pagos nominas";
-			$menu = "Pagos";
-			$pagos = Pago::all();
+			$menu = $title = "Lista de asistencia";
+			$pagos = Pago::where('status', '!=', '0')->get();
+
+			$check = 0;
+			return view('pagos.pagos', ['pagos' => $pagos, 'menu' => $menu, 'title' => $title]);
+		} else {
+			return redirect()->to('/');
+		}
+	}
+
+	/**
+	 * Muestra la lista de asistencias pagadas.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function historial()
+	{
+		 if (auth()->check()) {
+			$menu = $title = "Historial";
+			$pagos = Pago::where('status', '0')->get();
 
 			$check = 0;
 			return view('pagos.pagos', ['pagos' => $pagos, 'menu' => $menu, 'title' => $title]);
@@ -54,9 +71,9 @@ class PagosController extends Controller
 				$usuarioPago->save();
 			}
 
-			return redirect()->action('PagosController@index')->with([ 'msg' => 'Pago guardado', 'class' => 'alert-success' ]);
+			return redirect()->action('PagosController@index')->with([ 'msg' => 'Lista de asistencia guardada', 'class' => 'alert-success' ]);
 		} else {
-			return redirect()->action('PagosController@index')->with([ 'msg' => 'Error al guardar pago', 'class' => 'alert-danger' ]);
+			return redirect()->action('PagosController@index')->with([ 'msg' => 'Error al guardar la lista de asistencia, trate de nuevo', 'class' => 'alert-danger' ]);
 		}
 	}
 
@@ -189,25 +206,27 @@ class PagosController extends Controller
 	public function exportar_excel_pagos($id)
     {
 		$pago = Pago::findOrFail($id);
+		$intervalo = date('d-M-Y', strtotime($pago->fecha_inicio)).' al '.date('d-M-Y', strtotime($pago->fecha_fin));
 
 		$asistencias = Asistencia::leftJoin('usuario_pagos', 'usuario_pagos.id', '=', 'asistencias.usuario_pago_id')
 		->leftJoin('empleados', 'empleados.id', '=', 'usuario_pagos.trabajador_id')
 		->leftJoin('pagos', 'pagos.id', '=', 'usuario_pagos.pago_id')
 		->leftJoin('empresa_servicio', 'empresa_servicio.id', '=', 'pagos.servicio_id')
+		->leftJoin('empresas', 'empresas.id', '=', 'empresa_servicio.empresa_id')
 		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
 		->whereIn('asistencias.status',['D','X'])
 		->groupBy('usuario_pago_id')
-		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe", empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos", COUNT(usuario_pago_id) AS "Días"'))
+		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe", empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos", COUNT(usuario_pago_id) AS "Días", empresas.nombre AS "Empresa"'))
 		->get();
 
-        Excel::create("Pagos $id", function($excel) use($asistencias) {
+        Excel::create("Resumen de asistencias del $intervalo", function($excel) use($asistencias) {
             $excel->sheet('Hoja 1', function($sheet) use($asistencias) {
-                $sheet->cells('A:F', function($cells) {
+                $sheet->cells('A:G', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
                 
-                $sheet->cells('A1:F1', function($cells) {
+                $sheet->cells('A1:G1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 

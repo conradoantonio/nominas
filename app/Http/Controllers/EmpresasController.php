@@ -31,8 +31,8 @@ class EmpresasController extends Controller
     public function index(Request $request)
     {
         if (auth()->check()) {
-            $title = "Empresas";
-            $menu = "Empresas";
+            $title = "Clientes";
+            $menu = "Clientes";
             $empresas = Empresa::where('status', 1)->get();
             if ($request->ajax()) {
                 return view('empresas.tabla', ['empresas' => $empresas]);

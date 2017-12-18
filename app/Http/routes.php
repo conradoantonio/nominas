@@ -71,6 +71,7 @@ Route::get('/data','estadosController@analytics');//Devuelve los datos de google
 /*--- Modulo pagos ---*/
 Route::post('pagos/servicios_empresa', 'PagosController@servicios_empresa');
 Route::get('nominas', 'PagosController@index');
+Route::get('historial', 'PagosController@historial');
 Route::get('detalle-nomina/{id}', 'PagosController@show');
 Route::get('altaNomina', 'PagosController@formulario');
 Route::post('guardarPago', 'PagosController@store');

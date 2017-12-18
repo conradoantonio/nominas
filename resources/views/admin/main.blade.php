@@ -150,10 +150,10 @@
                 <!-- END SELECTED LINK -->
 
                 <!-- BEGIN SINGLE LINK -->
-                <li class="{{$menu == 'Empresas' ? 'active' : ''}}">
+                <li class="{{$menu == 'Clientes' ? 'active' : ''}}">
                     <a href="{{url('empresas')}}">
                         <i class="fa fa-building" aria-hidden="true"></i>
-                        <span class="title">Empresas</span>
+                        <span class="title">Clientes</span>
                     </a>
                 </li>
                 <!-- END SINGLE LINK -->
@@ -179,14 +179,25 @@
                     </ul>
                 </li>
                 <!-- END ONE LEVEL MENU -->
+
                 <!-- BEGIN SINGLE LINK -->
-                <li class="{{$menu == 'Pagos' ? 'active' : ''}}">
+                <li class="{{$menu == 'Lista de asistencia' ? 'active' : ''}}">
                     <a href="{{url('nominas')}}">
                         <i class="fa fa-check" aria-hidden="true"></i>
                         <span class="title">Asistencias</span>
                     </a>
                 </li>
                 <!-- END SINGLE LINK -->
+
+                <!-- BEGIN SINGLE LINK -->
+                <li class="{{$menu == 'Historial' ? 'active' : ''}}">
+                    <a href="{{url('historial')}}">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        <span class="title">Historial de asistencias</span>
+                    </a>
+                </li>
+                <!-- END SINGLE LINK -->
+
                 <!-- BEGIN SINGLE LINK -->
                 <li class="loggingOut">
                     <a href="#">

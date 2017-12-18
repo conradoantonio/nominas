@@ -131,8 +131,11 @@ td.cell.disabled{
                     </div>
                 </div>
             </div>
-            <a href="{{url('nominas')}}" class="btn btn-default">Regresar</a>
-            <button id="guardar" class="btn btn-primary {{$pago->status != 0 ? '' : 'hide'}}">Guardar</button>
+            <a href="{{$pago->status != 0 ? url('nominas') : url('historial')}}" class="btn btn-default">Regresar</a>
+            <button id="guardar" class="btn btn-primary {{$pago->status != 0 ? '' : 'hide'}}">
+                <i class="fa fa-spinner fa-spin" style="display: none;"></i>
+            	Guardar
+            </button>
 			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar">Pagar</a>
         </div>
     </div>
@@ -183,6 +186,7 @@ td.cell.disabled{
 	})
 
 	$('#guardar').on('click', function(){
+		var button = $(this);
 		var empty = 0;
 
 		$('table#nomina tbody').find('td.cell').each (function() {
@@ -238,15 +242,20 @@ td.cell.disabled{
 			}
 		});
 
+		button.children('i').show();
+        button.attr('disabled', true);
+
 		$.ajax({
 			url:"{{url('guardarNominas')}}",
 			type:'POST',
 			data: {
 				'collection': json
 			},
-			success: function(response){
+			success: function(response) {
+				button.children('i').hide();
+            	button.attr('disabled', false);
 				console.log(response);
-				if(response.status == 2) {
+				if (response.status == 2) {
 					$('a#btn-pagar').removeClass('hide');
 				} /*else if (response.status != 0){
 					$('div.contenedor-detalles button#pagar').removeClass('hide');
@@ -254,7 +263,16 @@ td.cell.disabled{
 				if( response.save ){
 					swal('Éxito', 'Los cambios se han realizado correctamente', 'success')
 				}
-			}
+			},
+			error: function(xhr, status, error) {
+				button.children('i').hide();
+            	button.attr('disabled', false);
+	            swal({
+	                title: "<small>¡Error!</small>",
+	                text: "Se encontró un problema tratando de guardar las asistencias, por favor, trate nuevamente o recargue la página.<br><span style='color:#F8BB86'>\nError: " + xhr.status + " (" + error + ") "+"</span>",
+	                html: true
+	            });
+	        }
 		});
 	})
 </script>

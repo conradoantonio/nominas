@@ -17,4 +17,12 @@ class Empresa extends Model
     protected $fillable = [
     	'nombre', 'oficina_cargo', 'direccion', 'contacto', 'telefono', 'marcacion_corta', 'status', 'created_at'
     ];
+
+    /**
+     * Obtiene el servicio al que pertenece la empresaGet the user that owns the phone.
+     */
+    public function servicio()
+    {
+        return $this->hasMany('App\EmpresaServicio', 'empresa_id', 'id');
+    }
 }
