@@ -21,7 +21,7 @@ class Empresa extends Model
     /**
      * Obtiene el servicio al que pertenece la empresaGet the user that owns the phone.
      */
-    public function servicio()
+    public function servicios()
     {
         return $this->hasMany('App\EmpresaServicio', 'empresa_id', 'id');
     }
