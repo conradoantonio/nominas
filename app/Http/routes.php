@@ -28,12 +28,14 @@ Route::get('/dashboard','LogController@index');//Carga solo el panel administrat
 Route::post('/grafica', 'LogController@get_userSesions');//Carga los datos de la gráfica
 
 /*-- Rutas para la pestaña de usuariosSistema --*/
-Route::get('/usuarios/sistema','UsersController@index');//Carga la tabla de usuarios del sistema
-Route::post('/usuarios/sistema/validar_usuario', 'UsersController@validar_usuario');//Checa si un usuario del sistema existe
-Route::post('/usuarios/sistema/guardar_usuario', 'UsersController@guardar_usuario');//Guarda un usuario del sistema
-Route::post('/usuarios/sistema/guardar_foto_usuario_sistema', 'UsersController@guardar_foto_usuario_sistema');//Guarda la foto de perfil de un usuario del sistema
-Route::post('/usuarios/sistema/eliminar_usuario', 'UsersController@eliminar_usuario');//Elimina un usuario del sistema
-Route::post('/usuarios/sistema/change_password', 'UsersController@change_password');//Elimina un usuario del sistema
+Route::group(['prefix' => 'usuarios/sistema', 'middleware' => 'auth'], function () {
+	Route::get('/','UsersController@index');//Carga la tabla de usuarios del sistema
+	Route::post('validar_usuario', 'UsersController@validar_usuario');//Checa si un usuario del sistema existe
+	Route::post('guardar_usuario', 'UsersController@guardar_usuario');//Guarda un usuario del sistema
+	Route::post('guardar_foto_usuario_sistema', 'UsersController@guardar_foto_usuario_sistema');//Guarda la foto de perfil de un usuario del sistema
+	Route::post('eliminar_usuario', 'UsersController@eliminar_usuario');//Elimina un usuario del sistema
+	Route::post('change_password', 'UsersController@change_password');//Elimina un usuario del sistema
+});
 
 /*-- Rutas para la pestaña de empresas--*/
 Route::group(['prefix' => 'empresas', 'middleware' => 'auth'], function () {
@@ -71,3 +73,6 @@ Route::post('guardarPago', 'PagosController@store');
 Route::post('guardarNominas', 'PagosController@save');
 Route::get('pagar-nomina/{id}', 'PagosController@paid');
 Route::get('pagar-nomina/exportar-excel/{id}', 'PagosController@exportar_excel_pagos');
+
+#PDF
+Route::get('pdf/{id}', 'PagosController@descargar_pdf_asistencias');

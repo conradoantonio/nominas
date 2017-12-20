@@ -13,6 +13,7 @@ use App\Asistencia;
 use App\UsuarioPago;
 use App\EmpresaServicio;
 use DB;
+use PDF;
 use Excel, File;
 
 class PagosController extends Controller
@@ -42,7 +43,7 @@ class PagosController extends Controller
 	 */
 	public function historial()
 	{
-		 if (auth()->check()) {
+		if (auth()->check()) {
 			$menu = $title = "Historial";
 			$pagos = Pago::where('status', '0')->get();
 
@@ -115,11 +116,17 @@ class PagosController extends Controller
 	 */
 	public function paid($id)
 	{
-		$title = "Pagos nominas";
+		$title = "Pagos nsssssssominas";
 		$menu = "Pagos";
 		$pago = Pago::findOrFail($id);
 
-		$asistencias = Asistencia::with(['pago.usuarios', 'pago.pago.servicio'])->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))->whereIn('status',['D','X'])->groupBy('usuario_pago_id')->select(DB::raw('usuario_pago_id, COUNT(usuario_pago_id) AS total'))->get();
+		$asistencias = Asistencia::with(['pago.usuarios', 'pago.pago.servicio'])
+		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
+		#->whereIn('status',['D','X','V'])
+		->groupBy('usuario_pago_id')
+		->select(DB::raw("usuario_pago_id, COUNT( case status when 'D' then 1 else null end OR case status when 'X' then 1 else null end OR case status when 'V' then 1 else null end ) AS total, 
+			COUNT( case status when 'A' then 1 else null end ) as festivo"))
+		->get();
 		#dd($asistencias);
 
 		$pago_actualizado = DB::table('pagos')->where('id', $id)->update(['status' => 0]);//Se marca el pago como pagado
@@ -226,9 +233,12 @@ class PagosController extends Controller
 		->leftJoin('empresa_servicio', 'empresa_servicio.id', '=', 'pagos.servicio_id')
 		->leftJoin('empresas', 'empresas.id', '=', 'empresa_servicio.empresa_id')
 		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
-		->whereIn('asistencias.status',['D','X'])
+		#->whereIn('asistencias.status',['D','X','V'])
 		->groupBy('usuario_pago_id')
-		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe", empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos", COUNT(usuario_pago_id) AS "Días", empresas.nombre AS "Empresa"'))
+		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe", 
+			empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos", 
+			COUNT( case asistencias.status when "D" then 1 else null end OR case asistencias.status when "X" then 1 else null end OR case asistencias.status when "V" then 1 else null end ) AS "Días",
+			COUNT( case asistencias.status when "A" then 1 else null end ) as "Días festivos", empresas.nombre AS "Empresa"'))
 		->get();
 
         Excel::create("Resumen de asistencias del $intervalo", function($excel) use($asistencias) {
@@ -247,5 +257,35 @@ class PagosController extends Controller
         })->export('xlsx');
 
         return ['msg'=>'Excel creado'];
+    }
+
+    /**
+	 * Exporta la tabla de asistencias a un pdf
+	 *
+	 */
+    public function descargar_pdf_asistencias($id) {
+    	$pago = Pago::with(['empresa', 'servicio'])->findOrFail($id);
+
+		$startTime = strtotime( $pago->fecha_inicio );
+		$endTime = strtotime( $pago->fecha_fin );
+		$days_ago = date('d', strtotime('-3 days'));
+
+		// Loop between timestamps, 24 hours at a time
+		for ( $i = $startTime; $i <= $endTime; $i = $i + 86400 ) {
+			$edit = false;
+			$d = date( 'd', $i );
+			if ( $d >= $days_ago && $d <= date('d') ){
+				$edit = true;
+			}
+			$days[] = ['dia' => date('w', $i), 'num' => $d, 'edit' => $edit];
+		}
+
+		$asistencias = Asistencia::whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))->get();
+		
+		//return view('pagos.detalle', ['pago' => $pago, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
+
+        $pdf = PDF::loadView('pagos.detalle_asistencias_pdf', ['pago' => $pago, 'dias' => $days, 'asistencias' => $asistencias]);
+        return $pdf->stream('archivo.pdf');//Visualiza el archivo sin descargarlo
+        //return $pdf->download('archivo.pdf');//Descarga directamente el archivo
     }
 }

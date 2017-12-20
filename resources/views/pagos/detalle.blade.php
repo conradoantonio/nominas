@@ -42,6 +42,20 @@ td.cell.disabled{
     </div>
     @endif
     <h2>Lista de asistencia</h2>
+    <div class="row">
+    	<div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="alert alert-info alert-dismissible text-left" role="alert">
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+		        <strong>Nomenclaturas: </strong><br>
+		        - A = Día festivo (No se considera para ser pagado pero puede ser añadido el día en el excel master.) <br>
+		        - D = Día de descanso (Se considera para ser pagado) <br>
+		        - F = Falta (No se considera para ser pagado) <br>
+		        - I = Incapacidad (No se considera para ser pagado) <br>
+		        - V = Vacaciones (Se considera para ser pagado) <br>
+		        - X = Asistencia (Se considera para ser pagado) <br>
+		    </div>
+		</div>
+	</div>
     <div class="row-fluid">
         <div class="span12" id="contenedor-detalles">
             <div class="grid simple ">
@@ -161,7 +175,7 @@ td.cell.disabled{
 			var col = $(this).prevAll().length;
 			if (  !$(this).parents('table').find('th').eq(col).hasClass('edit') ){
 				$(this).addClass('disabled')
-				/*if ( $.inArray($(this).text(), ['D', 'F', 'X', '-']) < 0 ){
+				/*if ( $.inArray($(this).text(), ['D', 'F', 'X', 'I', 'A', 'V', '-']) < 0 ){
 					$(this).text('F')
 				}*/
 			}
@@ -179,8 +193,15 @@ td.cell.disabled{
 		})
 
 		$(document).keypress(function(e){
-			if ( e.which == 100 || e.which == 102 || e.which == 120 || e.which == 68 || e.which == 70 || e.which == 88 || e.which == 45 ) {
-				$(document).find('.selected').text(e.key.toUpperCase()).removeClass('edit, selected').addClass('done')
+			if ( 
+				e.which == 97 || e.which == 65 || /*A*/
+				e.which == 68 || e.which == 100 || /*D*/
+				e.which == 102 || e.which == 70 || /*F*/
+				e.which == 105 || e.which == 73 || /*I*/
+				e.which == 118 || e.which == 86 || /*V*/
+				e.which == 88 || e.which == 120 || /*X*/
+				e.which == 45 /*-*/) {
+					$(document).find('.selected').text(e.key.toUpperCase()).removeClass('edit, selected').addClass('done')
 			}
 		});
 	})
@@ -192,7 +213,7 @@ td.cell.disabled{
 		$('table#nomina tbody').find('td.cell').each (function() {
 			var col = $(this).prevAll().length;
 			if ( $(this).parents('table').find('th').eq(col).hasClass('edit') ){
-				if ( $.inArray($(this).text().trim(), ['D', 'F', 'X', '-']) < 0 ){
+				if ( $.inArray($(this).text().trim(), ['D', 'F', 'X', 'I', 'A', 'V', '-']) < 0 ) {
 					empty++;
 				}
 			}
@@ -217,7 +238,7 @@ td.cell.disabled{
 				} else if( $(this).data('notes') ){
 					obj.notas = $(this).find('input').val()
 				}else if( $(this).hasClass('cell') ){
-					if ( $.inArray(ele.text(), ['D', 'F', 'X', '-']) >= 0 ){
+					if ( $.inArray(ele.text(), ['D', 'F', 'X', 'I', 'A', 'V', '-']) >= 0 ){
 						var txt = ele.text();
 					} else {
 						var txt = '';
