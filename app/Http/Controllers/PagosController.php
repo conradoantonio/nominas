@@ -194,8 +194,8 @@ class PagosController extends Controller
 	 */
 	public function descargar_excel_master(Request $request)
 	{
-		$file = public_path()."/excel/master.xlsm";
-		return response()->download($file, 'master.xlsm');
+		$file = public_path()."/excel/master.xlsx";
+		return response()->download($file, 'master.xlsx');
 	}
 		
 

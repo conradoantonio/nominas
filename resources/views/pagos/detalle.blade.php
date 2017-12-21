@@ -53,6 +53,7 @@ td.cell.disabled{
 		        I = Incapacidad (No se considera para ser pagado) <br>
 		        V = Vacaciones (Se considera para ser pagado) <br>
 		        X = Asistencia (Se considera para ser pagado) <br>
+		        - = Sin valor (No se considera en cuenta para ser pagado) <br>
 		    </div>
 		</div>
 	</div>
