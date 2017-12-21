@@ -43,16 +43,16 @@ td.cell.disabled{
     @endif
     <h2>Lista de asistencia</h2>
     <div class="row">
-    	<div class="col-md-6 col-sm-12 col-xs-12">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
             <div class="alert alert-info alert-dismissible text-left" role="alert">
 		        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
 		        <strong>Nomenclaturas: </strong><br>
-		        - A = Día festivo (No se considera para ser pagado pero puede ser añadido el día en el excel master.) <br>
-		        - D = Día de descanso (Se considera para ser pagado) <br>
-		        - F = Falta (No se considera para ser pagado) <br>
-		        - I = Incapacidad (No se considera para ser pagado) <br>
-		        - V = Vacaciones (Se considera para ser pagado) <br>
-		        - X = Asistencia (Se considera para ser pagado) <br>
+		        A = Día festivo (No se considera para ser pagado pero puede ser añadido el día en el excel master.) <br>
+		        D = Día de descanso (Se considera para ser pagado) <br>
+		        F = Falta (No se considera para ser pagado) <br>
+		        I = Incapacidad (No se considera para ser pagado) <br>
+		        V = Vacaciones (Se considera para ser pagado) <br>
+		        X = Asistencia (Se considera para ser pagado) <br>
 		    </div>
 		</div>
 	</div>
@@ -151,6 +151,7 @@ td.cell.disabled{
             	Guardar
             </button>
 			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar">Pagar</a>
+			<a href="{{url('nominas/pdf/'.$pago->id)}}" target="_blank" class="btn btn-info" id="btn-pagar">Descargar PDF</a>
         </div>
     </div>
 </div>

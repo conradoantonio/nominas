@@ -75,4 +75,4 @@ Route::get('pagar-nomina/{id}', 'PagosController@paid');
 Route::get('pagar-nomina/exportar-excel/{id}', 'PagosController@exportar_excel_pagos');
 
 #PDF
-Route::get('pdf/{id}', 'PagosController@descargar_pdf_asistencias');
+Route::get('nominas/pdf/{id}', 'PagosController@descargar_pdf_asistencias');
