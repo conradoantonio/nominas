@@ -116,8 +116,8 @@ class PagosController extends Controller
 	 */
 	public function paid($id)
 	{
-		$title = "Pagos nsssssssominas";
-		$menu = "Pagos";
+		$title = "Resumen de hoja de asistencias";
+		$menu = "Lista de asistencia";
 		$pago = Pago::findOrFail($id);
 
 		$asistencias = Asistencia::with(['pago.usuarios', 'pago.pago.servicio'])
@@ -127,7 +127,6 @@ class PagosController extends Controller
 		->select(DB::raw("usuario_pago_id, COUNT( case status when 'D' then 1 else null end OR case status when 'X' then 1 else null end OR case status when 'V' then 1 else null end ) AS total, 
 			COUNT( case status when 'A' then 1 else null end ) as festivo"))
 		->get();
-		#dd($asistencias);
 
 		$pago_actualizado = DB::table('pagos')->where('id', $id)->update(['status' => 0]);//Se marca el pago como pagado
 
@@ -233,7 +232,6 @@ class PagosController extends Controller
 		->leftJoin('empresa_servicio', 'empresa_servicio.id', '=', 'pagos.servicio_id')
 		->leftJoin('empresas', 'empresas.id', '=', 'empresa_servicio.empresa_id')
 		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
-		#->whereIn('asistencias.status',['D','X','V'])
 		->groupBy('usuario_pago_id')
 		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe", 
 			empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos", 
