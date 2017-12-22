@@ -89,6 +89,7 @@
                     <td class="hide">{{$empleado->documentacion->solicitud_autorizacion_consulta}}</td>
                     <td>
                         <a href="{{url('empleados/formulario')}}/{{$empleado->id}}"><button type="button" class="btn btn-info editar_empleado">Editar</button></a>
+                        <a href="{{url('empleados/detalle')}}/{{$empleado->id}}"><button type="button" class="btn btn-success detalle_empleado">Info</button></a>
                         <button type="button" class="btn btn-danger eliminar_empleado">Borrar</button>
                     </td>
                 </tr>

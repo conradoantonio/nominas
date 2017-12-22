@@ -81,7 +81,7 @@ input:-webkit-autofill {
                         <button type="button" class="btn btn-danger {{count($empleados) ? '' : 'hide'}}" id="eliminar_multiples_empleados"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empleados</button>
                         
                         {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importar-excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Importar empleados</button> --}}
-                        <a href="{{url('empleados/formulario')}}"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empleado" id="nuevo_empleado"><i class="fa fa-plus" aria-hidden="true"></i> Nueva empleado</button></a>
+                        <a href="{{url('empleados/formulario')}}"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empleado" id="nuevo_empleado"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo empleado</button></a>
                     </div>
                     <div class="grid-body">
                         <div class="table-responsive" id="div_tabla_empleados">

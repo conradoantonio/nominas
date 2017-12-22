@@ -10,7 +10,7 @@
     <h2>{{$empleado ? 'Editar' : 'Nuevo'}} Empleado</h2>
     <div class="row-fluid">
         <div class="span12">
-            <div class="grid simple ">
+            <div class="grid simple" style="display: none" id="contenedor_empleados">
                 <div class="grid-title">
                     <div class="grid-body">
                         <h3>Datos generales</h3>
@@ -261,10 +261,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary" id="guardar_empleado">
-                                    <i class="fa fa-spinner fa-spin" style="display: none;"></i>
-                                    Guardar
-                                </button>
+                                @if ($editable)
+                                    <button type="submit" class="btn btn-primary" id="guardar_empleado">
+                                        <i class="fa fa-spinner fa-spin" style="display: none;"></i>
+                                        Guardar
+                                    </button>
+                                @endif
                                 <a href="{{url('empleados')}}"><button type="button" class="btn btn-default" data-dismiss="modal">Regresar</button></a>
                             </form>
                     	</div>
@@ -276,4 +278,15 @@
 </div>
 {{-- <script src="{{ asset('js/empleadosAjax.js') }}"></script> --}}
 <script src="{{ asset('js/validacionesEmpleados.js') }}"></script>
+<script type="text/javascript">
+    setTimeout(function() {
+        var editable = <?php echo $editable;?>;
+        if (editable == 0) {
+            $('form#form_empleado input, form#form_empleado textarea').attr('disabled', true);
+        }
+        //var empleado = '{{$empleado}}';
+        console.log(editable);
+        $('div#contenedor_empleados').fadeIn('low');
+    }, 500)
+</script>
 @endsection

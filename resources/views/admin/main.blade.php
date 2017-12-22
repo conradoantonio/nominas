@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.min.css')}}"  type="text/css"/>
     <link rel="stylesheet" href="{{ asset('css/style.css')}}" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('css/custom.css')}}" type="text/css"/>
     <link rel="stylesheet" href="{{ asset('css/responsive.css')}}" type="text/css"/>
     <link rel="stylesheet" href="{{ asset('css/custom-icon-set.css')}}" type="text/css"/>
     {{-- <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}" type="text/css"/> --}}
@@ -168,7 +169,14 @@
                 <!-- END SINGLE LINK -->
 
                 <!-- BEGIN ONE LEVEL MENU -->
-                <li class="{{$menu == 'Usuarios' ? 'open start' : ''}}">
+                <li class="{{$menu == 'Usuarios' ? 'active' : ''}}">
+                    <a href="{{url('usuarios/sistema')}}">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <span class="title">Usuarios (sistema)</span>
+                    </a>
+                </li>
+
+                {{-- <li class="{{$menu == 'Usuarios' ? 'open start' : ''}}">
                     <a href="javascript:;">
                         <i class="fa fa-users" aria-hidden="true"></i>
                         <span class="title">Usuarios</span>
@@ -177,7 +185,7 @@
                     <ul class="sub-menu" style="{{$menu == 'Usuarios' ? 'display: block;' : ''}}">
                         <li class="{{$title == 'Usuarios Sistema' ? 'active' : ''}}"><a href="{{url('usuarios/sistema')}}">Usuarios (sistema)</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- END ONE LEVEL MENU -->
 
                 <!-- BEGIN SINGLE LINK -->

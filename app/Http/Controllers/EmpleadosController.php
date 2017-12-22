@@ -38,12 +38,34 @@ class EmpleadosController extends Controller
         $title = "Formulario de empleados";
         $menu = "Empleados";
         $empleado = null;
+        $editable = 1;
         if ($id) {
             $empleado = Empleado::find($id);
             $empleado->documentacion = $empleado->documentacion;
         }
 
-        return view('empleados.formulario', ['empleado' => $empleado, 'menu' => $menu, 'title' => $title]);
+        return view('empleados.formulario', ['empleado' => $empleado, 'editable' => $editable, 'menu' => $menu, 'title' => $title]);
+    }
+
+    /**
+     * Carga el formulario de empleados sólo para ver detalles.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function detalle_empleado($id)
+    {
+        $title = "Detalle de empleado";
+        $menu = "Empleados";
+        $empleado = null;
+        $editable = 0;
+        if ($id) {
+            $empleado = Empleado::find($id);
+            $empleado->documentacion = $empleado->documentacion;
+        } else {
+            return view('empleados.formulario', ['empleado' => $empleado, 'editable' => 1, 'menu' => $menu, 'title' => $title]);//Se regresa la vista para dar de alta un formulario
+        }
+
+        return view('empleados.formulario', ['empleado' => $empleado, 'editable' => $editable, 'menu' => $menu, 'title' => $title]);
     }
 
     /**

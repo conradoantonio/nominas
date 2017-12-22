@@ -56,6 +56,8 @@ Route::group(['prefix' => 'empresas', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 	Route::get('/','EmpleadosController@index');//Carga la tabla de empleados
 	Route::get('formulario/{id?}','EmpleadosController@cargar_formulario');//Carga el formulario para editar un sólo empleado
+	Route::get('detalle/{id?}','EmpleadosController@detalle_empleado');//Carga el formulario de empleados sólo para ver detalles
+
 	Route::post('guardar','EmpleadosController@guardar');//Guarda los datos de una empleado
 	Route::post('actualizar','EmpleadosController@actualizar');//Actualiza los datos de una empleado
 	Route::post('baja','EmpleadosController@dar_baja');//Cambia el status de una empleado
