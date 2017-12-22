@@ -43,6 +43,13 @@ input:-webkit-autofill {
                                     <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Usuario">
                                 </div>
                             </div>
+                            <div class="form-group col-md-12">
+                                <label for="tipo_id">Tipo de usuario</label>
+                                <select name="tipo_id" id="tipo_id" class="form-control">
+                                    <option value="0">Seleccionar tipo de usuario</option>
+                                    <option value="1">Administrador</option>
+                                </select>
+                            </div>
                             <div class="col-sm-12 col-xs-12">
                                 <div class="form-group">
                                     <label for="password">Contraseña</label>
@@ -125,6 +132,7 @@ $('#formulario-usuario-sistema').on('hidden.bs.modal', function (e) {
     $('#formulario-usuario-sistema div.form-group').removeClass('has-error');
     $('input#foto_usuario').val('');
     $('input.form-control').val('');
+    $('select.form-control').val(0);
     $('#formulario-usuario-sistema div#usuario_caracteristicas').show();
 });
 
@@ -142,6 +150,7 @@ $('body').delegate('.editar-usuario','click', function() {
     user = $(this).parent().siblings("td:nth-child(2)").text(),
     email = $(this).parent().siblings("td:nth-child(3)").text(),
     imagen = $(this).parent().siblings("td:nth-child(4)").text(),
+    tipo_id = $(this).parent().siblings("td:nth-child(5)").text(),
 
     $("h4#titulo-form-usuario-sistema").text('Editar usuario');
     $("div#input_foto_usuario").show();
@@ -149,6 +158,7 @@ $('body').delegate('.editar-usuario','click', function() {
     $("#formulario-usuario-sistema input#user_name").val(user);
     $("#formulario-usuario-sistema input#user_name_old").val(user);
     $("#formulario-usuario-sistema input#email").val(email);
+    $('#formulario-usuario-sistema select#tipo_id').val(tipo_id);
 
     $('#formulario-usuario-sistema div#usuario_caracteristicas').hide();
 

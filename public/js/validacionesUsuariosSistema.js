@@ -15,6 +15,7 @@ btn_enviar_usuario_sistema.on('click', function() {
     validarInput($('input#password'), regExprUser) == false ? inputs.push('Contraseña') : ''
     validarInput($('input#email'), regExprEmail) == false ? inputs.push('Email') : ''
     validarArchivo($('input#foto_usuario')) == false ? inputs.push('Imagen Festividad') : ''
+    validarSelect($('select#tipo_id')) == false ? inputs.push('Tipo de usuario') : ''
 
     if (inputs.length == 0) {
         $(this).children('i').show();
@@ -35,6 +36,9 @@ $( "input#password" ).blur(function() {
 $( "input#email" ).blur(function() {
     validarInput($(this), regExprEmail);
 });
+$( "select#tipo_id" ).change(function() {
+    validarSelect($(this));
+});
 
 
 function validarInput (campo,regExpr) {
@@ -46,6 +50,17 @@ function validarInput (campo,regExpr) {
         return false;
     } else {
         $(campo).parent().removeClass("has-error");
+        return true;
+    }
+}
+
+function validarSelect (select) {
+    if ($(select).val() == '0' || $(select).val() == '' || $(select).val() == null) {
+        $(select).parent().addClass("has-error");
+        msgError = msgError + $(select).parent().children('label').text() + '\n';
+        return false;
+    } else {
+        $(select).parent().removeClass("has-error");
         return true;
     }
 }

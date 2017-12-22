@@ -109,6 +109,7 @@ class UsersController extends Controller
                 $usuarioSistema->user != '' ? $usuarioSistema->user = $request->user_name : '';
                 $request->password != '' ? $usuarioSistema->password = bcrypt($request->password) : '';
                 $usuarioSistema->email != '' ? $usuarioSistema->email = $request->email : '';
+                $usuarioSistema->type != '' ? $usuarioSistema->type = $request->tipo_id : '';
                 $name != 'img/user_perfil/default.jpg' ? $usuarioSistema->foto_usuario = $name : '';
             } else {//Es un insert
                 $usuarioSistema = new User;
@@ -116,6 +117,7 @@ class UsersController extends Controller
                 $usuarioSistema->password = bcrypt($request->password);
                 $usuarioSistema->foto_usuario = $name;
                 $usuarioSistema->email = $request->email;
+                $usuarioSistema->type != '' ? $usuarioSistema->type = $request->tipo_id : '';
             }
 
             $usuarioSistema->save();

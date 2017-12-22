@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.1.28-MariaDB : Database - nominas
+MySQL - 5.5.5-10.1.21-MariaDB : Database - nominas
 *********************************************************************
 */
 
@@ -28,9 +28,11 @@ CREATE TABLE `asistencias` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=latin1;
 
 /*Data for the table `asistencias` */
+
+insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (1,1,15,'X','2017-12-18 18:18:55','2017-12-18 18:18:55'),(2,1,16,'D','2017-12-18 18:18:55','2017-12-18 18:18:55'),(3,1,17,'X','2017-12-18 18:18:55','2017-12-18 18:18:55'),(4,1,18,'X','2017-12-18 18:18:55','2017-12-18 18:18:55'),(5,2,15,'D','2017-12-18 18:18:55','2017-12-18 18:18:55'),(6,2,16,'X','2017-12-18 18:18:55','2017-12-18 18:18:55'),(7,2,17,'F','2017-12-18 18:18:55','2017-12-18 18:18:55'),(8,2,18,'X','2017-12-18 18:18:55','2017-12-18 18:18:55'),(177,5,17,'X','2017-12-20 23:44:35','2017-12-20 23:44:35'),(178,5,18,'X','2017-12-20 23:44:35','2017-12-20 23:44:35'),(179,5,19,'X','2017-12-20 23:44:35','2017-12-20 23:44:35'),(180,5,20,'I','2017-12-20 23:44:35','2017-12-20 23:44:35'),(181,6,17,'V','2017-12-20 23:44:35','2017-12-20 23:44:35'),(182,6,18,'A','2017-12-20 23:44:35','2017-12-20 23:44:35'),(183,6,19,'D','2017-12-20 23:44:35','2017-12-20 23:44:35'),(184,6,20,'X','2017-12-20 23:44:35','2017-12-20 23:44:35'),(217,3,15,'','2017-12-22 00:08:43','2017-12-22 00:08:43'),(218,3,16,'X','2017-12-22 00:08:43','2017-12-22 00:08:43'),(219,3,17,'V','2017-12-22 00:08:43','2017-12-22 00:08:43'),(220,3,18,'V','2017-12-22 00:08:43','2017-12-22 00:08:43'),(221,3,19,'V','2017-12-22 00:08:43','2017-12-22 00:08:43'),(222,3,20,'V','2017-12-22 00:08:43','2017-12-22 00:08:43'),(223,3,21,'X','2017-12-22 00:08:43','2017-12-22 00:08:43'),(224,3,22,'X','2017-12-22 00:08:43','2017-12-22 00:08:43'),(225,3,23,'','2017-12-22 00:08:43','2017-12-22 00:08:43'),(226,3,24,'','2017-12-22 00:08:44','2017-12-22 00:08:44'),(227,3,25,'','2017-12-22 00:08:44','2017-12-22 00:08:44'),(228,3,26,'','2017-12-22 00:08:44','2017-12-22 00:08:44'),(229,3,27,'','2017-12-22 00:08:44','2017-12-22 00:08:44'),(230,3,28,'','2017-12-22 00:08:44','2017-12-22 00:08:44'),(231,3,29,'','2017-12-22 00:08:44','2017-12-22 00:08:44'),(232,3,30,'','2017-12-22 00:08:44','2017-12-22 00:08:44'),(233,4,15,'','2017-12-22 00:08:44','2017-12-22 00:08:44'),(234,4,16,'X','2017-12-22 00:08:44','2017-12-22 00:08:44'),(235,4,17,'V','2017-12-22 00:08:44','2017-12-22 00:08:44'),(236,4,18,'V','2017-12-22 00:08:44','2017-12-22 00:08:44'),(237,4,19,'V','2017-12-22 00:08:44','2017-12-22 00:08:44'),(238,4,20,'V','2017-12-22 00:08:44','2017-12-22 00:08:44'),(239,4,21,'X','2017-12-22 00:08:44','2017-12-22 00:08:44'),(240,4,22,'X','2017-12-22 00:08:44','2017-12-22 00:08:44'),(241,4,23,'','2017-12-22 00:08:45','2017-12-22 00:08:45'),(242,4,24,'','2017-12-22 00:08:45','2017-12-22 00:08:45'),(243,4,25,'','2017-12-22 00:08:45','2017-12-22 00:08:45'),(244,4,26,'','2017-12-22 00:08:45','2017-12-22 00:08:45'),(245,4,27,'','2017-12-22 00:08:45','2017-12-22 00:08:45'),(246,4,28,'','2017-12-22 00:08:45','2017-12-22 00:08:45'),(247,4,29,'','2017-12-22 00:08:45','2017-12-22 00:08:45'),(248,4,30,'','2017-12-22 00:08:45','2017-12-22 00:08:45');
 
 /*Table structure for table `documentacion` */
 
@@ -110,11 +112,11 @@ CREATE TABLE `empresa_servicio` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `empresa_servicio` */
 
-insert  into `empresa_servicio`(`id`,`empresa_id`,`servicio`,`horario`,`sueldo`,`sueldo_diario_guardia`,`created_at`,`updated_at`) values (1,1,'01 de 24x24 hrs','1 servicio de lunes a viernes de 7:00 a 7:00','2600','300.50','2017-12-14 11:35:13','2017-12-13 17:22:52');
+insert  into `empresa_servicio`(`id`,`empresa_id`,`servicio`,`horario`,`sueldo`,`sueldo_diario_guardia`,`created_at`,`updated_at`) values (1,1,'01 de 24x24 hrs','1 servicio de lunes a viernes de 7:00 a 7:00','2600','300.50','2017-12-14 11:35:13','2017-12-13 17:22:52'),(2,1,'01 de 24x24 hrs','2 servicios de sábado a domingo de 8:00AM a 9:00PM','3000','250.50','2017-12-18 18:27:39','2017-12-13 17:22:52');
 
 /*Table structure for table `empresas` */
 
@@ -136,7 +138,7 @@ CREATE TABLE `empresas` (
 
 /*Data for the table `empresas` */
 
-insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116',1,'2017-12-13 11:38:38','2017-12-13 11:38:38');
+insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116',1,'2017-12-19 12:46:08','2017-12-19 12:46:08');
 
 /*Table structure for table `estado` */
 
@@ -168,9 +170,11 @@ CREATE TABLE `pagos` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pagos` */
+
+insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`status`,`created_at`,`updated_at`) values (1,1,1,'2017-12-15','2017-12-18',0,'2017-12-18 12:19:09',NULL),(2,1,1,'2017-12-15','2017-12-30',1,'2017-12-18 12:58:57',NULL),(3,1,1,'2017-12-17','2017-12-20',0,'2017-12-20 17:44:38',NULL);
 
 /*Table structure for table `users` */
 
@@ -183,15 +187,16 @@ CREATE TABLE `users` (
   `email` varchar(100) DEFAULT NULL,
   `foto_usuario` varchar(255) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
+  `type` tinyint(4) DEFAULT '1',
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','zNJHa1o6nOLfOnmtC8RdxGFpOEWYEihR2simXAsp7NFd8tYg7gXYNQ0UeP0x',1,'2017-03-23 11:30:45','2017-12-14 13:27:34');
+insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`type`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','zNJHa1o6nOLfOnmtC8RdxGFpOEWYEihR2simXAsp7NFd8tYg7gXYNQ0UeP0x',1,1,'2017-03-23 11:30:45','2017-12-14 13:27:34'),(2,'admin','$2y$10$Cfy3BWdTppBTvwAoOI82s.9aJJWixXA3W2hevgn8zxjQgEF8.KMsy','admin@topali.com','img/user_perfil/default.jpg',NULL,1,1,'2017-12-21 18:28:40','2017-12-21 18:28:40');
 
 /*Table structure for table `usuario` */
 
@@ -227,9 +232,11 @@ CREATE TABLE `usuario_pagos` (
   `pago_id` int(11) DEFAULT NULL,
   `notas` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `usuario_pagos` */
+
+insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (1,1,1,'Asistió todos los días'),(2,2,1,'Faltó el domingo'),(3,1,2,''),(4,2,2,''),(5,1,3,''),(6,2,3,'');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
