@@ -134,8 +134,8 @@ class PagosController extends Controller
 	}
 
 	public function formulario() {
-		$title = "Pagos nominas";
-		$menu = "Pagos";
+		$menu = "Lista de asistencia";
+		$title = "Formulario de asistencia";
 		$empresas = Empresa::where('status',1)->get();
 		$trabajadores = Empleado::where('status',1)->get();
 

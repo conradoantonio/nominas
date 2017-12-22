@@ -7,7 +7,11 @@
     }
 </style>
 <div class="text-center" style="margin: 20px;">
-    <h2>{{$empleado ? 'Editar' : 'Nuevo'}} Empleado</h2>
+    @if ($editable == 1)
+        <h2>{{$empleado ? 'Editar' : 'Nuevo'}} Empleado</h2>
+    @else
+        <h2>Información de empleado</h2>
+    @endif
     <div class="row-fluid">
         <div class="span12">
             <div class="grid simple" style="display: none" id="contenedor_empleados">
