@@ -181,7 +181,7 @@ class EmpresasController extends Controller
      */
     public function servicios_empresa($empresa_id)
     {
-        $servicios = EmpresaServicio::where('empresa_id', $empresa_id)->get();
+        $servicios = EmpresaServicio::where('empresa_id', $empresa_id)->where('status', 1)->get();
         return view('empresas.tabla_servicio', ['servicios' => $servicios]);
     }
 
@@ -240,7 +240,8 @@ class EmpresasController extends Controller
     {
         $servicio = EmpresaServicio::find($request->servicio_id);
         if ($servicio) {
-            $servicio->delete();
+            $servicio->status = 0;
+            $servicio->save();
             return $this->servicios_empresa($request->empresa_id);
         } else {
             return response(["msg" => 'Record not found'], 404);

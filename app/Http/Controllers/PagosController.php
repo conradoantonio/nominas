@@ -86,8 +86,8 @@ class PagosController extends Controller
 	 */
 	public function show($id)
 	{
-		$title = "Pagos nominas";
-		$menu = "Pagos";
+		$title = "Lista de asistencia";
+		$menu = "Lista de asistencia";
 		$pago = Pago::with(['empresa', 'servicio'])->findOrFail($id);
 
 		$startTime = strtotime( $pago->fecha_inicio );

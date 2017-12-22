@@ -48,6 +48,8 @@ input:-webkit-autofill {
                                 <select name="tipo_id" id="tipo_id" class="form-control">
                                     <option value="0">Seleccionar tipo de usuario</option>
                                     <option value="1">Administrador</option>
+                                    <option value="2">Nóminas</option>
+                                    <option value="3">Supervisor</option>
                                 </select>
                             </div>
                             <div class="col-sm-12 col-xs-12">

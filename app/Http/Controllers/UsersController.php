@@ -27,18 +27,14 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        if (auth()->check()) {
-            $title = "Usuarios Sistema";
-            $menu = "Usuarios";
-            $usuarios = User::where('user', '!=', auth()->user()->user)->get();
+        $title = "Usuarios Sistema";
+        $menu = "Usuarios";
+        $usuarios = User::where('user', '!=', auth()->user()->user)->get();
 
-            if ($request->ajax()) {
-                return view('usuarios.usuariosSistema.table', ['usuarios' => $usuarios]);
-            }
-            return view('usuarios.usuariosSistema.usuariosSistema', ['usuarios' => $usuarios, 'menu' => $menu, 'title' => $title]);
-        } else {
-            return redirect()->to('/');
+        if ($request->ajax()) {
+            return view('usuarios.usuariosSistema.table', ['usuarios' => $usuarios]);
         }
+        return view('usuarios.usuariosSistema.usuariosSistema', ['usuarios' => $usuarios, 'menu' => $menu, 'title' => $title]);
     }
 
     /**
@@ -103,13 +99,12 @@ class UsersController extends Controller
         if ($validado) {
             return ['msg' => 'Email unavailable'];
         } else {
-
             if ($request->id != '') {//Es un edit
                 $usuarioSistema = User::find($request->id);
-                $usuarioSistema->user != '' ? $usuarioSistema->user = $request->user_name : '';
+                $usuarioSistema->user = $request->user_name;
                 $request->password != '' ? $usuarioSistema->password = bcrypt($request->password) : '';
-                $usuarioSistema->email != '' ? $usuarioSistema->email = $request->email : '';
-                $usuarioSistema->type != '' ? $usuarioSistema->type = $request->tipo_id : '';
+                $usuarioSistema->email = $request->email;
+                $usuarioSistema->type = $request->tipo_id;
                 $name != 'img/user_perfil/default.jpg' ? $usuarioSistema->foto_usuario = $name : '';
             } else {//Es un insert
                 $usuarioSistema = new User;
@@ -117,7 +112,7 @@ class UsersController extends Controller
                 $usuarioSistema->password = bcrypt($request->password);
                 $usuarioSistema->foto_usuario = $name;
                 $usuarioSistema->email = $request->email;
-                $usuarioSistema->type != '' ? $usuarioSistema->type = $request->tipo_id : '';
+                $usuarioSistema->type = $request->tipo_id;
             }
 
             $usuarioSistema->save();

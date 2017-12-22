@@ -28,7 +28,7 @@ Route::get('/dashboard','LogController@index');//Carga solo el panel administrat
 Route::post('/grafica', 'LogController@get_userSesions');//Carga los datos de la gráfica
 
 /*-- Rutas para la pestaña de usuariosSistema --*/
-Route::group(['prefix' => 'usuarios/sistema', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'usuarios/sistema', 'middleware' => 'admin'], function () {
 	Route::get('/','UsersController@index');//Carga la tabla de usuarios del sistema
 	Route::post('validar_usuario', 'UsersController@validar_usuario');//Checa si un usuario del sistema existe
 	Route::post('guardar_usuario', 'UsersController@guardar_usuario');//Guarda un usuario del sistema
@@ -38,7 +38,7 @@ Route::group(['prefix' => 'usuarios/sistema', 'middleware' => 'auth'], function 
 });
 
 /*-- Rutas para la pestaña de empresas--*/
-Route::group(['prefix' => 'empresas', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'empresas', 'middleware' => 'supervisor'], function () {
 	Route::get('/','EmpresasController@index');//Carga la tabla de empresas
 	Route::post('guardar','EmpresasController@guardar');//Guarda los datos de una empresa
 	Route::post('editar','EmpresasController@editar');//Edita los datos de una empresa

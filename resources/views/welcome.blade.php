@@ -45,9 +45,9 @@
             h1.login-header {
                 font-weight: bold;
                 color: black!important;
-                font-size: 5em;
-                padding-top: 4em;
-                padding-bottom: 1.2em;
+                font-size: 4.5em;
+                padding-top: 0.5em;
+                padding-bottom: 20px;
             }
             input.form-control {
                 background-color: transparent;
@@ -81,6 +81,12 @@
                 margin-top: 2%;
                 margin-bottom: 3%;
             }
+            #form-container{
+                opacity: .8;
+                background-color: white;
+                padding: 10px;
+                margin: -20px;
+            }
         </style>
     </head>
     <body class="body-login">
@@ -88,17 +94,20 @@
             <div class="col-lg-12 text-center">
                 <div class="col-xs-12 col-sm-8 col-sm-push-2 col-sm-pull-2 col col-md-6 col-md-push-3 col-md-pull-3">
                     <div class="p-t-20 p-l-15 p-r-15 p-b-30">
-                        <h1 class="login-header">BIENVENIDO</h1>
-                        <form class="m-t-30 m-l-15 m-r-15" method="POST" action="login" autocomplete="off">
-                            {!! csrf_field() !!}
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="user" name="user" placeholder="Usuario">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
-                            </div>
-                            <button class="m-t-10" type="submit"><i class="icon-cloud-download"></i>INGRESAR</button>
-                        </form>
+                        <img style="width: 20%;" src="{{asset('img/logo_topali.png')}}">
+                        <div id="form-container">
+                            <h1 class="login-header">BIENVENIDO</h1>
+                            <form class="m-t-30 m-l-15 m-r-15" method="POST" action="login" autocomplete="off">
+                                {!! csrf_field() !!}
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="user" name="user" placeholder="Usuario">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                                </div>
+                                <button class="m-t-10" type="submit"><i class="icon-cloud-download"></i>INGRESAR</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

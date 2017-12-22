@@ -80,7 +80,7 @@
                         <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom" data-content="">
                             <div class="user-details">
                                 <div class="username">
-                                    <span class="badge badge-important"></span><span>{{auth()->user()->user}}</span>
+                                    <span class="badge badge-important"></span><span>Privilegios: {{(auth()->user()->type == 1 ? 'Administrador' : (auth()->user()->type == 2 ? 'Nómina' : (auth()->user()->type == 3 ? 'Supervisor' : 'Desconocido')))}}</span>
                                 </div>
                             </div>
                             <div class="iconset"></div>
@@ -150,14 +150,16 @@
                 </li>
                 <!-- END SELECTED LINK -->
 
-                <!-- BEGIN SINGLE LINK -->
-                <li class="{{$menu == 'Clientes' ? 'active' : ''}}">
-                    <a href="{{url('empresas')}}">
-                        <i class="fa fa-building" aria-hidden="true"></i>
-                        <span class="title">Clientes</span>
-                    </a>
-                </li>
-                <!-- END SINGLE LINK -->
+                @if(auth()->user()->type != 3)
+                    <!-- BEGIN SINGLE LINK -->
+                    <li class="{{$menu == 'Clientes' ? 'active' : ''}}">
+                        <a href="{{url('empresas')}}">
+                            <i class="fa fa-building" aria-hidden="true"></i>
+                            <span class="title">Clientes</span>
+                        </a>
+                    </li>
+                    <!-- END SINGLE LINK -->
+                @endif
 
                 <!-- BEGIN SINGLE LINK -->
                 <li class="{{$menu == 'Empleados' ? 'active' : ''}}">
@@ -168,14 +170,16 @@
                 </li>
                 <!-- END SINGLE LINK -->
 
-                <!-- BEGIN ONE LEVEL MENU -->
-                <li class="{{$menu == 'Usuarios' ? 'active' : ''}}">
-                    <a href="{{url('usuarios/sistema')}}">
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        <span class="title">Usuarios (sistema)</span>
-                    </a>
-                </li>
-
+                @if(auth()->user()->type == 1)
+                    <!-- BEGIN ONE LEVEL MENU -->
+                    <li class="{{$menu == 'Usuarios' ? 'active' : ''}}">
+                        <a href="{{url('usuarios/sistema')}}">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <span class="title">Usuarios (sistema)</span>
+                        </a>
+                    </li>
+                    <!-- END ONE LEVEL MENU -->
+                @endif
                 {{-- <li class="{{$menu == 'Usuarios' ? 'open start' : ''}}">
                     <a href="javascript:;">
                         <i class="fa fa-users" aria-hidden="true"></i>
@@ -186,7 +190,6 @@
                         <li class="{{$title == 'Usuarios Sistema' ? 'active' : ''}}"><a href="{{url('usuarios/sistema')}}">Usuarios (sistema)</a></li>
                     </ul>
                 </li> --}}
-                <!-- END ONE LEVEL MENU -->
 
                 <!-- BEGIN SINGLE LINK -->
                 <li class="{{$menu == 'Lista de asistencia' ? 'active' : ''}}">

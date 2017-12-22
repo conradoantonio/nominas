@@ -15,29 +15,23 @@
 </head>
 
 <body>
-
-	  <div class="row">
+	 <div class="row">
 		<div class="">
-			<h2>CERO RIESGOS S.A DE C.V</h2>
-			<h3>PLAZA: GUADALAJARA, JAL.</h3>
-			<h6>Dirección: CALLE 8 No. 2162 COL ZONA INDUSTRIAL, GUADALAJARA, JALISCO</h6>
-			<h6>Contacto: LIC. MARIA DE JESUS CORDOBA (ENCARGADA)</h6>
-			<h6>Teléfono: 3811-1116 Ext. 221</h6>
-			<h6>Marcación corta: <strong>712</strong></h6>
-			<span style="font-weight: bold; background-color: GRAY;">SERVICIO:</span><span> 01 SERVICIO DE 24X24 HRS</span>
-			<br>
-			<span style="font-weight: bold; background-color: GRAY;">Elementos:</span><span> 2</span>
-			<br>
-			<span style="font-weight: bold; background-color: GRAY;">Horario:</span><span> 1 SERVICIO DE LUNES A DOMINGO DE 07:00 A 07:00</span>
-			<br>
-			<span style="font-weight: bold; background-color: GRAY;">Sueldo:</span><span> $2,600 QUINCENAL</span>
-			<br>
-			<br>
+
+			<h3><strong>{{$pago->empresa->nombre}}</strong></h3>
+			<h4><strong>{{$pago->empresa->oficina_cargo}}</strong></h4>
+			<h6>Dirección: {{$pago->empresa->direccion}}</h6>
+			<h6>Contacto: {{$pago->empresa->contacto}}</h6>
+			<h6>Teléfono: {{$pago->empresa->telefono}}</h6>
+			<h6>Marcación corta: <strong>{{$pago->empresa->marcacion_corta}}</strong></h6>
+			<h6>Servicio: {{$pago->servicio->servicio}}</h6>
+			<h6>Horario: {{$pago->servicio->horario}}</h6>
+			<h6>Sueldo: <strong>${{$pago->servicio->sueldo}}</strong></h6>
 		</div>
 		<div class="" style="float: right;">
-			<img src="http://nominas.bsmx.tech/img/logo_topali.png" alt="company-logo">
+			<img src="{{asset('img/logo_topali.png')}}" alt="company-logo">
 		</div>
-		</div>
+	</div>
 	<br>
 	<table id="" class="table">
 		<thead class="thead-light">

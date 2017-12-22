@@ -4,6 +4,7 @@
         <th>User</th>
         <th>Email</th>
         <th class="hide">Foto usuario</th>
+        <th class="hide">Tipo num</th>
         <th class="">Tipo</th>
         <th>Fecha registro</th>
         <th>Acciones</th>
@@ -16,7 +17,8 @@
                     <td>{{$usuario->user}}</td>
                     <td>{{$usuario->email}}</td>
                     <td class="hide">{{$usuario->foto_usuario}}</td>
-                    <td class="">{{$usuario->type}}</td>
+                    <td class="hide">{{$usuario->type}}</td>
+                    <td class="">{{($usuario->type == 1 ? 'Administrador' : ($usuario->type == 2 ? 'Nómina' : ($usuario->type == 3 ? 'Supervisor' : 'Desconocido')))}}</td>
                     <td>{{$usuario->created_at}}</td>
                     <td>
                         <button type="button" class="btn btn-info editar-usuario">Editar</button>
