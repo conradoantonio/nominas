@@ -282,7 +282,8 @@ class PagosController extends Controller
 		
 		//return view('pagos.detalle', ['pago' => $pago, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
 
-        $pdf = PDF::loadView('pagos.detalle_asistencias_pdf', ['pago' => $pago, 'dias' => $days, 'asistencias' => $asistencias]);
+		$pdf = PDF::loadView('pagos.detalle_asistencias_pdf', ['pago' => $pago, 'dias' => $days, 'asistencias' => $asistencias])
+		->setPaper('letter', 'landscape')->setWarnings(false);
         return $pdf->stream('archivo.pdf');//Visualiza el archivo sin descargarlo
         //return $pdf->download('archivo.pdf');//Descarga directamente el archivo
     }
