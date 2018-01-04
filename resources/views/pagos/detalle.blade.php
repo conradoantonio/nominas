@@ -144,7 +144,7 @@ img#company-logo{
 												@endforeach
                             				@else
                             					@foreach( $asistencias as $asistencia )
-                            						@if( $asistencia->pago->trabajador_id == $trabajador->usuarios->id)
+                            						@if( $asistencia->pago->id == $trabajador->id)
 														<td class="cell" data-dia="{{$asistencia->dia}}">{{$asistencia->status}}</td>
                             						@endif
                             					@endforeach
@@ -213,7 +213,7 @@ img#company-logo{
 		})
 
 		$(document).keypress(function(e){
-			if ( 
+			if (
 				e.which == 97 || e.which == 65 || /*A*/
 				e.which == 68 || e.which == 100 || /*D*/
 				e.which == 102 || e.which == 70 || /*F*/
@@ -226,7 +226,7 @@ img#company-logo{
 		});
 	})
 
-	
+
 	$('#agregar-empleado-lista').on('click', function() {
     	workers = validarSelect($('select#trabajadores_id'));
     	if (!workers) {
@@ -240,8 +240,8 @@ img#company-logo{
         $('select#trabajadores_id').select2("val", "");
 		$('#modal-agregar-empleado').modal();
 	});
-	
-	
+
+
 	$('#guardar').on('click', function(){
 		var button = $(this);
 		var empty = 0;

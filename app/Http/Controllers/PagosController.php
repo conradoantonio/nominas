@@ -121,6 +121,19 @@ class PagosController extends Controller
 			$usuarioPago->pago_id = $req->pago_id;
 			$usuarioPago->trabajador_id = $value;
 			$usuarioPago->save();
+
+			$startTime = strtotime( $usuarioPago->pago->fecha_inicio );
+			$endTime = strtotime( $usuarioPago->pago->fecha_fin );
+
+			// Loop between timestamps, 24 hours at a time
+			for ( $i = $startTime; $i <= $endTime; $i = $i + 86400 ) {
+				$d = date( 'd', $i );
+				$asistencia = new Asistencia();
+				$asistencia->usuario_pago_id = $usuarioPago->id;
+				$asistencia->dia = $d;
+				$asistencia->status = '';
+				$asistencia->save();
+			}
 		}
 	}
 
@@ -140,7 +153,7 @@ class PagosController extends Controller
 		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
 		#->whereIn('status',['D','X','V'])
 		->groupBy('usuario_pago_id')
-		->select(DB::raw("usuario_pago_id, COUNT( case status when 'D' then 1 else null end OR case status when 'X' then 1 else null end OR case status when 'V' then 1 else null end ) AS total, 
+		->select(DB::raw("usuario_pago_id, COUNT( case status when 'D' then 1 else null end OR case status when 'X' then 1 else null end OR case status when 'V' then 1 else null end ) AS total,
 			COUNT( case status when 'A' then 1 else null end ) as festivo"))
 		->get();
 
@@ -213,7 +226,7 @@ class PagosController extends Controller
 		$file = public_path()."/excel/master.xlsx";
 		return response()->download($file, 'master.xlsx');
 	}
-		
+
 
 	/**
      *===============================================================================================================================================================================
@@ -249,8 +262,8 @@ class PagosController extends Controller
 		->leftJoin('empresas', 'empresas.id', '=', 'empresa_servicio.empresa_id')
 		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
 		->groupBy('usuario_pago_id')
-		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe", 
-			empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos", 
+		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe",
+			empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos",
 			COUNT( case asistencias.status when "D" then 1 else null end OR case asistencias.status when "X" then 1 else null end OR case asistencias.status when "V" then 1 else null end ) AS "Días",
 			COUNT( case asistencias.status when "A" then 1 else null end ) as "Días festivos", empresas.nombre AS "Empresa"'))
 		->get();
@@ -261,7 +274,7 @@ class PagosController extends Controller
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
-                
+
                 $sheet->cells('A1:G1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
@@ -295,7 +308,7 @@ class PagosController extends Controller
 		}
 
 		$asistencias = Asistencia::whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))->get();
-		
+
 		//return view('pagos.detalle', ['pago' => $pago, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
 
 		$pdf = PDF::loadView('pagos.detalle_asistencias_pdf', ['pago' => $pago, 'dias' => $days, 'asistencias' => $asistencias])
