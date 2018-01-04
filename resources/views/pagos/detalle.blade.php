@@ -144,7 +144,7 @@ img#company-logo{
 												@endforeach
                             				@else
                             					@foreach( $asistencias as $asistencia )
-                            						@if( $asistencia->pago->id == $trabajador->usuarios->id)
+                            						@if( $asistencia->pago->trabajador_id == $trabajador->usuarios->id)
 														<td class="cell" data-dia="{{$asistencia->dia}}">{{$asistencia->status}}</td>
                             						@endif
                             					@endforeach
