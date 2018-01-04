@@ -25,7 +25,7 @@ class PagosController extends Controller
 	 */
 	public function index()
 	{
-		 if (auth()->check()) {
+		if (auth()->check()) {
 			$menu = $title = "Lista de asistencia";
 			$pagos = Pago::where('status', '!=', '0')->get();
 
@@ -89,6 +89,7 @@ class PagosController extends Controller
 		$title = "Lista de asistencia";
 		$menu = "Lista de asistencia";
 		$pago = Pago::with(['empresa', 'servicio'])->findOrFail($id);
+		$trabajadores = Empleado::where('status',1)->get();
 
 		$startTime = strtotime( $pago->fecha_inicio );
 		$endTime = strtotime( $pago->fecha_fin );
@@ -104,8 +105,23 @@ class PagosController extends Controller
 			$days[] = ['dia' => date('w', $i), 'num' => $d, 'edit' => $edit];
 		}
 		$asistencias = Asistencia::whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))->get();
+		return view('pagos.detalle', ['pago' => $pago, 'trabajadores' => $trabajadores, 'pago_id' => $id, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
+	}
 
-		return view('pagos.detalle', ['pago' => $pago, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
+	/**
+	 * Agrega un trabajador a una lista de pago.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function add_worker(Request $req)
+	{
+		foreach ($req->trabajadores as $value) {
+			$usuarioPago = new UsuarioPago();
+			$usuarioPago->pago_id = $req->pago_id;
+			$usuarioPago->trabajador_id = $value;
+			$usuarioPago->save();
+		}
 	}
 
 	/**

@@ -1,8 +1,6 @@
 @extends('admin.main')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('plugins/bootstrap-select2/select2.css')}}"  type="text/css" media="screen"/>
-<link rel="stylesheet" href="{{ asset('plugins/jquery-datatable/css/jquery.dataTables.css')}}"  type="text/css" media="screen"/>
 <style>
 textarea {
     resize: none;
@@ -43,7 +41,8 @@ img#company-logo{
 }
 </style>
 <div class="text-center" style="margin: 20px;">
-     @if(session('msg'))
+	@include('pagos.modal_nuevo_empleado')
+    @if(session('msg'))
     <div class="alert {{session('class')}}">
         {{session('msg')}}
     </div>
@@ -145,7 +144,7 @@ img#company-logo{
 												@endforeach
                             				@else
                             					@foreach( $asistencias as $asistencia )
-                            						@if( $asistencia->pago->trabajador_id == $trabajador->usuarios->id)
+                            						@if( $asistencia->pago->id == $trabajador->usuarios->id)
 														<td class="cell" data-dia="{{$asistencia->dia}}">{{$asistencia->status}}</td>
                             						@endif
                             					@endforeach
@@ -159,13 +158,15 @@ img#company-logo{
                     </div>
                 </div>
             </div>
-            <a href="{{$pago->status != 0 ? url('nominas') : url('historial')}}" class="btn btn-default">Regresar</a>
+            <a href="{{$pago->status != 0 ? url('nominas') : url('historial')}}" class="btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</a>
+            <button id="agregar_empleado" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Agregar empleado</button>
             <button id="guardar" class="btn btn-primary {{$pago->status != 0 ? '' : 'hide'}}">
+            	<i class="fa fa-floppy-o" aria-hidden="true"></i>
                 <i class="fa fa-spinner fa-spin" style="display: none;"></i>
             	Guardar
             </button>
-			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar">Pagar</a>
-			<a href="{{url('nominas/pdf/'.$pago->id)}}" target="_blank" class="btn btn-info" id="btn-pagar">Descargar PDF</a>
+			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar"><i class="fa fa-money" aria-hidden="true"></i> Pagar</a>
+			<a href="{{url('nominas/pdf/'.$pago->id)}}" target="_blank" class="btn btn-info" id="btn-pagar"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a>
         </div>
     </div>
 </div>
@@ -176,6 +177,8 @@ img#company-logo{
 <script src="{{ asset('plugins/datatables-responsive/js/lodash.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/tabs_accordian.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}"></script>
+<script src="{{ asset('js/pagosAjax.js') }}"></script>
+<script src="{{ asset('js/validacionesPagos.js') }}"></script>
 <script type="text/javascript">
 	/*$('table').each('td',function(){
 		console.log($(this))
@@ -186,6 +189,8 @@ img#company-logo{
 	})*/
 
 	$(function(){
+		$(".select2").select2();
+
 		$('table#nomina tbody').find('td.cell').each (function() {
 			var col = $(this).prevAll().length;
 			if (  !$(this).parents('table').find('th').eq(col).hasClass('edit') ){
@@ -221,6 +226,22 @@ img#company-logo{
 		});
 	})
 
+	
+	$('#agregar-empleado-lista').on('click', function() {
+    	workers = validarSelect($('select#trabajadores_id'));
+    	if (!workers) {
+			swal('Error', 'Porfavor, seleccione al menos un empleado para continuar', 'error')
+    	} else {
+    		agregarEmpleado($(this));
+    	}
+	});
+
+	$('#agregar_empleado').on('click', function() {
+        $('select#trabajadores_id').select2("val", "");
+		$('#modal-agregar-empleado').modal();
+	});
+	
+	
 	$('#guardar').on('click', function(){
 		var button = $(this);
 		var empty = 0;
@@ -278,7 +299,8 @@ img#company-logo{
 			}
 		});
 
-		button.children('i').show();
+		button.children('i.fa-spin').show();
+		button.children('i.fa-floppy-o').hide();
         button.attr('disabled', true);
 
 		$.ajax({
@@ -288,7 +310,8 @@ img#company-logo{
 				'collection': json
 			},
 			success: function(response) {
-				button.children('i').hide();
+				button.children('i.fa-spin').hide();
+				button.children('i.fa-floppy-o').show();
             	button.attr('disabled', false);
 				console.log(response);
 				if (response.status == 2) {

@@ -67,6 +67,7 @@ Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 /*--- Modulo pagos ---*/
 Route::get('nominas/excel_master', 'PagosController@descargar_excel_master');
 Route::post('pagos/servicios_empresa', 'PagosController@servicios_empresa');
+Route::post('pagos/agregar_empleado', 'PagosController@add_worker');
 Route::get('nominas', 'PagosController@index');
 Route::get('historial', 'PagosController@historial');
 Route::get('detalle-nomina/{id}', 'PagosController@show');

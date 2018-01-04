@@ -17,7 +17,6 @@
 <body>
 	 <div class="row">
 		<div class="">
-
 			<h3><strong>{{$pago->empresa->nombre}}</strong></h3>
 			<h4><strong>{{$pago->empresa->oficina_cargo}}</strong></h4>
 			<h6>Dirección: {{$pago->empresa->direccion}}</h6>

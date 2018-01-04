@@ -27,3 +27,31 @@ function cargarServicios(empresa_id, select) {
         }
     });
 }
+
+function agregarEmpleado(button) {
+    var formData = new FormData($("form#form-agregar-empleado")[0]);
+    $.ajax({
+        method: "POST",
+        url: $("form#form-agregar-empleado").attr('action'),
+        data: formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            button.children('i').hide();
+            button.attr('disabled', false);
+            $('div#modal-agregar-empleado').modal('hide');
+            //refreshTable(window.location.href);
+        },
+        error: function(xhr, status, error) {
+            $('div#modal-agregar-empleado').modal('hide');
+            button.children('i').hide();
+            button.attr('disabled', false);
+            swal({
+                title: "<small>¡Error!</small>",
+                text: "Se encontró un problema guardando cambios, porfavor, trate nuevamente.<br><span style='color:#F8BB86'>\nError: " + xhr.status + " (" + error + ") "+"</span>",
+                html: true
+            });
+        }
+    });
+}
