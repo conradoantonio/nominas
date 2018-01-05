@@ -90,78 +90,14 @@ img#company-logo{
 						</div>
 					</div>
                     <div class="grid-body">
-                        <div class="table-responsive" id="div_tabla_empresas">
-                            <table class="table table-bordered table-responsive" id="nomina">
-                            	<thead>
-                            		<th>ID</th>
-                            		<th>Nombre</th>
-                            		@foreach( $dias as $day )
-										@if( $day['dia'] == 0 )
-											<th class="{{$day['edit']?'edit':''}}">
-												<h6>D</h6>
-												<h6>{{$day['num']}}</h6>
-											</th>
-										@elseif( $day['dia'] == 1 )
-											<th class="{{$day['edit']?'edit':''}}">
-												<h6>L</h6>
-												<h6>{{$day['num']}}</h6>
-											</th>
-										@elseif( $day['dia'] == 2 )
-											<th class="{{$day['edit']?'edit':''}}">
-												<h6>M</h6>
-												<h6>{{$day['num']}}</h6>
-											</th>
-										@elseif( $day['dia'] == 3 )
-											<th class="{{$day['edit']?'edit':''}}">
-												<h6>M</h6>
-												<h6>{{$day['num']}}</h6>
-											</th>
-										@elseif( $day['dia'] == 4 )
-											<th class="{{$day['edit']?'edit':''}}">
-												<h6>J</h6>
-												<h6>{{$day['num']}}</h6>
-											</th>
-										@elseif( $day['dia'] == 5 )
-											<th class="{{$day['edit']?'edit':''}}">
-												<h6>V</h6>
-												<h6>{{$day['num']}}</h6>
-											</th>
-										@else
-											<th class="{{$day['edit']?'edit':''}}">
-												<h6>S</h6>
-												<h6>{{$day['num']}}</h6>
-											</th>
-										@endif
-                            		@endforeach
-                            		<th>Notas</th>
-                            	</thead>
-                            	<tbody>
-                            		@foreach( $pago->PagoUsuarios as $trabajador )
-                            			<tr>
-                            				<td>{{$trabajador->usuarios->id}}</td>
-                            				<td data-user={{$trabajador->usuarios->id}} data-realid={{$pago->id}} data-pago={{$trabajador->id}}>{{$trabajador->usuarios->nombre}}</td>
-                            				@if( count($asistencias) == 0 )
-	                            				@foreach( $dias as $day )
-													<td class="cell" data-dia="{{$day['num']}}"></td>
-												@endforeach
-                            				@else
-                            					@foreach( $asistencias as $asistencia )
-                            						@if( $asistencia->pago->id == $trabajador->id)
-														<td class="cell" data-dia="{{$asistencia->dia}}">{{$asistencia->status}}</td>
-                            						@endif
-                            					@endforeach
-                            				@endif
-                            				<td data-notes="1"><input type="text" name="notas" value="{{$trabajador->notas?$trabajador->notas:''}}"></td>
-                            			</tr>
-                            		@endforeach
-                            	</tbody>
-                            </table>
+                        <div class="table-responsive" id="div_tabla_asistencias">
+                            @include('pagos.tabla_asistencias')
                         </div>
                     </div>
                 </div>
             </div>
             <a href="{{$pago->status != 0 ? url('nominas') : url('historial')}}" class="btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</a>
-            <button id="agregar_empleado" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Agregar empleado</button>
+            <button id="agregar_empleado" class="btn btn-success {{$pago->status != 1 ? 'hide' : ''}}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar empleado</button>
             <button id="guardar" class="btn btn-primary {{$pago->status != 0 ? '' : 'hide'}}">
             	<i class="fa fa-floppy-o" aria-hidden="true"></i>
                 <i class="fa fa-spinner fa-spin" style="display: none;"></i>
@@ -197,13 +133,10 @@ img#company-logo{
 			var col = $(this).prevAll().length;
 			if (  !$(this).parents('table').find('th').eq(col).hasClass('edit') ){
 				$(this).addClass('disabled')
-				/*if ( $.inArray($(this).text(), ['C', 'D', 'F', 'X', 'I', 'A', 'N', 'V', '-']) < 0 ){
-					$(this).text('F')
-				}*/
 			}
 		});
 
-		$('td').on('click',function(){
+		$('body').delegate('td','click', function() {
 			var col = $(this).prevAll().length;
 			if ( $(this).parents('table').find('th').eq(col).hasClass('edit') ){
 				if ( !$(this).hasClass('selected') ){
@@ -232,11 +165,14 @@ img#company-logo{
 
 
 	$('#agregar-empleado-lista').on('click', function() {
+		button = $(this);
     	workers = validarSelect($('select#trabajadores_id'));
     	if (!workers) {
 			swal('Error', 'Porfavor, seleccione al menos un empleado para continuar', 'error')
     	} else {
-    		agregarEmpleado($(this));
+    		button.children('i').show();
+            button.attr('disabled', true);
+    		agregarEmpleado(button);
     	}
 	});
 
@@ -297,46 +233,11 @@ img#company-logo{
 
 		var json = JSON.stringify(collection);
 
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-
 		button.children('i.fa-spin').show();
 		button.children('i.fa-floppy-o').hide();
         button.attr('disabled', true);
 
-		$.ajax({
-			url:"{{url('guardarNominas')}}",
-			type:'POST',
-			data: {
-				'collection': json
-			},
-			success: function(response) {
-				button.children('i.fa-spin').hide();
-				button.children('i.fa-floppy-o').show();
-            	button.attr('disabled', false);
-				console.log(response);
-				if (response.status == 2) {
-					$('a#btn-pagar').removeClass('hide');
-				} /*else if (response.status != 0){
-					$('div.contenedor-detalles button#pagar').removeClass('hide');
-				}*/
-				if( response.save ){
-					swal('Éxito', 'Los cambios se han realizado correctamente', 'success')
-				}
-			},
-			error: function(xhr, status, error) {
-				button.children('i').hide();
-            	button.attr('disabled', false);
-	            swal({
-	                title: "<small>¡Error!</small>",
-	                text: "Se encontró un problema tratando de guardar las asistencias, por favor, trate nuevamente o recargue la página.<br><span style='color:#F8BB86'>\nError: " + xhr.status + " (" + error + ") "+"</span>",
-	                html: true
-	            });
-	        }
-		});
+		guardarAsistencias(json,button);
 	})
 </script>
 @endsection

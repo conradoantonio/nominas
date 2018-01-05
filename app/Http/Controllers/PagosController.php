@@ -70,6 +70,19 @@ class PagosController extends Controller
 				$usuarioPago->pago_id = $pago->id;
 				$usuarioPago->trabajador_id = $value;
 				$usuarioPago->save();
+
+				$startTime = strtotime( $usuarioPago->pago->fecha_inicio );
+				$endTime = strtotime( $usuarioPago->pago->fecha_fin );
+
+				// Loop between timestamps, 24 hours at a time
+				for ( $i = $startTime; $i <= $endTime; $i = $i + 86400 ) {
+					$d = date( 'd', $i );
+					$asistencia = new Asistencia();
+					$asistencia->usuario_pago_id = $usuarioPago->id;
+					$asistencia->dia = $d;
+					$asistencia->status = '';
+					$asistencia->save();
+				}
 			}
 
 			return redirect()->action('PagosController@index')->with([ 'msg' => 'Lista de asistencia guardada', 'class' => 'alert-success' ]);
@@ -84,7 +97,7 @@ class PagosController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id)
+	public function show($id, $reload = false)
 	{
 		$title = "Lista de asistencia";
 		$menu = "Lista de asistencia";
@@ -105,6 +118,10 @@ class PagosController extends Controller
 			$days[] = ['dia' => date('w', $i), 'num' => $d, 'edit' => $edit];
 		}
 		$asistencias = Asistencia::whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))->get();
+		
+		if ($reload) {
+			return view('pagos.tabla_asistencias', ['pago' => $pago, 'trabajadores' => $trabajadores, 'pago_id' => $id, 'dias' => $days, 'asistencias' => $asistencias]);
+		}
 		return view('pagos.detalle', ['pago' => $pago, 'trabajadores' => $trabajadores, 'pago_id' => $id, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
 	}
 
@@ -153,8 +170,10 @@ class PagosController extends Controller
 		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
 		#->whereIn('status',['D','X','V'])
 		->groupBy('usuario_pago_id')
-		->select(DB::raw("usuario_pago_id, COUNT( case status when 'D' then 1 else null end OR case status when 'X' then 1 else null end OR case status when 'V' then 1 else null end ) AS total,
-			COUNT( case status when 'A' then 1 else null end ) as festivo"))
+		->select(DB::raw("usuario_pago_id, COUNT( case status when 'D' then 1 else null end OR case status when 'X' then 1 else null end OR case status when 'V' then 1 else null end 
+			OR case asistencias.status when 'C' then 1 else null end OR case asistencias.status when 'N' then 1 else null end) AS total,
+			COUNT( case status when 'A' then 1 else null end ) as festivo, COUNT( case status when 'C' then 1 else null end ) as diurno, 
+			COUNT( case status when 'N' then 1 else null end ) as nocturno"))
 		->get();
 
 		$pago_actualizado = DB::table('pagos')->where('id', $id)->update(['status' => 0]);//Se marca el pago como pagado
@@ -264,18 +283,20 @@ class PagosController extends Controller
 		->groupBy('usuario_pago_id')
 		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe",
 			empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos",
-			COUNT( case asistencias.status when "D" then 1 else null end OR case asistencias.status when "X" then 1 else null end OR case asistencias.status when "V" then 1 else null end ) AS "Días",
-			COUNT( case asistencias.status when "A" then 1 else null end ) as "Días festivos", empresas.nombre AS "Empresa"'))
+			COUNT( case asistencias.status when "D" then 1 else null end OR case asistencias.status when "X" then 1 else null end OR case asistencias.status when "V" then 1 else null end 
+			OR case asistencias.status when "C" then 1 else null end OR case asistencias.status when "N" then 1 else null end) AS "Días",
+			COUNT( case asistencias.status when "A" then 1 else null end ) as "Días festivos", COUNT( case asistencias.status when "C" then 1 else null end ) as "Turnos diurno", 
+			COUNT( case asistencias.status when "N" then 1 else null end ) as "Turnos nocturno", empresas.nombre AS "Empresa"'))
 		->get();
 
         Excel::create("Resumen de asistencias del $intervalo", function($excel) use($asistencias) {
             $excel->sheet('Hoja 1', function($sheet) use($asistencias) {
-                $sheet->cells('A:G', function($cells) {
+                $sheet->cells('A:I', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
 
-                $sheet->cells('A1:G1', function($cells) {
+                $sheet->cells('A1:I1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 

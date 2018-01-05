@@ -69,6 +69,8 @@ td.cell.disabled{
 									<th>Cuenta</th>
 									<th>Intervalo fechas</th>
 									<th>Dias festivos</th>
+									<th>Turno diurno</th>
+									<th>Turno nocturno</th>
 									<th>Dias a pagar</th>
 									<th>Empresa</th>
 									<th>Subtotal</th>
@@ -81,6 +83,8 @@ td.cell.disabled{
 										<td>{{$asistencia->pago->usuarios->num_cuenta}}</td>
 										<td>{{date('d/M/Y', strtotime($asistencia->pago->pago->fecha_inicio))}} - {{date('d/M/Y', strtotime($asistencia->pago->pago->fecha_fin))}}</td>
 										<td>{{$asistencia->festivo}}</td>
+										<td>{{$asistencia->diurno}}</td>
+										<td>{{$asistencia->nocturno}}</td>
 										<td>{{$asistencia->total}}</td>
 										<td>{{$pago->empresa->nombre}}</td>
 										<td>${{number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2)}}</td>

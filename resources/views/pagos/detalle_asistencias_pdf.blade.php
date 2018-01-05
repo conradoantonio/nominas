@@ -88,7 +88,7 @@
 						@endforeach
 					@else
 						@foreach( $asistencias as $asistencia )
-							@if( $asistencia->pago->trabajador_id == $trabajador->usuarios->id)
+                            @if( $asistencia->pago->id == $trabajador->id)
 								<td class="cell" data-dia="{{$asistencia->dia}}">{{$asistencia->status}}</td>
 							@endif
 						@endforeach
