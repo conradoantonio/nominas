@@ -54,9 +54,11 @@ img#company-logo{
 		        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
 		        <strong>Nomenclaturas: </strong><br>
 		        A = Día festivo (No se considera para ser pagado pero puede ser añadido el día en el excel master.) <br>
+		        C = Turno diurno (Se considera para ser pagado) <br>
 		        D = Día de descanso (Se considera para ser pagado) <br>
 		        F = Falta (No se considera para ser pagado) <br>
 		        I = Incapacidad (No se considera para ser pagado) <br>
+		        N = Turno nocturno (Se considera para ser pagado) <br>
 		        V = Vacaciones (Se considera para ser pagado) <br>
 		        X = Asistencia (Se considera para ser pagado) <br>
 		        - = Sin valor (No se considera en cuenta para ser pagado) <br>
@@ -149,7 +151,7 @@ img#company-logo{
                             						@endif
                             					@endforeach
                             				@endif
-                            				<td data-notes="1"><input type="text" name="notas" id="notas" value="{{$trabajador->notas?$trabajador->notas:''}}"></td>
+                            				<td data-notes="1"><input type="text" name="notas" value="{{$trabajador->notas?$trabajador->notas:''}}"></td>
                             			</tr>
                             		@endforeach
                             	</tbody>
@@ -195,7 +197,7 @@ img#company-logo{
 			var col = $(this).prevAll().length;
 			if (  !$(this).parents('table').find('th').eq(col).hasClass('edit') ){
 				$(this).addClass('disabled')
-				/*if ( $.inArray($(this).text(), ['D', 'F', 'X', 'I', 'A', 'V', '-']) < 0 ){
+				/*if ( $.inArray($(this).text(), ['C', 'D', 'F', 'X', 'I', 'A', 'N', 'V', '-']) < 0 ){
 					$(this).text('F')
 				}*/
 			}
@@ -211,13 +213,15 @@ img#company-logo{
 				}
 			}
 		})
-
+	
 		$(document).keypress(function(e){
 			if (
 				e.which == 97 || e.which == 65 || /*A*/
+				e.which == 99 || e.which == 67 || /*C*/
 				e.which == 68 || e.which == 100 || /*D*/
 				e.which == 102 || e.which == 70 || /*F*/
 				e.which == 105 || e.which == 73 || /*I*/
+				e.which == 110 || e.which == 78 || /*N*/
 				e.which == 118 || e.which == 86 || /*V*/
 				e.which == 88 || e.which == 120 || /*X*/
 				e.which == 45 /*-*/) {
@@ -249,7 +253,7 @@ img#company-logo{
 		$('table#nomina tbody').find('td.cell').each (function() {
 			var col = $(this).prevAll().length;
 			if ( $(this).parents('table').find('th').eq(col).hasClass('edit') ){
-				if ( $.inArray($(this).text().trim(), ['D', 'F', 'X', 'I', 'A', 'V', '-']) < 0 ) {
+				if ( $.inArray($(this).text().trim(), ['A', 'C', 'D', 'F', 'I', 'N', 'V', 'X', '-']) < 0 ) {
 					empty++;
 				}
 			}
@@ -274,7 +278,7 @@ img#company-logo{
 				} else if( $(this).data('notes') ){
 					obj.notas = $(this).find('input').val()
 				}else if( $(this).hasClass('cell') ){
-					if ( $.inArray(ele.text(), ['D', 'F', 'X', 'I', 'A', 'V', '-']) >= 0 ){
+					if ( $.inArray(ele.text(), ['A', 'C', 'D', 'F', 'I', 'N', 'V', 'X', '-']) >= 0 ){
 						var txt = ele.text();
 					} else {
 						var txt = '';
