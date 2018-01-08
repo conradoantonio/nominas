@@ -103,6 +103,7 @@ img#company-logo{
                 <i class="fa fa-spinner fa-spin" style="display: none;"></i>
             	Guardar
             </button>
+            <button id="borrar_empleados" class="btn btn-danger" disabled><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empleados</button>
 			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar"><i class="fa fa-money" aria-hidden="true"></i> Pagar</a>
 			<a href="{{url('nominas/pdf/'.$pago->id)}}" target="_blank" class="btn btn-info" id="btn-pagar"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a>
         </div>
@@ -126,6 +127,7 @@ img#company-logo{
 		}
 	})*/
 
+	/*Se agregan las clases necesarias para poder editar las celdas de la tabla y tomar asistencias*/
 	$(function(){
 		$(".select2").select2();
 
@@ -146,7 +148,8 @@ img#company-logo{
 				}
 			}
 		})
-	
+		
+		/*Se valida que las teclas presionadas marquen una letra en las celdas seleccionadas*/
 		$(document).keypress(function(e){
 			if (
 				e.which == 97 || e.which == 65 || /*A*/
@@ -161,9 +164,39 @@ img#company-logo{
 					$(document).find('.selected').text(e.key.toUpperCase()).removeClass('edit, selected').addClass('done')
 			}
 		});
-	})
+	});
 
+	/*Elimina los empleados de la lista de asistencias*/
+	$('body').delegate('#borrar_empleados','click', function() {
+	    var checking = [];
+	    $("input.checkDelete").each(function() {
+	        if($(this).is(':checked')) {
+	            checking.push($(this).parent().parent().siblings("td:nth-child(3)").data('pago'));
+	        }
+	    });
+	    if (checking.length > 0) {
+	    	console.log(checking);
+	        swal({
+	            title: "¿Realmente desea eliminar <span style='color:#F8BB86'>" + checking.length + "</span> empleados de la lista de asistencia?",
+	            text: "¡Cuidado, ésta acción no podrá deshacerse y se perderán los registros de asistencia!",
+	            html: true,
+	            type: "warning",
+	            showCancelButton: true,
+	            cancelButtonText: "Cancelar",
+	            confirmButtonColor: "#DD6B55",
+	            confirmButtonText: "Si, continuar",
+	            showLoaderOnConfirm: true,
+	            allowEscapeKey: true,
+	            allowOutsideClick: true,
+	            closeOnConfirm: false
+	        },
+	        function() {
+	            eliminarEmpleadosLista(checking);
+	        });
+	    }
+	});
 
+	/*Se agrega un nuevo empleado a la lista de asistencias*/
 	$('#agregar-empleado-lista').on('click', function() {
 		button = $(this);
     	workers = validarSelect($('select#trabajadores_id'));
@@ -176,12 +209,28 @@ img#company-logo{
     	}
 	});
 
+	/*Abre el modal para elegir los empleados a agregar*/
 	$('#agregar_empleado').on('click', function() {
         $('select#trabajadores_id').select2("val", "");
 		$('#modal-agregar-empleado').modal();
 	});
 
+	/*Habilita el botón para dar bajas múltiples*/
+	$('body').delegate('.checkDelete','click', function() {
+		var checking = [];
+	    $("input.checkDelete").each(function() {
+	        if($(this).is(':checked')) {
+	            checking.push($(this).parent().parent().parent().attr('id'));
+	        }
+	    });
+	    if (checking.length > 0) {
+	    	$('#borrar_empleados').attr('disabled', false);
+	    } else {
+	    	$('#borrar_empleados').attr('disabled', true);
+	    }
+	});
 
+	/*Arma el json con los datos de las asistencias de los empleados*/
 	$('#guardar').on('click', function(){
 		var button = $(this);
 		var empty = 0;

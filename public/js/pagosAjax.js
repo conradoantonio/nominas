@@ -101,6 +101,36 @@ function agregarEmpleado(button) {
     });
 }
 
+function eliminarEmpleadosLista(checking){
+    url = base_url.concat('/pagos/eliminar_empleados');
+    $.ajax({
+        method: "POST",
+        url: url,
+        data:{
+            "checking":checking
+        },
+        success: function(data) {
+            swal.close();
+            refreshTable(window.location.href+'/1');
+        },
+        error: function(xhr, status, error) {
+            swal({
+                title: "<small>¡Error!</small>",
+                text: "Se encontró un problema dando de baja los empleados seleccionados, por favor, trate nuevamente.<br><span style='color:#F8BB86'>\nError: " + xhr.status + " (" + error + ") "+"</span>",
+                html: true
+            });
+        }
+    });
+    $( document ).ajaxComplete(function() {
+        $('table#nomina tbody').find('td.cell').each (function() {
+            var col = $(this).prevAll().length;
+            if (  !$(this).parents('table').find('th').eq(col).hasClass('edit') ){
+                $(this).addClass('disabled')
+            }
+        });
+    });
+}
+
 function refreshTable(url) {
     $('div#div_tabla_asistencias').fadeOut();
     $('div#div_tabla_asistencias').empty();

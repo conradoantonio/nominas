@@ -155,6 +155,24 @@ class PagosController extends Controller
 	}
 
 	/**
+	 * Elimina empleados de la lista de pagos.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function eliminar_empleados_lista(Request $req)
+	{
+		$usuario_pagos = UsuarioPago::whereIn('id', $req->checking)->delete();
+		$asistencias = Asistencia::whereIn('usuario_pago_id', $req->checking)->delete();
+
+		if ($asistencias && $usuario_pagos){
+        	return response(['msg' => 'Empleados eliminados correctamente', 'status' => 'ok'], 200);
+		} else {
+	        return response(['msg' => 'Error al eliminar los empleados de la lista', 'status' => 'error'], 404);
+		}
+	}
+
+	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id

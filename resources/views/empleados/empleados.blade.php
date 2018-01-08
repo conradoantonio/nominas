@@ -78,7 +78,7 @@ input:-webkit-autofill {
                     <h4>Opciones <span class="semi-bold">adicionales</span></h4>
                     <div>
                         {{-- <button type="button" class="btn btn-info {{count($empleados) ? '' : 'hide'}}" id="exportar_empleados_excel"><i class="fa fa-download" aria-hidden="true"></i> Exportar empleados</button> --}}
-                        <button type="button" class="btn btn-danger {{count($empleados) ? '' : 'hide'}}" id="eliminar_multiples_empleados"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empleados</button>
+                        <button type="button" class="btn btn-danger {{count($empleados) ? '' : 'hide'}}" id="dar_baja_empleados"><i class="fa fa-trash" aria-hidden="true"></i> Dar de baja empleados</button>
                         
                         {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importar-excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Importar empleados</button> --}}
                         <a href="{{url('empleados/formulario')}}"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empleado" id="nuevo_empleado"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo empleado</button></a>
@@ -100,8 +100,7 @@ input:-webkit-autofill {
 <script src="{{ asset('plugins/datatables-responsive/js/lodash.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/tabs_accordian.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}"></script>
-{{-- <script src="{{ asset('js/empleadosAjax.js') }}"></script>
-<script src="{{ asset('js/validacionesEmpleados.js') }}"></script> --}}
+<script src="{{ asset('js/empleadosAjax.js') }}"></script>
 <script type="text/javascript">
 /**
  *=============================================================================================================================================
@@ -115,7 +114,7 @@ $('#formulario_empleado').on('hidden.bs.modal', function (e) {
     $("#formulario_empleado input#oferta").prop('checked', false);
 });
 
-$('body').delegate('#eliminar_multiples_empleados','click', function() {
+$('body').delegate('#dar_baja_empleados','click', function() {
     var checking = [];
     $("input.checkDelete").each(function() {
         if($(this).is(':checked')) {
@@ -124,8 +123,8 @@ $('body').delegate('#eliminar_multiples_empleados','click', function() {
     });
     if (checking.length > 0) {
         swal({
-            title: "¿Realmente desea eliminar las <span style='color:#F8BB86'>" + checking.length + "</span> empleados seleccionadas?",
-            text: "¡Esta acción no podrá deshacerse!",
+            title: "¿Realmente desea dar de baja los <span style='color:#F8BB86'>" + checking.length + "</span> empleados seleccionadas?",
+            text: "¡Cuidado!",
             html: true,
             type: "warning",
             showCancelButton: true,
@@ -138,19 +137,17 @@ $('body').delegate('#eliminar_multiples_empleados','click', function() {
             closeOnConfirm: false
         },
         function() {
-            var token = $("#token").val();
-            eliminarMultiplesEmpleados(checking, token);
+            darBajaMultiplesEmpleados(checking);
         });
     }
 });
 
-$('body').delegate('.eliminar_empleado','click', function() {
+$('body').delegate('.baja_empleado','click', function() {
     var nombre = $(this).parent().siblings("td:nth-child(3)").text();
-    var token = $("#token").val();
     var id = $(this).parent().parent().attr('id');
 
     swal({
-        title: "¿Realmente desea eliminar la empleado <span style='color:#F8BB86'>" + nombre + "</span>?",
+        title: "¿Realmente desea dar de baja el empleado <span style='color:#F8BB86'>" + nombre + "</span>?",
         text: "¡Cuidado!",
         html: true,
         type: "warning",
@@ -164,7 +161,7 @@ $('body').delegate('.eliminar_empleado','click', function() {
         closeOnConfirm: false
     },
     function() {
-        eliminarEmpleado(id,token);
+        bajaEmpleado(id);
     });
 });
 

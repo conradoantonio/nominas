@@ -61,13 +61,14 @@ Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 	Route::post('guardar','EmpleadosController@guardar');//Guarda los datos de una empleado
 	Route::post('actualizar','EmpleadosController@actualizar');//Actualiza los datos de una empleado
 	Route::post('baja','EmpleadosController@dar_baja');//Cambia el status de una empleado
-	Route::post('baja/multiple','EmpleadosController@dar_baja_multiples_empresas');//Cambia el status de un empleado
+	Route::post('baja/multiple','EmpleadosController@dar_baja_multiple');//Cambia el status de un empleado
 });
 
 /*--- Modulo pagos ---*/
 Route::get('nominas/excel_master', 'PagosController@descargar_excel_master');
 Route::post('pagos/servicios_empresa', 'PagosController@servicios_empresa');
 Route::post('pagos/agregar_empleado', 'PagosController@add_worker');
+Route::post('pagos/eliminar_empleados', 'PagosController@eliminar_empleados_lista');
 Route::get('nominas', 'PagosController@index');
 Route::get('historial', 'PagosController@historial');
 Route::get('detalle-nomina/{id}/{reload?}', 'PagosController@show');

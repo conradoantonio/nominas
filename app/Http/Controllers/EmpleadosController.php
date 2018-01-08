@@ -177,4 +177,36 @@ class EmpleadosController extends Controller
         }
         return response(['msg' => 'Error al actualizar el cliente', 'status' => 'Bad request'], 400);
     }
+
+    /**
+     * Da de baja un empleado.
+     *
+     * @return ["success" => true]
+     */
+    public function dar_baja(Request $request)
+    {
+        $empresa = Empleado::find($request->id);
+        if ($empresa) {
+            $empresa->update(['status' => 0]);
+            return response(['msg' => 'Empleado dado de baja correctamente', 'status' => 'ok'], 200);
+        } else {
+            return response(['msg' => 'No es posible dar de baja este empleado', 'status' => 'error'], 404);
+        }
+    }
+
+    /**
+     * Elimina múltiples empleados al mismo tiempo.
+     *
+     * @return ["success" => true]
+     */
+    public function dar_baja_multiple(Request $request)
+    {
+        try {
+            Empleado::whereIn('id', $request->checking)
+            ->update(['status' => 0]);
+            return response(['msg' => 'Los empleados seleccionados fueron dados de baja correctamente', 'status' => 'ok'], 200);
+        } catch(\Illuminate\Database\QueryException $ex) {
+            return $ex->getMessage();
+        }
+    }
 }

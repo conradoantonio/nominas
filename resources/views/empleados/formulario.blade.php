@@ -280,7 +280,6 @@
         </div>
     </div>
 </div>
-{{-- <script src="{{ asset('js/empleadosAjax.js') }}"></script> --}}
 <script src="{{ asset('js/validacionesEmpleados.js') }}"></script>
 <script type="text/javascript">
     setTimeout(function() {
