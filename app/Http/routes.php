@@ -66,6 +66,8 @@ Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 
 /*--- Modulo pagos ---*/
 Route::get('nominas/excel_master', 'PagosController@descargar_excel_master');
+Route::post('nominas/eliminar_listas', 'PagosController@eliminar_listas');
+
 Route::post('pagos/servicios_empresa', 'PagosController@servicios_empresa');
 Route::post('pagos/agregar_empleado', 'PagosController@add_worker');
 Route::post('pagos/eliminar_empleados', 'PagosController@eliminar_empleados_lista');

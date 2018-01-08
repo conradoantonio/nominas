@@ -103,7 +103,7 @@ img#company-logo{
                 <i class="fa fa-spinner fa-spin" style="display: none;"></i>
             	Guardar
             </button>
-            <button id="borrar_empleados" class="btn btn-danger" disabled><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empleados</button>
+            <button id="borrar_empleados" class="btn btn-danger {{$pago->status == 0 ? 'hide' : ''}}" disabled><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empleados</button>
 			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar"><i class="fa fa-money" aria-hidden="true"></i> Pagar</a>
 			<a href="{{url('nominas/pdf/'.$pago->id)}}" target="_blank" class="btn btn-info" id="btn-pagar"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a>
         </div>

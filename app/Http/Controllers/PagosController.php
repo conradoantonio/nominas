@@ -23,13 +23,17 @@ class PagosController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(Request $req)
 	{
 		if (auth()->check()) {
 			$menu = $title = "Lista de asistencia";
 			$pagos = Pago::where('status', '!=', '0')->get();
 
-			$check = 0;
+			#dd($pagos[0]->PagoUsuarios()->delete());
+
+			if ($req->ajax()){
+				return view('pagos.tabla', ['pagos' => $pagos]);
+			}
 			return view('pagos.pagos', ['pagos' => $pagos, 'menu' => $menu, 'title' => $title]);
 		} else {
 			return redirect()->to('/');
@@ -47,7 +51,7 @@ class PagosController extends Controller
 			$menu = $title = "Historial";
 			$pagos = Pago::where('status', '0')->get();
 
-			$check = 0;
+			
 			return view('pagos.pagos', ['pagos' => $pagos, 'menu' => $menu, 'title' => $title]);
 		} else {
 			return redirect()->to('/');
@@ -94,8 +98,6 @@ class PagosController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
 	 */
 	public function show($id, $reload = false)
 	{
@@ -123,6 +125,27 @@ class PagosController extends Controller
 			return view('pagos.tabla_asistencias', ['pago' => $pago, 'trabajadores' => $trabajadores, 'pago_id' => $id, 'dias' => $days, 'asistencias' => $asistencias]);
 		}
 		return view('pagos.detalle', ['pago' => $pago, 'trabajadores' => $trabajadores, 'pago_id' => $id, 'dias' => $days, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias]);
+	}
+
+	/**
+	 * Elimina una lista de asistencias con sus registros.
+	 *
+	 */
+	public function eliminar_listas(Request $req)
+	{
+		$listas = Pago::whereIn('id', $req->checking);
+		if ($listas->get()) {
+			foreach ($listas->get() as $key => $lista) {
+				foreach ($lista->PagoUsuarios as $pago_usuario){
+					$pago_usuario->asistencia()->delete();//Elimina las asistencias
+				}
+				$lista->PagoUsuarios()->delete();//Elimina los PagoUsuarios
+			}
+			$listas->delete();//Elimina la lista
+			return response(['msg' => 'Éxito borrando la lista', 'status' => 'ok'], 200);
+		} else {
+			return response(['msg' => 'No se encontraron listas para borrar', 'status' => 'error'], 404);
+		}
 	}
 
 	/**
@@ -260,8 +283,8 @@ class PagosController extends Controller
 	 */
 	public function descargar_excel_master(Request $request)
 	{
-		$file = public_path()."/excel/master.xlsx";
-		return response()->download($file, 'master.xlsx');
+		$file = public_path()."/excel/Master_TP.xlsm";
+		return response()->download($file, 'Master_TP.xlsm');
 	}
 
 
@@ -292,7 +315,7 @@ class PagosController extends Controller
 		$pago = Pago::findOrFail($id);
 		$intervalo = date('d-M-Y', strtotime($pago->fecha_inicio)).' al '.date('d-M-Y', strtotime($pago->fecha_fin));
 
-		$asistencias = Asistencia::leftJoin('usuario_pagos', 'usuario_pagos.id', '=', 'asistencias.usuario_pago_id')
+		/*$asistencias = Asistencia::leftJoin('usuario_pagos', 'usuario_pagos.id', '=', 'asistencias.usuario_pago_id')
 		->leftJoin('empleados', 'empleados.id', '=', 'usuario_pagos.trabajador_id')
 		->leftJoin('pagos', 'pagos.id', '=', 'usuario_pagos.pago_id')
 		->leftJoin('empresa_servicio', 'empresa_servicio.id', '=', 'pagos.servicio_id')
@@ -305,20 +328,49 @@ class PagosController extends Controller
 			OR case asistencias.status when "C" then 1 else null end OR case asistencias.status when "N" then 1 else null end) AS "Días",
 			COUNT( case asistencias.status when "A" then 1 else null end ) as "Días festivos", COUNT( case asistencias.status when "C" then 1 else null end ) as "Turnos diurno", 
 			COUNT( case asistencias.status when "N" then 1 else null end ) as "Turnos nocturno", empresas.nombre AS "Empresa"'))
+		->get();*/
+
+		$asistencias = Asistencia::with(['pago.usuarios', 'pago.pago.servicio'])
+		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
+		#->whereIn('status',['D','X','V'])
+		->groupBy('usuario_pago_id')
+		->select(DB::raw("usuario_pago_id, COUNT( case status when 'D' then 1 else null end OR case status when 'X' then 1 else null end OR case status when 'V' then 1 else null end 
+			OR case asistencias.status when 'C' then 1 else null end OR case asistencias.status when 'N' then 1 else null end) AS total,
+			COUNT( case status when 'A' then 1 else null end ) as festivo, COUNT( case status when 'C' then 1 else null end ) as diurno, 
+			COUNT( case status when 'N' then 1 else null end ) as nocturno"))
 		->get();
 
-        Excel::create("Resumen de asistencias del $intervalo", function($excel) use($asistencias) {
-            $excel->sheet('Hoja 1', function($sheet) use($asistencias) {
-                $sheet->cells('A:I', function($cells) {
+		$array = array();
+
+		foreach ($asistencias as $asistencia) {
+			$array[] = [
+				'Nombre completo' => $asistencia->pago->usuarios->nombre.' '.$asistencia->pago->usuarios->apellido,
+				'Importe ' => number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2),
+				'Número de cuenta' => $asistencia->pago->usuarios->num_cuenta,
+				'Número de empleado' => $asistencia->pago->usuarios->id,
+				'Fecha de pagos' => date('d M Y', strtotime($asistencia->pago->pago->fecha_inicio)).' - '.date('d M Y', strtotime($asistencia->pago->pago->fecha_fin)),
+				'Días' => $asistencia->total,
+				'Dias festivos' => $asistencia->festivo,
+				'Turnos diurnos' => $asistencia->diurno,
+				'Turnos nocturnos' => $asistencia->nocturno,
+				'Empresa ' => $pago->empresa->nombre
+			];
+		}
+
+
+
+        Excel::create("Resumen de asistencias del $intervalo", function($excel) use($array) {
+            $excel->sheet('Hoja 1', function($sheet) use($array) {
+                $sheet->cells('A:J', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
 
-                $sheet->cells('A1:I1', function($cells) {
+                $sheet->cells('A1:J1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 
-                $sheet->fromArray($asistencias);
+                $sheet->fromArray($array);
             });
         })->export('xlsx');
 
