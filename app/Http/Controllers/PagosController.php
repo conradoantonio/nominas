@@ -315,21 +315,6 @@ class PagosController extends Controller
 		$pago = Pago::findOrFail($id);
 		$intervalo = date('d-M-Y', strtotime($pago->fecha_inicio)).' al '.date('d-M-Y', strtotime($pago->fecha_fin));
 
-		/*$asistencias = Asistencia::leftJoin('usuario_pagos', 'usuario_pagos.id', '=', 'asistencias.usuario_pago_id')
-		->leftJoin('empleados', 'empleados.id', '=', 'usuario_pagos.trabajador_id')
-		->leftJoin('pagos', 'pagos.id', '=', 'usuario_pagos.pago_id')
-		->leftJoin('empresa_servicio', 'empresa_servicio.id', '=', 'pagos.servicio_id')
-		->leftJoin('empresas', 'empresas.id', '=', 'empresa_servicio.empresa_id')
-		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
-		->groupBy('usuario_pago_id')
-		->select(DB::raw('CONCAT(empleados.nombre, " ",empleados.apellido) AS "Nombre completo", ROUND(COUNT(empresa_servicio.sueldo_diario_guardia) * sueldo_diario_guardia, 2) AS "Importe",
-			empleados.num_cuenta AS "Número de cuenta", empleados.num_empleado AS "Número de Id", CONCAT(DATE_FORMAT(pagos.fecha_inicio,  "%d %b %Y"), " - ", DATE_FORMAT(pagos.fecha_fin,  "%d %b %Y")) AS "Fecha de pagos",
-			COUNT( case asistencias.status when "D" then 1 else null end OR case asistencias.status when "X" then 1 else null end OR case asistencias.status when "V" then 1 else null end 
-			OR case asistencias.status when "C" then 1 else null end OR case asistencias.status when "N" then 1 else null end) AS "Días",
-			COUNT( case asistencias.status when "A" then 1 else null end ) as "Días festivos", COUNT( case asistencias.status when "C" then 1 else null end ) as "Turnos diurno", 
-			COUNT( case asistencias.status when "N" then 1 else null end ) as "Turnos nocturno", empresas.nombre AS "Empresa"'))
-		->get();*/
-
 		$asistencias = Asistencia::with(['pago.usuarios', 'pago.pago.servicio'])
 		->whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))
 		#->whereIn('status',['D','X','V'])
@@ -344,7 +329,7 @@ class PagosController extends Controller
 
 		foreach ($asistencias as $asistencia) {
 			$array[] = [
-				'Nombre completo' => $asistencia->pago->usuarios->nombre.' '.$asistencia->pago->usuarios->apellido,
+				'Nombre completo' => $asistencia->pago->usuarios->nombre.' '.$asistencia->pago->usuarios->apellido_paterno.' '.$asistencia->pago->usuarios->apellido_materno,
 				'Importe ' => number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2),
 				'Número de cuenta' => $asistencia->pago->usuarios->num_cuenta,
 				'Número de empleado' => $asistencia->pago->usuarios->id,
@@ -356,8 +341,6 @@ class PagosController extends Controller
 				'Empresa ' => $pago->empresa->nombre
 			];
 		}
-
-
 
         Excel::create("Resumen de asistencias del $intervalo", function($excel) use($array) {
             $excel->sheet('Hoja 1', function($sheet) use($array) {

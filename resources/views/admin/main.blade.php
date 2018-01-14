@@ -162,10 +162,19 @@
                 @endif
 
                 <!-- BEGIN SINGLE LINK -->
-                <li class="{{$menu == 'Empleados' ? 'active' : ''}}">
+                <li class="{{$menu == 'Empleados (Activos)' ? 'active' : ''}}">
                     <a href="{{url('empleados')}}">
-                        <i class="fa fa-address-card" aria-hidden="true"></i>
-                        <span class="title">Empleados</span>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span class="title">Empleados (Activos)</span>
+                    </a>
+                </li>
+                <!-- END SINGLE LINK -->
+
+                <!-- BEGIN SINGLE LINK -->
+                <li class="{{$menu == 'Empleados (Inactivos)' ? 'active' : ''}}">
+                    <a href="{{url('empleados/inactivos')}}">
+                        <i class="fa fa-user-times" aria-hidden="true"></i>
+                        <span class="title">Empleados (Inactivos)</span>
                     </a>
                 </li>
                 <!-- END SINGLE LINK -->

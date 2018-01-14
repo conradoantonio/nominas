@@ -28,22 +28,28 @@
                                             <input type="text" class="form-control" value="{{$empleado ? $empleado->id : ''}}" id="id" name="id">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-xs-12">
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="num_empleado">No. de empleado</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->num_empleado : ''}}" id="num_empleado" name="num_empleado" placeholder="No. de empleado">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label for="nombre">Nombre</label>
                                             <input type="text" class="form-control" value="{{$empleado ? $empleado->nombre : ''}}" id="nombre" name="nombre" placeholder="Nombre">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-xs-12">
+                                    <div class="col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <label for="apellido">Apellido</label>
-                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->apellido : ''}}" id="apellido" name="apellido" placeholder="Apellido">
+                                            <label for="apellido_paterno">Apellido paterno</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->apellido_paterno : ''}}" id="apellido_paterno" name="apellido_paterno" placeholder="Apellido paterno">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-xs-12">
+                                    <div class="col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <label for="num_empleado">No. de empleado</label>
-                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->num_empleado : ''}}" id="num_empleado" name="num_empleado" placeholder="No. de empleado">
+                                            <label for="apellido_materno">Apellido materno</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->apellido_materno : ''}}" id="apellido_materno" name="apellido_materno" placeholder="Apellido materno">
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-xs-12">
@@ -94,8 +100,37 @@
                                             <input type="text" class="form-control" value="{{$empleado ? $empleado->telefono_emergencia : ''}}" id="telefono_emergencia" name="telefono_emergencia" placeholder="Télefono de emergencia">
                                         </div>
                                     </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="fecha_ingreso">Fecha de ingreso</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->fecha_ingreso : ''}}" id="fecha_ingreso" name="fecha_ingreso" placeholder="Fecha de ingreso">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="escolaridad">Escolaridad</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->escolaridad : ''}}" id="escolaridad" name="escolaridad" placeholder="Escolaridad">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="infonavit">Infonavit</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->infonavit : ''}}" id="infonavit" name="infonavit" placeholder="Infonavit">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="vacaciones">Vacaciones</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->vacaciones : ''}}" id="vacaciones" name="vacaciones" placeholder="Vacaciones">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="pensionado">Pensionado</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->pensionado : ''}}" id="pensionado" name="pensionado" placeholder="Pensionado">
+                                        </div>
+                                    </div>
                                 </div>
-
                                 <hr>
                                 <div class="row">
                                     <h3>Documentación</h3>
@@ -271,7 +306,7 @@
                                         Guardar
                                     </button>
                                 @endif
-                                <a href="{{url('empleados')}}"><button type="button" class="btn btn-default" data-dismiss="modal">Regresar</button></a>
+                                <a href="{{url('empleados')}}{{$empleado->status == 0 ? '/inactivos' : ''}}"><button type="button" class="btn btn-default" data-dismiss="modal">Regresar</button></a>
                             </form>
                     	</div>
                     </div>
@@ -282,6 +317,14 @@
 </div>
 <script src="{{ asset('js/validacionesEmpleados.js') }}"></script>
 <script type="text/javascript">
+    $(function(){
+        $( "#fecha_ingreso" ).datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: "yyyy-mm-dd",
+        });
+    })
+
     setTimeout(function() {
         var editable = <?php echo $editable;?>;
         if (editable == 0) {

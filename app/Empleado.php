@@ -16,8 +16,14 @@ class Empleado extends Model
      */
     protected $fillable = [
     	'nombre', 'apellido', 'num_empleado', 'num_cuenta', 'domicilio', 'ciudad',
-        'telefono', 'rfc', 'curp', 'nss', 'telefono_emergencia', 'status', 'created_at'
+        'telefono', 'rfc', 'curp', 'nss', 'telefono_emergencia', 'fecha_ingreso',
+        'escolaridad', 'infonavit', 'vacaciones', 'pensionado', 'status', 'created_at'
     ];
+
+    /**
+     * Define los campos que se ocultarán en las llamadas.
+     */
+    protected $hidden = ['created_at', 'updated_at'];
 
     /**
      * Obtiene la documentación asociada con el empleado.

@@ -54,7 +54,8 @@ Route::group(['prefix' => 'empresas', 'middleware' => 'supervisor'], function ()
 
 /*-- Rutas para la pestaña de empleados--*/
 Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
-	Route::get('/','EmpleadosController@index');//Carga la tabla de empleados
+	Route::get('/','EmpleadosController@index');//Carga la tabla de empleados con status activo
+	Route::get('/inactivos','EmpleadosController@inactivos');//Carga la tabla de empleados con status inactivo
 	Route::get('formulario/{id?}','EmpleadosController@cargar_formulario');//Carga el formulario para editar un sólo empleado
 	Route::get('detalle/{id?}','EmpleadosController@detalle_empleado');//Carga el formulario de empleados sólo para ver detalles
 
@@ -62,6 +63,8 @@ Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 	Route::post('actualizar','EmpleadosController@actualizar');//Actualiza los datos de una empleado
 	Route::post('baja','EmpleadosController@dar_baja');//Cambia el status de una empleado
 	Route::post('baja/multiple','EmpleadosController@dar_baja_multiple');//Cambia el status de un empleado
+	Route::get('exportar/individual/{id}','EmpleadosController@exportar_individual');//Exporta un empleado a excel
+	Route::get('exportar/general/{status}','EmpleadosController@exportar_general');//Exporta los empleados con cierto status
 });
 
 /*--- Modulo pagos ---*/

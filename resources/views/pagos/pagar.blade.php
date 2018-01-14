@@ -79,7 +79,7 @@ td.cell.disabled{
 									@foreach($asistencias as $asistencia)
 									<tr>
 										<td>{{$asistencia->pago->usuarios->id}}</td>
-										<td>{{$asistencia->pago->usuarios->nombre.' '.$asistencia->pago->usuarios->apellido}}</td>
+										<td>{{$asistencia->pago->usuarios->nombre.' '.$asistencia->pago->usuarios->apellido_paterno.' '.$asistencia->pago->usuarios->apellido_materno}}</td>
 										<td>{{$asistencia->pago->usuarios->num_cuenta}}</td>
 										<td>{{date('d/M/Y', strtotime($asistencia->pago->pago->fecha_inicio))}} - {{date('d/M/Y', strtotime($asistencia->pago->pago->fecha_fin))}}</td>
 										<td>{{$asistencia->festivo}}</td>

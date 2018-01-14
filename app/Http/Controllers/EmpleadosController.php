@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+use Excel;
 use App\Empleado;
 use App\Documentacion;
 use App\Http\Requests;
@@ -12,20 +14,37 @@ use App\Http\Controllers\Controller;
 class EmpleadosController extends Controller
 {
     /**
-     * Carga la tabla de empleados.
+     * Carga la tabla de empleados activos.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $title = $menu = "Empleados";
-        $empleados = Empleado::where('status', 1)->get();
-        foreach ($empleados as $empleado) { $empleado->documentacion; }
+        $title = $menu = "Empleados (Activos)";
+        $status = 1;
+        $empleados = Empleado::where('status', $status)->get();
         
         if ($request->ajax()) {
-            return view('empleados.tabla', ['empleados' => $empleados]);
+            return view('empleados.tabla', ['empleados' => $empleados, 'status' => $status]);
         }
-        return view('empleados.empleados', ['empleados' => $empleados, 'menu' => $menu, 'title' => $title]);
+        return view('empleados.empleados', ['empleados' => $empleados, 'status' => $status, 'menu' => $menu, 'title' => $title]);
+    }
+
+    /**
+     * Carga la tabla de empleados inactivos.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function inactivos(Request $request)
+    {
+        $title = $menu = "Empleados (Inactivos)";
+        $status = 0;
+        $empleados = Empleado::where('status', $status)->get();
+        
+        if ($request->ajax()) {
+            return view('empleados.tabla', ['empleados' => $empleados, 'status' => $status]);
+        }
+        return view('empleados.empleados', ['empleados' => $empleados, 'status' => $status, 'menu' => $menu, 'title' => $title]);
     }
 
     /**
@@ -78,7 +97,8 @@ class EmpleadosController extends Controller
         $empleado = New Empleado;
 
         $empleado->nombre = $request->nombre;
-        $empleado->apellido = $request->apellido;
+        $empleado->apellido_paterno = $request->apellido_paterno;
+        $empleado->apellido_materno = $request->apellido_materno;
         $empleado->num_empleado = $request->num_empleado;
         $empleado->num_cuenta = $request->num_cuenta;
         $empleado->domicilio = $request->domicilio;
@@ -134,7 +154,8 @@ class EmpleadosController extends Controller
         if ($empleado && $documentacion) {
             /*Información del empleado*/
             $empleado->nombre = $request->nombre;
-            $empleado->apellido = $request->apellido;
+            $empleado->apellido_paterno = $request->apellido_paterno;
+            $empleado->apellido_materno = $request->apellido_materno;
             $empleado->num_empleado = $request->num_empleado;
             $empleado->num_cuenta = $request->num_cuenta;
             $empleado->domicilio = $request->domicilio;
@@ -181,13 +202,13 @@ class EmpleadosController extends Controller
     /**
      * Da de baja un empleado.
      *
-     * @return ["success" => true]
+     * @return response
      */
     public function dar_baja(Request $request)
     {
-        $empresa = Empleado::find($request->id);
-        if ($empresa) {
-            $empresa->update(['status' => 0]);
+        $empleado = Empleado::find($request->id);
+        if ($empleado) {
+            $empleado->update(['status' => $request->status]);
             return response(['msg' => 'Empleado dado de baja correctamente', 'status' => 'ok'], 200);
         } else {
             return response(['msg' => 'No es posible dar de baja este empleado', 'status' => 'error'], 404);
@@ -197,16 +218,67 @@ class EmpleadosController extends Controller
     /**
      * Elimina múltiples empleados al mismo tiempo.
      *
-     * @return ["success" => true]
+     * @return response
      */
     public function dar_baja_multiple(Request $request)
     {
         try {
             Empleado::whereIn('id', $request->checking)
-            ->update(['status' => 0]);
+            ->update(['status' => $request->status]);
             return response(['msg' => 'Los empleados seleccionados fueron dados de baja correctamente', 'status' => 'ok'], 200);
         } catch(\Illuminate\Database\QueryException $ex) {
             return $ex->getMessage();
         }
+    }
+
+    /**
+     * Exporta todos los empleados a excel.
+     *
+     * @return response
+     */
+    public function exportar_general($status)
+    {
+        $empleados = Empleado::select(DB::raw("empleados.*, 
+            IF(documentacion.comprobante_domicilio = 0, 'No', 'Si') as 'Comprobante domicilio', 
+            IF(documentacion.identificacion = 0, 'No', 'Si') as 'Identificación',
+            IF(documentacion.curp = 0, 'No', 'Si') as 'CURP',
+            IF(documentacion.rfc = 0, 'No', 'Si') as 'RFC',
+            IF(documentacion.hoja_imss = 0, 'No', 'Si') as 'Hoja del IMSS',
+            IF(documentacion.carta_no_antecedentes_penales = 0, 'No', 'Si') as 'Carta de no antecedentes penales',
+            IF(documentacion.acta_nacimiento = 0, 'No', 'Si') as 'Acta de nacimiento',
+            IF(documentacion.comprobante_estudios = 0, 'No', 'Si') as 'Comprobante de estudios',
+            IF(documentacion.resultado_psicometrias = 0, 'No', 'Si') as 'Resultado de psicometrías',
+            IF(documentacion.examen_socieconomico = 0, 'No', 'Si') as 'Examen socieconómico',
+            IF(documentacion.examen_toxicologico = 0, 'No', 'Si') as 'Examen toxicológico',
+            IF(documentacion.solicitud_frente_vuelta = 0, 'No', 'Si') as 'Solicitud frente y vuelta',
+            IF(documentacion.deposito_uniforme = 0, 'No', 'Si') as 'Depósito de uniforme',
+            IF(documentacion.constancia_recepcion_uniforme = 0, 'No', 'Si') as 'Constancia de recepción de uniforme',
+            IF(documentacion.comprobante_recepcion_reglamento_interno_trabajo = 0, 'No', 'Si') as 'Comprobante de recepción del reglamento interno de trabajo',
+            IF(documentacion.autorizacion_pago_tarjeta = 0, 'No', 'Si') as 'Autorización pago con tarjeta',
+            IF(documentacion.carta_aceptacion_cambio_lugar = 0, 'No', 'Si') as 'Carta de aceptación por cambio de lugar',
+            IF(documentacion.finiquito = 0, 'No', 'Si') as 'Finiquito',
+            IF(documentacion.calendario = 0, 'No', 'Si') as 'Calendario',
+            IF(documentacion.formato_datos_personales = 0, 'No', 'Si') as 'Formato de datos personales',
+            IF(documentacion.solicitud_autorizacion_consulta = 0, 'No', 'Si') as 'Solicitud de autorización de consulta'"))
+        ->leftJoin('documentacion', 'empleados.id', '=', 'documentacion.empleado_id')
+        ->where('empleados.status', $status)
+        ->get();
+
+        Excel::create('Empleados', function($excel) use($empleados) {
+            $excel->sheet('Hoja 1', function($sheet) use($empleados) {
+                $sheet->cells('A:AN', function($cells) {
+                    $cells->setAlignment('center');
+                    $cells->setValignment('center');
+                });
+                
+                $sheet->cells('A1:AN1', function($cells) {
+                    $cells->setFontWeight('bold');
+                });
+
+                $sheet->fromArray($empleados);
+            });
+        })->export('xlsx');
+
+        return ['msg'=>'Excel creado'];
     }
 }

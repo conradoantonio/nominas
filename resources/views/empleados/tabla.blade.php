@@ -4,7 +4,8 @@
             <th></th>
             <th>ID</th>
             <th>Nombre</th>
-            <th class="">Apellido</th>
+            <th class="">Apellido paterno</th>
+            <th class="">Apellido materno</th>
             <th class="">No. Empleado</th>
             <th class="hide">Domicilio</th>
             <th class="hide">Ciudad</th>
@@ -53,7 +54,8 @@
                     </td>
                     <td>{{$empleado->id}}</td>
                     <td>{{$empleado->nombre}}</td>
-                    <td class="text">{{$empleado->apellido}}</td>
+                    <td class="text">{{$empleado->apellido_paterno}}</td>
+                    <td class="text">{{$empleado->apellido_materno}}</td>
                     <td class="">{{$empleado->num_empleado}}</td>
                     <td class="hide">{{$empleado->domicilio}}</td>
                     <td class="hide">{{$empleado->ciudad}}</td>
@@ -88,9 +90,11 @@
                     <td class="hide">{{$empleado->documentacion->formato_datos_personales}}</td>
                     <td class="hide">{{$empleado->documentacion->solicitud_autorizacion_consulta}}</td>
                     <td>
-                        <a href="{{url('empleados/formulario')}}/{{$empleado->id}}"><button type="button" class="btn btn-info editar_empleado">Editar</button></a>
+                        @if($status == 1)
+                            <a href="{{url('empleados/formulario')}}/{{$empleado->id}}"><button type="button" class="btn btn-info editar_empleado">Editar</button></a>
+                        @endif
                         <a href="{{url('empleados/detalle')}}/{{$empleado->id}}"><button type="button" class="btn btn-success detalle_empleado">Info</button></a>
-                        <button type="button" class="btn btn-danger baja_empleado">Borrar</button>
+                        <button type="button" change-to={{$empleado->status == 1 ? '0' : '1'}} class="btn btn-danger baja_empleado">{{$empleado->status == 1 ? 'Baja' : 'Reactivar'}}</button>
                     </td>
                 </tr>
             @endforeach

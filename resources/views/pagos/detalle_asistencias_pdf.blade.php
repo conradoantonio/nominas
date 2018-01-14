@@ -81,7 +81,7 @@
 			@foreach( $pago->PagoUsuarios as $trabajador )
 				<tr>
 					<td>{{$trabajador->usuarios->id}}</td>
-					<td data-user={{$trabajador->usuarios->id}} data-realid={{$pago->id}} data-pago={{$trabajador->id}}>{{$trabajador->usuarios->nombre}} {{$trabajador->usuarios->apellido}}</td>
+					<td data-user={{$trabajador->usuarios->id}} data-realid={{$pago->id}} data-pago={{$trabajador->id}}>{{$trabajador->usuarios->nombre}} {{$trabajador->usuarios->apellido_paterno}} {{$trabajador->usuarios->apellido_materno}}</td>
 					@if( count($asistencias) == 0 )
 	    				@foreach( $dias as $day )
 							<td class="cell" data-dia="{{$day['num']}}"></td>
