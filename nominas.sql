@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.1.28-MariaDB : Database - nominas
+MySQL - 5.5.5-10.1.29-MariaDB : Database - nominas
 *********************************************************************
 */
 
@@ -28,11 +28,9 @@ CREATE TABLE `asistencias` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `asistencias` */
-
-insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (1,1,15,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(2,1,16,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(3,1,17,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(4,1,18,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(5,1,19,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(6,1,20,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(7,1,21,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(8,1,22,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(9,1,23,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(10,1,24,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(11,1,25,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(12,1,26,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(13,1,27,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(14,1,28,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(15,1,29,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(16,1,30,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(17,1,31,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(18,2,15,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(19,2,16,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(20,2,17,'','2018-01-14 20:18:39','2018-01-14 20:18:39'),(21,2,18,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(22,2,19,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(23,2,20,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(24,2,21,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(25,2,22,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(26,2,23,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(27,2,24,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(28,2,25,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(29,2,26,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(30,2,27,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(31,2,28,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(32,2,29,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(33,2,30,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(34,2,31,'','2018-01-14 20:18:40','2018-01-14 20:18:40'),(38,3,12,'X','2018-01-14 20:20:21','2018-01-14 20:20:21'),(39,3,13,'X','2018-01-14 20:20:22','2018-01-14 20:20:22'),(40,3,14,'X','2018-01-14 20:20:22','2018-01-14 20:20:22'),(41,4,15,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(42,4,16,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(43,4,17,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(44,4,18,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(45,4,19,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(46,4,20,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(47,4,21,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(48,4,22,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(49,4,23,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(50,4,24,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(51,4,25,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(52,4,26,'','2018-01-14 20:21:12','2018-01-14 20:21:12'),(53,4,27,'','2018-01-14 20:21:13','2018-01-14 20:21:13'),(54,4,28,'','2018-01-14 20:21:13','2018-01-14 20:21:13'),(55,4,29,'','2018-01-14 20:21:13','2018-01-14 20:21:13'),(56,4,30,'','2018-01-14 20:21:13','2018-01-14 20:21:13'),(57,4,31,'','2018-01-14 20:21:13','2018-01-14 20:21:13');
 
 /*Table structure for table `documentacion` */
 
@@ -65,11 +63,11 @@ CREATE TABLE `documentacion` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `documentacion` */
 
-insert  into `documentacion`(`id`,`empleado_id`,`comprobante_domicilio`,`identificacion`,`curp`,`rfc`,`hoja_imss`,`carta_no_antecedentes_penales`,`acta_nacimiento`,`comprobante_estudios`,`resultado_psicometrias`,`examen_socieconomico`,`examen_toxicologico`,`solicitud_frente_vuelta`,`deposito_uniforme`,`constancia_recepcion_uniforme`,`comprobante_recepcion_reglamento_interno_trabajo`,`autorizacion_pago_tarjeta`,`carta_aceptacion_cambio_lugar`,`finiquito`,`calendario`,`formato_datos_personales`,`solicitud_autorizacion_consulta`,`created_at`,`updated_at`) values (1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,'2017-11-21 23:28:19','2017-11-21 23:28:19'),(2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,'2017-11-21 23:30:09','2017-11-22 00:03:18'),(3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'2018-01-14 21:59:41','2018-01-14 21:59:41'),(4,4,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,'2018-01-14 22:15:57','2018-01-14 22:16:12');
+insert  into `documentacion`(`id`,`empleado_id`,`comprobante_domicilio`,`identificacion`,`curp`,`rfc`,`hoja_imss`,`carta_no_antecedentes_penales`,`acta_nacimiento`,`comprobante_estudios`,`resultado_psicometrias`,`examen_socieconomico`,`examen_toxicologico`,`solicitud_frente_vuelta`,`deposito_uniforme`,`constancia_recepcion_uniforme`,`comprobante_recepcion_reglamento_interno_trabajo`,`autorizacion_pago_tarjeta`,`carta_aceptacion_cambio_lugar`,`finiquito`,`calendario`,`formato_datos_personales`,`solicitud_autorizacion_consulta`,`created_at`,`updated_at`) values (1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,'2017-11-21 23:28:19','2017-11-21 23:28:19'),(2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,'2017-11-21 23:30:09','2017-11-22 00:03:18');
 
 /*Table structure for table `empleados` */
 
@@ -102,7 +100,7 @@ CREATE TABLE `empleados` (
 
 /*Data for the table `empleados` */
 
-insert  into `empleados`(`id`,`nombre`,`apellido_paterno`,`apellido_materno`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`fecha_ingreso`,`escolaridad`,`infonavit`,`vacaciones`,`pensionado`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO','ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',NULL,NULL,NULL,NULL,NULL,1,'2018-01-14 16:40:13','2018-01-14 22:38:45'),(2,'DANIELA','GONZÁLEZ','CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632',NULL,NULL,NULL,NULL,NULL,1,'2018-01-14 16:40:12','2018-01-14 22:38:45');
+insert  into `empleados`(`id`,`nombre`,`apellido_paterno`,`apellido_materno`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`fecha_ingreso`,`escolaridad`,`infonavit`,`vacaciones`,`pensionado`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO','ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',NULL,NULL,NULL,NULL,NULL,1,'2018-01-15 15:37:22','2018-01-15 21:37:22'),(2,'DANIELA','GONZÁLEZ','CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632',NULL,NULL,NULL,NULL,NULL,1,'2018-01-15 15:37:22','2018-01-15 21:37:22');
 
 /*Table structure for table `empresa_servicio` */
 
@@ -150,23 +148,7 @@ CREATE TABLE `empresas` (
 
 /*Data for the table `empresas` */
 
-insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`contrato`,`numero_elementos`,`fecha_inicio`,`fecha_termino`,`observaciones`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116','2 Meses','40','2018-01-14','2018-01-15','Buen cliente',1,'2018-01-14 20:58:08','2018-01-14 21:14:35');
-
-/*Table structure for table `estado` */
-
-DROP TABLE IF EXISTS `estado`;
-
-CREATE TABLE `estado` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombreEstado` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
-
-/*Data for the table `estado` */
-
-insert  into `estado`(`id`,`nombreEstado`,`created_at`,`updated_at`) values (1,'Aguascalientes','2017-02-04 18:45:43','2017-02-04 18:49:42'),(2,'Baja California',NULL,'2017-02-02 10:49:34'),(3,'Baja California Sur',NULL,NULL),(4,'Campeche',NULL,'2017-01-25 23:32:12'),(5,'Chiapas',NULL,NULL),(6,'Chihuahua',NULL,NULL),(7,'Coahuila',NULL,NULL),(8,'Colima',NULL,NULL),(9,'Distrito Federal',NULL,NULL),(10,'Durango',NULL,NULL),(11,'Estado de México',NULL,NULL),(12,'Guanajuato',NULL,NULL),(13,'Guerrero',NULL,'2017-01-25 23:32:35'),(14,'Hidalgo',NULL,NULL),(15,'Jalisco',NULL,'2017-01-25 23:32:31'),(16,'Michoacán',NULL,NULL),(17,'Morelos',NULL,NULL),(18,'Nayarit',NULL,NULL),(19,'Nuevo León',NULL,NULL),(20,'Oaxaca',NULL,NULL),(21,'Puebla',NULL,NULL),(22,'Querétaro',NULL,NULL),(23,'Quintana Roo',NULL,NULL),(24,'San Luis Potosí',NULL,NULL),(25,'Sinaloa',NULL,'2017-01-25 23:33:35'),(26,'Sonora',NULL,NULL),(27,'Tabasco',NULL,NULL),(28,'Tamaulipas',NULL,'2017-01-25 23:32:56'),(29,'Tlaxcala',NULL,NULL),(30,'Veracruz',NULL,NULL),(31,'Yucatán',NULL,NULL),(32,'Zacatecas',NULL,'2017-01-25 23:32:45');
+insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`contrato`,`numero_elementos`,`fecha_inicio`,`fecha_termino`,`observaciones`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116','2 Meses','40','2018-01-14','2018-01-15','Buen cliente',1,'2018-01-15 12:39:44','2018-01-15 16:04:05');
 
 /*Table structure for table `pagos` */
 
@@ -178,15 +160,28 @@ CREATE TABLE `pagos` (
   `servicio_id` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date DEFAULT NULL,
+  `num_empleados` varchar(50) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `pagos` */
 
-insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`status`,`created_at`,`updated_at`) values (1,1,1,'2018-01-15','2018-01-31',1,'2018-01-14 14:18:38',NULL),(2,1,1,'2018-01-12','2018-01-14',0,'2018-01-14 14:21:22',NULL);
+/*Table structure for table `roles` */
+
+DROP TABLE IF EXISTS `roles`;
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rol` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+/*Data for the table `roles` */
+
+insert  into `roles`(`id`,`rol`) values (1,'Administrador'),(2,'Nóminas'),(3,'Recepción'),(4,'Captura (empleados)'),(5,'Captura (clientes)');
 
 /*Table structure for table `users` */
 
@@ -199,16 +194,16 @@ CREATE TABLE `users` (
   `email` varchar(100) DEFAULT NULL,
   `foto_usuario` varchar(255) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
-  `type` tinyint(4) DEFAULT '1',
+  `role_id` tinyint(4) DEFAULT '1',
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`type`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','fgyb5EtmNdAvMagdBVehCcoy35gVPLNCf10OP9PcQS6NiD8sOxgsVXo0Q12N',1,1,'2017-03-23 11:30:45','2017-12-22 18:06:28'),(2,'admin','$2y$10$Cfy3BWdTppBTvwAoOI82s.9aJJWixXA3W2hevgn8zxjQgEF8.KMsy','admin@topali.com','img/user_perfil/default.jpg',NULL,1,1,'2017-12-21 18:28:40','2017-12-21 18:28:40');
+insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`role_id`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','MhLGk8z7qGI7yMeWALfyQEfMcGYd7wDs1MThG2yNrQHTApGXk3ghU0QxTX0T',1,1,'2017-03-23 11:30:45','2018-01-15 16:49:17'),(2,'nomina','$2y$10$oOcNC86L3Wz9C4QEDBvtPO5tUiM1XhdoAA8U3gJk4BwYD4Zjov1OW','nomina@topali.com','img/user_perfil/default.jpg','Fht9CjGGx9vmdaFCSeDazmuJB7G5yDnguZOUPlN5FvDWcTYnrdGw3VKpTEEj',2,1,'2018-01-15 12:27:49','2018-01-15 18:38:59'),(3,'recepcion','$2y$10$dgshy7FS/T2JO8NjlvoEa.gs0wMo2WJ9oeXXRZlWgidkN/QVVgROy','recepcion@topali.com','img/user_perfil/default.jpg','EFaOXF4hCEfi88jeg4lKPYNAk4F5i9B5DaJmkp74GImFVz5sfP8mgcHIolKa',3,1,'2018-01-15 12:37:15','2018-01-15 18:41:37'),(4,'captura.empleado','$2y$10$vNdpi6CddMTyCZ2/fgUf0uNfyRB5D36TdkpmrI.l.CBxROqGTuz/K','cap_empleado@topali.com','img/user_perfil/default.jpg','3T8PjawO0B6qw5mMinOLR5sfULvnEnGFfuDnKgz56yjoccs1tdCMSC37H0pt',4,1,'2018-01-15 12:37:44','2018-01-15 21:16:23'),(5,'captura.cliente','$2y$10$uBPZ.NY28Mm/ifWl2Boyce0W6Jcm2aSXecf.jo8pxuDpq/PMyveIe','cap_cliente@topali.com','img/user_perfil/default.jpg',NULL,5,1,'2018-01-15 12:38:06','2018-01-15 12:38:06');
 
 /*Table structure for table `usuario_pagos` */
 
@@ -220,11 +215,9 @@ CREATE TABLE `usuario_pagos` (
   `pago_id` int(11) DEFAULT NULL,
   `notas` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `usuario_pagos` */
-
-insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (1,1,1,NULL),(2,2,1,NULL),(3,1,2,''),(4,1,1,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
