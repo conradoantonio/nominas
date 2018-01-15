@@ -9,6 +9,11 @@
             <th class="">Contacto</th>
             <th class="">Teléfono</th>
             <th class="hide">Marcación corta</th>
+            <th class="hide">Contrato</th>
+            <th class="hide">Número de elementos</th>
+            <th class="hide">Fecha inicio</th>
+            <th class="hide">Fecha término</th>
+            <th class="hide">Observaciones</th>
             <th class="hide">Status</th>
             <th>Acciones</th>
         </tr>
@@ -30,14 +35,21 @@
                     <td class=""><span>{{$empresa->contacto}}</span></td>
                     <td class=""><span>{{$empresa->telefono}}</span></td>
                     <td class="hide"><span>{{$empresa->marcacion_corta}}</span></td>
+                    <td class="hide"><span>{{$empresa->contrato}}</span></td>
+                    <td class="hide"><span>{{$empresa->numero_elementos}}</span></td>
+                    <td class="hide"><span>{{$empresa->fecha_inicio}}</span></td>
+                    <td class="hide"><span>{{$empresa->fecha_termino}}</span></td>
+                    <td class="hide"><span>{{$empresa->observaciones}}</span></td>
                     <td class="hide"><span>{{$empresa->status}}</span></td>
                     <td>
-                        <button type="button" class="btn btn-info editar_empresa">Editar</button>
-                        <button type="button" class="btn btn-success ver_servicios">
-                                <i class="fa fa-spinner fa-spin" style="display: none"></i>
-                                Servicios
-                        </button>
-                        <button type="button" class="btn btn-danger eliminar_empresa">Borrar</button>
+                        @if($status == 1)
+                            <button type="button" class="btn btn-info editar_empresa">Editar</button>
+                            <button type="button" class="btn btn-success ver_servicios">
+                                    <i class="fa fa-spinner fa-spin" style="display: none"></i>
+                                    Servicios
+                            </button>
+                        @endif
+                        <button type="button" change-to={{$empresa->status == 1 ? '0' : '1'}} class="btn btn-danger eliminar_empresa">{{$empresa->status == 1 ? 'Baja' : 'Reactivar'}}</button>
                     </td>
                 </tr>
             @endforeach

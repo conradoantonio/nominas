@@ -51,6 +51,36 @@
                                 <input type="text" class="form-control" id="marcacion_corta" name="marcacion_corta" placeholder="Marcación corta">
                             </div>
                         </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="contrato">Contrato</label>
+                                <input type="text" class="form-control" id="contrato" name="contrato" placeholder="Contrato">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="numero_elementos">Número de elementos</label>
+                                <input type="text" class="form-control" id="numero_elementos" name="numero_elementos" placeholder="Número de elementos">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="fecha_inicio">Fecha de inicio</label>
+                                <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" placeholder="Fecha de inicio">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="fecha_termino">Fecha de término</label>
+                                <input type="text" class="form-control" id="fecha_termino" name="fecha_termino" placeholder="Fecha de término">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="observaciones">Observaciones</label>
+                                <textarea class="form-control" rows="3" id="observaciones" name="observaciones" placeholder="Observaciones"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

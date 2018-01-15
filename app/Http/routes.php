@@ -40,10 +40,13 @@ Route::group(['prefix' => 'usuarios/sistema', 'middleware' => 'admin'], function
 /*-- Rutas para la pestaña de empresas--*/
 Route::group(['prefix' => 'empresas', 'middleware' => 'supervisor'], function () {
 	Route::get('/','EmpresasController@index');//Carga la tabla de empresas
+	Route::get('/inactivas','EmpresasController@inactivas');//Carga la tabla de empresas inactivas
 	Route::post('guardar','EmpresasController@guardar');//Guarda los datos de una empresa
 	Route::post('editar','EmpresasController@editar');//Edita los datos de una empresa
 	Route::post('baja','EmpresasController@dar_baja');//Cambia el status de una empresa
 	Route::post('baja/multiple','EmpresasController@dar_baja_multiples_empresas');//Cambia el status de una empresa
+	Route::get('exportar/individual/{id}','EmpresasController@exportar_individual');//Exporta una empresa a excel
+	Route::get('exportar/general/{status}','EmpresasController@exportar_general');//Exporta las empresas a excel con cierto status
 
 	#Prefijo para servicios
 	Route::post('servicios','EmpresasController@cargar_servicios_empresa');//Carga los servicios de una empresa
@@ -64,7 +67,7 @@ Route::group(['prefix' => 'empleados', 'middleware' => 'auth'], function () {
 	Route::post('baja','EmpleadosController@dar_baja');//Cambia el status de una empleado
 	Route::post('baja/multiple','EmpleadosController@dar_baja_multiple');//Cambia el status de un empleado
 	Route::get('exportar/individual/{id}','EmpleadosController@exportar_individual');//Exporta un empleado a excel
-	Route::get('exportar/general/{status}','EmpleadosController@exportar_general');//Exporta los empleados con cierto status
+	Route::get('exportar/general/{status}','EmpleadosController@exportar_general');//Exporta los empleados a excel con cierto status
 });
 
 /*--- Modulo pagos ---*/

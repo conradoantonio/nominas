@@ -29,7 +29,7 @@ input:-webkit-autofill {
 
     @include('empresas.form_empresa')
 
-    <h2>Lista de empresas</h2>
+    <h2>Lista de clientes (empresas)</h2>
 
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="titulo_tipo_servicio" id="servicio_dialogo">
         <div class="modal-dialog modal-lg" role="document">
@@ -121,11 +121,13 @@ input:-webkit-autofill {
                 <div class="grid-title">
                     <h4>Opciones <span class="semi-bold">adicionales</span></h4>
                     <div>
-                        {{-- <button type="button" class="btn btn-info {{count($empresas) ? '' : 'hide'}}" id="exportar_empresas_excel"><i class="fa fa-download" aria-hidden="true"></i> Exportar empresas</button> --}}
-                        <button type="button" class="btn btn-danger {{count($empresas) ? '' : 'hide'}}" id="eliminar_multiples_empresas"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empresas</button>
-                        
-                        {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importar-excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Importar empresas</button> --}}
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empresa" id="nuevo_empresa"><i class="fa fa-plus" aria-hidden="true"></i> Nueva empresa</button>
+                        <a href="{{url("empresas/exportar/general/{$status}")}}">
+                            <button type="button" class="btn btn-info {{count($empresas) ? '' : 'hide'}}" id="exportar_empresas_excel"><i class="fa fa-download" aria-hidden="true"></i> Exportar clientes</button>
+                        </a>
+                        <button type="button" class="btn btn-danger {{count($empresas) ? '' : 'hide'}}" id="eliminar_multiples_empresas"><i class="fa {{$status == 1 ? 'fa-trash' : 'fa-undo'}}" aria-hidden="true"></i> {{$status == 1 ? 'Dar de baja' : 'Reactivar empresas'}}</button>
+                        @if($status == 1)
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empresa" id="nuevo_empresa"><i class="fa fa-plus" aria-hidden="true"></i> Nueva empresa</button>
+                        @endif
                     </div>
                     <div class="grid-body">
                         <div class="table-responsive" id="div_tabla_empresas">
@@ -154,6 +156,18 @@ input:-webkit-autofill {
  *=                                                           Empiezan las funciones relacionadas a la tabla de empresas                                                           =
  *==================================================================================================================================================================================
  */
+$(function() {
+
+    global_status = <?php echo $status;?>;
+    swal_msg = global_status == 1 ? 'dar de baja' : 'reactivar';
+    activar = global_status == 1 ? 0 : 1;
+
+    $( "#fecha_inicio, #fecha_termino" ).datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "yyyy-mm-dd",
+    });
+})
 
 $('#formulario_empresa').on('hidden.bs.modal', function (e) {
     $('#formulario_empresa div.form-group').removeClass('has-error');
@@ -178,7 +192,11 @@ $('body').delegate('.editar_empresa','click', function() {
     contacto = $(this).parent().siblings("td:nth-child(6)").text(),
     telefono = $(this).parent().siblings("td:nth-child(7)").text(),
     marcacion_corta = $(this).parent().siblings("td:nth-child(8)").text(),
-    token = $('#token').val();
+    contrato = $(this).parent().siblings("td:nth-child(9)").text(),
+    numero_elementos = $(this).parent().siblings("td:nth-child(10)").text(),
+    fecha_inicio = $(this).parent().siblings("td:nth-child(11)").text(),
+    fecha_termino = $(this).parent().siblings("td:nth-child(12)").text(),
+    observaciones = $(this).parent().siblings("td:nth-child(13)").text(),
 
     $("h4#titulo_form_empresa").text('Editar empresa');
     $("form#form_empresa").get(0).setAttribute('action', '{{url('empresas/editar')}}');
@@ -189,6 +207,11 @@ $('body').delegate('.editar_empresa','click', function() {
     $("#formulario_empresa input#contacto").val(contacto);
     $("#formulario_empresa input#telefono").val(telefono);
     $("#formulario_empresa input#marcacion_corta").val(marcacion_corta);
+    $("#formulario_empresa input#contrato").val(contrato);
+    $("#formulario_empresa input#numero_elementos").val(numero_elementos);
+    $("#formulario_empresa input#fecha_inicio").val(fecha_inicio);
+    $("#formulario_empresa input#fecha_termino").val(fecha_termino);
+    $("#formulario_empresa textarea#observaciones").val(observaciones);
 
     $('#formulario_empresa').modal();
 });
@@ -202,7 +225,7 @@ $('body').delegate('#eliminar_multiples_empresas','click', function() {
     });
     if (checking.length > 0) {
         swal({
-            title: "¿Realmente desea eliminar las <span style='color:#F8BB86'>" + checking.length + "</span> empresas seleccionadas?",
+            title: "¿Realmente desea " + swal_msg + " las <span style='color:#F8BB86'>" + checking.length + "</span> empresas seleccionadas?",
             text: "¡Esta acción no podrá deshacerse!",
             html: true,
             type: "warning",
@@ -216,19 +239,17 @@ $('body').delegate('#eliminar_multiples_empresas','click', function() {
             closeOnConfirm: false
         },
         function() {
-            var token = $("#token").val();
-            eliminarMultiplesEmpresas(checking, token);
+            eliminarMultiplesEmpresas(checking, activar);
         });
     }
 });
 
 $('body').delegate('.eliminar_empresa','click', function() {
     var nombre = $(this).parent().siblings("td:nth-child(3)").text();
-    var token = $("#token").val();
     var id = $(this).parent().parent().attr('id');
 
     swal({
-        title: "¿Realmente desea eliminar la empresa <span style='color:#F8BB86'>" + nombre + "</span>?",
+        title: "¿Realmente desea " + swal_msg + " la empresa <span style='color:#F8BB86'>" + nombre + "</span>?",
         text: "¡Cuidado!",
         html: true,
         type: "warning",
@@ -242,7 +263,7 @@ $('body').delegate('.eliminar_empresa','click', function() {
         closeOnConfirm: false
     },
     function() {
-        eliminarEmpresa(id,token);
+        eliminarEmpresa(id,activar);
     });
 });
 

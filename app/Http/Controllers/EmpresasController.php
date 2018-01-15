@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Empresa;
 use App\EmpresaServicio;
 use Image;
+use Excel;
+use DB;
 
 class EmpresasController extends Controller
 {
@@ -31,13 +33,33 @@ class EmpresasController extends Controller
     public function index(Request $request)
     {
         if (auth()->check()) {
-            $title = "Clientes";
-            $menu = "Clientes";
-            $empresas = Empresa::where('status', 1)->get();
+            $title = $menu ="Clientes (Activos)";
+            $status = 1;
+            $empresas = Empresa::where('status', $status)->get();
             if ($request->ajax()) {
-                return view('empresas.tabla', ['empresas' => $empresas]);
+                return view('empresas.tabla', ['empresas' => $empresas, 'status' => $status]);
             }
-            return view('empresas.empresas', ['empresas' => $empresas, 'menu' => $menu, 'title' => $title]);
+            return view('empresas.empresas', ['empresas' => $empresas, 'status' => $status, 'menu' => $menu, 'title' => $title]);
+        } else {
+            return redirect()->to('/');
+        }
+    }
+
+    /**
+     * Carga la tabla de productos.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function inactivas(Request $request)
+    {
+        if (auth()->check()) {
+            $title = $menu ="Clientes (Inactivos)";
+            $status = 0;
+            $empresas = Empresa::where('status', $status)->get();
+            if ($request->ajax()) {
+                return view('empresas.tabla', ['empresas' => $empresas, 'status' => $status]);
+            }
+            return view('empresas.empresas', ['empresas' => $empresas, 'status' => $status, 'menu' => $menu, 'title' => $title]);
         } else {
             return redirect()->to('/');
         }
@@ -59,22 +81,14 @@ class EmpresasController extends Controller
         $empresa->contacto = $request->contacto;
         $empresa->telefono = $request->telefono;
         $empresa->marcacion_corta = $request->marcacion_corta;
+        $empresa->contrato = $request->contrato;
+        $empresa->numero_elementos = $request->numero_elementos;
+        $request->fecha_inicio ?  $empresa->fecha_inicio = $request->fecha_inicio : '';
+        $request->fecha_termino ?  $empresa->fecha_termino = $request->fecha_termino : '';
+        $empresa->observaciones = $request->observaciones;
         $empresa->status = 1;
         $empresa->created_at = $this->actual_datetime;
 
-        /*$logo = $request->file('logo');
-        if ($logo) {
-            $extensiones_permitidas = array("1"=>"jpeg", "2"=>"jpg", "3"=>"png", "4"=>"gif");
-            $extension_archivo = $logo->getClientOriginalExtension();
-            if (array_search($extension_archivo, $extensiones_permitidas)) {
-                $name = 'img/logo_empresa/'.time().'.'.$extension_archivo;
-                Image::make($logo)
-                //->resize(460, 460)
-                ->save($name);
-                $empresa->logo = $name;
-            }
-        }*/
-   
         $empresa->save();
 
         return ['msg' => 'saved!'];
@@ -97,22 +111,13 @@ class EmpresasController extends Controller
             $empresa->contacto = $request->contacto;
             $empresa->telefono = $request->telefono;
             $empresa->marcacion_corta = $request->marcacion_corta;
-            //$empresa->status = 1;
+            $empresa->contrato = $request->contrato;
+            $empresa->numero_elementos = $request->numero_elementos;
+            $empresa->fecha_inicio = $request->fecha_inicio;
+            $empresa->fecha_termino = $request->fecha_termino;
+            $empresa->observaciones = $request->observaciones;
             $empresa->created_at = $this->actual_datetime;
 
-            /*$logo = $request->file('logo');
-            if ($logo) {
-                $extensiones_permitidas = array("1"=>"jpeg", "2"=>"jpg", "3"=>"png", "4"=>"gif");
-                $extension_archivo = $logo->getClientOriginalExtension();
-                if (array_search($extension_archivo, $extensiones_permitidas)) {
-                    $name = 'img/logo_empresa/'.time().'.'.$extension_archivo;
-                    Image::make($logo)
-                    //->resize(460, 460)
-                    ->save($name);
-                    $empresa->logo = $name;
-                }
-            }*/
-       
             $empresa->save();
 
             return ['msg' => 'saved!'];
@@ -130,8 +135,7 @@ class EmpresasController extends Controller
     {
         $empresa = Empresa::find($request->id);
         if ($empresa) {
-            $empresa->update(['status' => 0]);
-            //$empresa->delete();
+            $empresa->update(['status' => $request->status]);
             return ["msg" => 'Deleted!'];
         } else {
             return ["msg" => 'Unable to delete this record!'];
@@ -148,12 +152,44 @@ class EmpresasController extends Controller
     {
         try {
             Empresa::whereIn('id', $request->checking)
-            ->update(['status' => 0]);
-            //->delete();
+            ->update(['status' => $request->status]);
             return ["msg" => 'All rows selected were deleted!'];
         } catch(\Illuminate\Database\QueryException $ex) {
             return $ex->getMessage();
         }
+    }
+
+    /**
+     * Exporta todos los empleados a excel.
+     *
+     * @return response
+     */
+    public function exportar_general($status)
+    {
+        $empresas = Empresa::select(DB::raw("empresas.id, empresas.nombre, empresas.oficina_cargo AS 'oficina a cargo',
+            empresas.direccion, empresas.contacto, empresas.telefono, empresas.marcacion_corta AS 'marcación corta',
+            empresas.contrato, empresas.numero_elementos AS 'número de elementos', empresas.fecha_inicio AS 'fecha de inicio',
+            empresas.fecha_termino AS 'fecha de término', empresas.observaciones, 
+            IF(empresas.status = 1, 'Activa', 'inactiva') as 'status'"))
+        ->where('empresas.status', $status)
+        ->get();
+
+        Excel::create('empresas', function($excel) use($empresas) {
+            $excel->sheet('Hoja 1', function($sheet) use($empresas) {
+                $sheet->cells('A:M', function($cells) {
+                    $cells->setAlignment('center');
+                    $cells->setValignment('center');
+                });
+                
+                $sheet->cells('A1:M1', function($cells) {
+                    $cells->setFontWeight('bold');
+                });
+
+                $sheet->fromArray($empresas);
+            });
+        })->export('xlsx');
+
+        return ['msg'=>'Excel creado'];
     }
 
     /**

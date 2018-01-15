@@ -152,10 +152,21 @@
 
                 @if(auth()->user()->type != 3)
                     <!-- BEGIN SINGLE LINK -->
-                    <li class="{{$menu == 'Clientes' ? 'active' : ''}}">
+                    <li class="{{$menu == 'Clientes (Activos)' ? 'active' : ''}}">
                         <a href="{{url('empresas')}}">
-                            <i class="fa fa-building" aria-hidden="true"></i>
-                            <span class="title">Clientes</span>
+                            <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                            <span class="title">Clientes (Activos)</span>
+                        </a>
+                    </li>
+                    <!-- END SINGLE LINK -->
+                @endif
+
+                @if(auth()->user()->type != 3)
+                    <!-- BEGIN SINGLE LINK -->
+                    <li class="{{$menu == 'Clientes (Inactivos)' ? 'active' : ''}}">
+                        <a href="{{url('empresas/inactivas')}}">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                            <span class="title">Clientes (Inactivos)</span>
                         </a>
                     </li>
                     <!-- END SINGLE LINK -->
