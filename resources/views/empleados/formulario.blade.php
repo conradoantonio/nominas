@@ -300,13 +300,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <a href="{{url('empleados')}}{{($empleado ? ($empleado->status == 0 ? '/inactivos' : '') : '')}}"><button type="button" class="btn btn-default" data-dismiss="modal">Regresar</button></a>
                                 @if ($editable)
                                     <button type="submit" class="btn btn-primary" id="guardar_empleado">
                                         <i class="fa fa-spinner fa-spin" style="display: none;"></i>
                                         Guardar
                                     </button>
                                 @endif
-                                <a href="{{url('empleados')}}{{$empleado->status == 0 ? '/inactivos' : ''}}"><button type="button" class="btn btn-default" data-dismiss="modal">Regresar</button></a>
+                                @if($empleado)
+                                    <a href="{{url("empleados/exportar/individual/1/$empleado->id")}}"><button type="button" class="btn btn-info" data-dismiss="modal">Exportar</button></a>
+                                @endif
                             </form>
                     	</div>
                     </div>

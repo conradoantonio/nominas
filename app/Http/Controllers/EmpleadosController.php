@@ -236,8 +236,9 @@ class EmpleadosController extends Controller
      *
      * @return response
      */
-    public function exportar_general($status)
+    public function exportar_excel($status, $id = false)
     {
+        $nombre_excel = 'Empleado Info';
         $empleados = Empleado::select(DB::raw("empleados.*, 
             IF(documentacion.comprobante_domicilio = 0, 'No', 'Si') as 'Comprobante domicilio', 
             IF(documentacion.identificacion = 0, 'No', 'Si') as 'Identificación',
@@ -260,11 +261,18 @@ class EmpleadosController extends Controller
             IF(documentacion.calendario = 0, 'No', 'Si') as 'Calendario',
             IF(documentacion.formato_datos_personales = 0, 'No', 'Si') as 'Formato de datos personales',
             IF(documentacion.solicitud_autorizacion_consulta = 0, 'No', 'Si') as 'Solicitud de autorización de consulta'"))
-        ->leftJoin('documentacion', 'empleados.id', '=', 'documentacion.empleado_id')
-        ->where('empleados.status', $status)
-        ->get();
+        ->leftJoin('documentacion', 'empleados.id', '=', 'documentacion.empleado_id');
 
-        Excel::create('Empleados', function($excel) use($empleados) {
+        if ($id) {
+            $empleados = $empleados->where('empleados.id', $id)->get();
+            $nombre_excel = "Empleado ".$empleados[0]->nombre;
+
+        } else {
+            $empleados = $empleados->where('empleados.status', $status)->get();
+            $nombre_excel = "Empleados";
+        }
+
+        Excel::create($nombre_excel, function($excel) use($empleados) {
             $excel->sheet('Hoja 1', function($sheet) use($empleados) {
                 $sheet->cells('A:AN', function($cells) {
                     $cells->setAlignment('center');

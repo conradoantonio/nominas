@@ -49,6 +49,7 @@
                                     Servicios
                             </button>
                         @endif
+                        <a href="{{url("empresas/exportar/individual/1/$empresa->id")}}"><button type="button" class="btn btn-default" data-dismiss="modal"> Exportar</button></a>
                         <button type="button" change-to={{$empresa->status == 1 ? '0' : '1'}} class="btn btn-danger eliminar_empresa">{{$empresa->status == 1 ? 'Baja' : 'Reactivar'}}</button>
                     </td>
                 </tr>

@@ -164,17 +164,26 @@ class EmpresasController extends Controller
      *
      * @return response
      */
-    public function exportar_general($status)
+    public function exportar_excel($status, $id = false)
     {
+        $nombre_excel = 'Empresa info';
         $empresas = Empresa::select(DB::raw("empresas.id, empresas.nombre, empresas.oficina_cargo AS 'oficina a cargo',
             empresas.direccion, empresas.contacto, empresas.telefono, empresas.marcacion_corta AS 'marcación corta',
             empresas.contrato, empresas.numero_elementos AS 'número de elementos', empresas.fecha_inicio AS 'fecha de inicio',
             empresas.fecha_termino AS 'fecha de término', empresas.observaciones, 
-            IF(empresas.status = 1, 'Activa', 'inactiva') as 'status'"))
-        ->where('empresas.status', $status)
-        ->get();
+            IF(empresas.status = 1, 'Activa', 'inactiva') as 'status'"));
+        
 
-        Excel::create('empresas', function($excel) use($empresas) {
+        if ($id) {
+            $empresas = $empresas->where('empresas.id', $id)->get();
+            $nombre_excel = "Empresa (Cliente) ".$empresas[0]->nombre;
+
+        } else {
+            $empresas = $empresas->where('empresas.status', $status)->get();
+            $nombre_excel = "Empleados";
+        }
+
+        Excel::create($nombre_excel, function($excel) use($empresas) {
             $excel->sheet('Hoja 1', function($sheet) use($empresas) {
                 $sheet->cells('A:M', function($cells) {
                     $cells->setAlignment('center');

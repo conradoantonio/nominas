@@ -24,6 +24,7 @@
 			<h6>Teléfono: {{$pago->empresa->telefono}}</h6>
 			<h6>Marcación corta: <strong>{{$pago->empresa->marcacion_corta}}</strong></h6>
 			<h6>Servicio: {{$pago->servicio->servicio}}</h6>
+			<h6>Número de empleados: {{$pago->num_empleados}}</h6>
 			<h6>Horario: {{$pago->servicio->horario}}</h6>
 			<h6>Sueldo: <strong>${{$pago->servicio->sueldo}}</strong></h6>
 		</div>

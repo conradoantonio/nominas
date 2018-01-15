@@ -80,6 +80,7 @@ img#company-logo{
 									<li>Teléfono: {{$pago->empresa->telefono}}</li>
 									<li>Marcación corta: <strong>{{$pago->empresa->marcacion_corta}}</strong></li>
 									<li>Servicio: {{$pago->servicio->servicio}}</li>
+									<li>Número de empleados: {{$pago->num_empleados}}</li>
 									<li>Horario: {{$pago->servicio->horario}}</li>
 									<li>Sueldo: <strong>${{$pago->servicio->sueldo}}</strong></li>
 								</ul>

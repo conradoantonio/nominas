@@ -34,6 +34,13 @@ td.cell.disabled{
 	background-color: #cacaca91;
 	cursor: context-menu;
 }
+ul{
+	list-style: none;
+	padding: 0;
+}
+img#company-logo{
+	width: 30%;
+}
 </style>
 <div class="text-center" style="margin: 20px;">
      @if(session('msg'))
@@ -48,15 +55,22 @@ td.cell.disabled{
                 <div class="grid-title">
 					<div class="text-left">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-xs-12 col-sm-12 col-md-6">
 								<ul>
-									<li><strong>Empresa: </strong>{{$pago->empresa->nombre}}</li>
-									<li><strong>Dirección: </strong>{{$pago->empresa->direccion}}</li>
-									<li><strong>Teléfono: </strong>{{$pago->empresa->telefono}}</li>
+									<h2><li><strong>{{$pago->empresa->nombre}}</strong></li></h2>
+									<h3><li><strong>{{$pago->empresa->oficina_cargo}}</strong></li></h3>
+									<li>Dirección: {{$pago->empresa->direccion}}</li>
+									<li>Contacto: {{$pago->empresa->contacto}}</li>
+									<li>Teléfono: {{$pago->empresa->telefono}}</li>
+									<li>Marcación corta: <strong>{{$pago->empresa->marcacion_corta}}</strong></li>
+									<li>Servicio: {{$pago->servicio->servicio}}</li>
+									<li>Número de empleados: {{$pago->num_empleados}}</li>
+									<li>Horario: {{$pago->servicio->horario}}</li>
+									<li>Sueldo: <strong>${{$pago->servicio->sueldo}}</strong></li>
 								</ul>
 							</div>
-							<div class="col-md-6 text-right">
-
+							<div class="col-md-6 visible-lg visible-md hidden-sm hidden-xs text-right" style="float: right;">
+								<img src="{{asset('img/logo_topali.png')}}" class="" id="company-logo" alt="company-logo">
 							</div>
 						</div>
 					</div>
