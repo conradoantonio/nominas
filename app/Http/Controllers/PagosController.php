@@ -112,7 +112,7 @@ class PagosController extends Controller
 
 		// Loop between timestamps, 24 hours at a time
 		for ( $i = $startTime; $i <= $endTime; $i = $i + 86400 ) {
-			$edit = false;
+			$edit = true;
 			$d = date( 'd', $i );
 			if ( $d >= $days_ago && $d <= date('d') ){
 				$edit = true;
