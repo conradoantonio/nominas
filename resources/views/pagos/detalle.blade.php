@@ -98,7 +98,7 @@ img#company-logo{
                 </div>
             </div>
             <a href="{{$pago->status != 0 ? url('nominas') : url('historial')}}" class="btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</a>
-            <button id="agregar_empleado" class="btn btn-success {{$pago->status != 1 ? 'hide' : ''}}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar empleado</button>
+            <button id="agregar_empleado" class="btn btn-success {{$pago->status == 0 ? 'hide' : ''}}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar empleado</button>
             <button id="guardar" class="btn btn-primary {{$pago->status != 0 ? '' : 'hide'}}">
             	<i class="fa fa-floppy-o" aria-hidden="true"></i>
                 <i class="fa fa-spinner fa-spin" style="display: none;"></i>

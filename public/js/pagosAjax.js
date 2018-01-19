@@ -13,7 +13,7 @@ function guardarAsistencias(json,button) {
             button.attr('disabled', false);
             console.log(response);
             if (response.status == 2) {
-                $('button#agregar_empleado').addClass('hide');
+                //$('button#agregar_empleado').addClass('hide');
                 $('a#btn-pagar').removeClass('hide');
             } /*else if (response.status != 0){
                 $('div.contenedor-detalles button#pagar').removeClass('hide');
