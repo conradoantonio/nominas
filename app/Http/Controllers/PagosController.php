@@ -332,7 +332,7 @@ class PagosController extends Controller
 				'Nombre completo' => $asistencia->pago->usuarios->nombre.' '.$asistencia->pago->usuarios->apellido_paterno.' '.$asistencia->pago->usuarios->apellido_materno,
 				'Importe ' => number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2),
 				'Número de cuenta' => $asistencia->pago->usuarios->num_cuenta,
-				'Número de empleado' => $asistencia->pago->usuarios->id,
+				'Número de empleado' => $asistencia->pago->usuarios->num_empleado,
 				'Fecha de pagos' => date('d M Y', strtotime($asistencia->pago->pago->fecha_inicio)).' - '.date('d M Y', strtotime($asistencia->pago->pago->fecha_fin)),
 				'Días' => $asistencia->total,
 				'Dias festivos' => $asistencia->festivo,

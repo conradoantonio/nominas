@@ -37,6 +37,7 @@
 		<thead class="thead-light">
 			<tr>
 				<th style="width: 10px;">ID</th>
+				<th style="width: 10px;">No. Empleado</th>
 				<th style="width: 10px;">Nombre</th>
 				@foreach( $dias as $day )
 					@if( $day['dia'] == 0 )
@@ -82,6 +83,7 @@
 			@foreach( $pago->PagoUsuarios as $trabajador )
 				<tr>
 					<td>{{$trabajador->usuarios->id}}</td>
+					<td>{{$trabajador->usuarios->num_empleado}}</td>
 					<td data-user={{$trabajador->usuarios->id}} data-realid={{$pago->id}} data-pago={{$trabajador->id}}>{{$trabajador->usuarios->nombre}} {{$trabajador->usuarios->apellido_paterno}} {{$trabajador->usuarios->apellido_materno}}</td>
 					@if( count($asistencias) == 0 )
 	    				@foreach( $dias as $day )
