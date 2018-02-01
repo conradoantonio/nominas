@@ -108,6 +108,11 @@ class EmpleadosController extends Controller
         $empleado->curp = $request->curp;
         $empleado->nss = $request->nss;
         $empleado->telefono_emergencia = $request->telefono_emergencia;
+        $empleado->fecha_ingreso = $request->fecha_ingreso;
+        $empleado->escolaridad = $request->escolaridad;
+        $empleado->infonavit = $request->infonavit;
+        $empleado->vacaciones = $request->vacaciones;
+        $empleado->pensionado = $request->pensionado;
 
         $empleado->save();
 
@@ -165,6 +170,11 @@ class EmpleadosController extends Controller
             $empleado->curp = $request->curp;
             $empleado->nss = $request->nss;
             $empleado->telefono_emergencia = $request->telefono_emergencia;
+            $empleado->fecha_ingreso = $request->fecha_ingreso;
+            $empleado->escolaridad = $request->escolaridad;
+            $empleado->infonavit = $request->infonavit;
+            $empleado->vacaciones = $request->vacaciones;
+            $empleado->pensionado = $request->pensionado;
 
             $empleado->save();
 
