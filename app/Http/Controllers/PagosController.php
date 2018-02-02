@@ -108,11 +108,12 @@ class PagosController extends Controller
 
 		$startTime = strtotime( $pago->fecha_inicio );
 		$endTime = strtotime( $pago->fecha_fin );
-		$dia = $days_ago = date('d', strtotime('-3 days'));
+		$days_ago = date('d', strtotime('-3 days'));
 		
 		$date1=date_create(date('Y-m-d'));
 		$date2=date_create(date('Y-m-d', strtotime( "-3 days")));
 		$diff=date_diff($date1,$date2);
+
 		// Loop between timestamps, 24 hours at a time
 
 		for ( $i = $startTime; $i <= $endTime; $i = $i + 86400 ) {
@@ -129,14 +130,27 @@ class PagosController extends Controller
 			$days[] = ['dia' => date('w', $i), 'num' => $d, 'edit' => $edit];
 		}
 
-		$c = $diff->d;
-		foreach ($days as &$day) {
-			if ( $c > 0 && $day['num'] == $dia || $day['num'] == date('d') ){
-				$day['edit'] = true;	
-				$c--;
-				$dia = date('d', strtotime(sprintf("-%d days", ($c))));
+
+		$today = date('Y-m-d');
+	    $today = date('Y-m-d', strtotime($today));
+	    $inicio_d = date('Y-m-d', strtotime($pago->fecha_inicio));
+	    $fin_d = date('Y-m-d', strtotime($pago->fecha_fin));
+
+	    $c = $diff->d;
+	    $dia = array();
+	    while( $c > 0 ){
+	    	$dia[] = date('d', strtotime(sprintf("-%d days", ($c))));
+	    	$c--;
+	    }
+
+	    #if (($today >= $inicio_d) && ($today < $fin_d)){
+			foreach ($days as &$day) {
+				#echo $dia."<br>";
+				if ( $day['num'] == $dia[0] || $day['num'] == $dia[1] || $day['num'] == $dia[2] || $day['num'] == date('d') ){
+		    		$day['edit'] = true;
+		    	}
 			}
-		}
+		#}
 
 		$asistencias = Asistencia::whereIn('usuario_pago_id',$pago->PagoUsuarios->pluck('id'))->get();
 		if ($reload) {
