@@ -172,7 +172,7 @@ img#company-logo{
 	    var checking = [];
 	    $("input.checkDelete").each(function() {
 	        if($(this).is(':checked')) {
-	            checking.push($(this).parent().parent().siblings("td:nth-child(3)").data('pago'));
+	            checking.push($(this).parent().parent().siblings("td:nth-child(4)").data('pago'));
 	        }
 	    });
 	    if (checking.length > 0) {
