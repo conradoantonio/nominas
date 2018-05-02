@@ -59,12 +59,12 @@ img#company-logo{
 								<ul>
 									<h2><li><strong>{{$pago->empresa->nombre}}</strong></li></h2>
 									<h3><li><strong>{{$pago->empresa->oficina_cargo}}</strong></li></h3>
-									<li>Dirección: {{$pago->empresa->direccion}}</li>
+									<li>Direcci贸n: {{$pago->empresa->direccion}}</li>
 									<li>Contacto: {{$pago->empresa->contacto}}</li>
-									<li>Teléfono: {{$pago->empresa->telefono}}</li>
-									<li>Marcación corta: <strong>{{$pago->empresa->marcacion_corta}}</strong></li>
+									<li>Tel茅fono: {{$pago->empresa->telefono}}</li>
+									<li>Marcaci贸n corta: <strong>{{$pago->empresa->marcacion_corta}}</strong></li>
 									<li>Servicio: {{$pago->servicio->servicio}}</li>
-									<li>Número de empleados: {{$pago->num_empleados}}</li>
+									<li>N煤mero de empleados: {{$pago->num_empleados}}</li>
 									<li>Horario: {{$pago->servicio->horario}}</li>
 									<li>Sueldo: <strong>${{$pago->servicio->sueldo}}</strong></li>
 								</ul>
