@@ -91,7 +91,7 @@ class EmpresasController extends Controller
 
         $empresa->save();
 
-        return ['msg' => 'saved!'];
+        return response(['msg' => 'Cliente editado exitosamente', 'status' => 'success', 'url' => url('empresas')], 200);
     }
 
     /**
@@ -116,46 +116,31 @@ class EmpresasController extends Controller
             $empresa->fecha_inicio = $request->fecha_inicio;
             $empresa->fecha_termino = $request->fecha_termino;
             $empresa->observaciones = $request->observaciones;
-            $empresa->created_at = $this->actual_datetime;
 
             $empresa->save();
 
-            return ['msg' => 'saved!'];
+            $url = url($empresa->status == 1 ? 'empresas' : 'empresas/inactivas');
+
+            return response(['msg' => 'Cliente editado exitosamente', 'status' => 'success', 'url' => $url], 200);
         }
-        return ['msg' => 'The enterprise has an invalid ID'];
+        return response(['msg' => 'Error al editar el cliente, por favor, trate nuevamente', 'status' => 'success'], 404);
     }
 
     /**
-     * Elimina una empresa.
+     * Elimina una o más empresas.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return ["success" => true]
      */
-    public function dar_baja(Request $request)
+    public function dar_baja(Request $req)
     {
-        $empresa = Empresa::find($request->id);
-        if ($empresa) {
-            $empresa->update(['status' => $request->status]);
-            return ["msg" => 'Deleted!'];
+        $rows = Empresa::whereIn('id', $req->ids)
+        ->update(['status' => $req->status]);
+
+        $url = url($req->status == 0 ? 'empresas' : 'empresas/inactivas');
+
+        if ($rows) {
+            return response(['url' => $url, 'status' => 'success', 'msg' => 'Éxito cambiando el status de las empresas seleccionadas'], 200);
         } else {
-            return ["msg" => 'Unable to delete this record!'];
-        }
-    }
-
-    /**
-     * Elimina múltiples empresas a la vez.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return ["success" => true]
-     */
-    public function dar_baja_multiples_empresas(Request $request)
-    {
-        try {
-            Empresa::whereIn('id', $request->checking)
-            ->update(['status' => $request->status]);
-            return ["msg" => 'All rows selected were deleted!'];
-        } catch(\Illuminate\Database\QueryException $ex) {
-            return $ex->getMessage();
+            return response(['msg' => 'Ha ocurrido un error, trate nuevamente', 'status' => 'error'], 404);
         }
     }
 

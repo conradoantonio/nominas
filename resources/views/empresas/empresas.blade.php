@@ -120,11 +120,11 @@ input:-webkit-autofill {
             <div class="grid simple ">
                 <div class="grid-title">
                     <h4>Opciones <span class="semi-bold">adicionales</span></h4>
-                    <div>
+                    <div class="general-info" data-url="{{url('empresas')}}" data-refresh="table" data-status="{{$status}}">
                         <a href="{{url("empresas/exportar/general/{$status}")}}">
                             <button type="button" class="btn btn-info {{count($empresas) ? '' : 'hide'}}" id="exportar_empresas_excel"><i class="fa fa-download" aria-hidden="true"></i> Exportar clientes</button>
                         </a>
-                        <button type="button" class="btn btn-danger {{count($empresas) ? '' : 'hide'}}" id="eliminar_multiples_empresas"><i class="fa {{$status == 1 ? 'fa-trash' : 'fa-undo'}}" aria-hidden="true"></i> {{$status == 1 ? 'Dar de baja' : 'Reactivar empresas'}}</button>
+                        <button type="button" class="btn btn-danger disable-rows enable-rows {{count($empresas) ? '' : 'hide'}}"><i class="fa {{$status == 1 ? 'fa-trash' : 'fa-undo'}}" aria-hidden="true"></i> {{$status == 1 ? 'Dar de baja' : 'Reactivar empresas'}}</button>
                         @if($status == 1)
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empresa" id="nuevo_empresa"><i class="fa fa-plus" aria-hidden="true"></i> Nueva empresa</button>
                         @endif
@@ -156,28 +156,8 @@ input:-webkit-autofill {
  *=                                                           Empiezan las funciones relacionadas a la tabla de empresas                                                           =
  *==================================================================================================================================================================================
  */
-$(function() {
 
-    global_status = <?php echo $status;?>;
-    swal_msg = global_status == 1 ? 'dar de baja' : 'reactivar';
-    activar = global_status == 1 ? 0 : 1;
-
-    $( "#fecha_inicio, #fecha_termino" ).datepicker({
-        autoclose: true,
-        todayHighlight: true,
-        format: "yyyy-mm-dd",
-    });
-})
-
-$('#formulario_empresa').on('hidden.bs.modal', function (e) {
-    $('#formulario_empresa div.form-group').removeClass('has-error');
-    $('input.form-control, textarea.form-control').val('');
-    $("#formulario_empresa input#oferta").prop('checked', false);
-});
-
-$('body').delegate('button#nuevo_empresa','click', function() {
-    $('select.form-control').val(0);
-    $('input.form-control').val('');
+$('body').delegate('button#nueva_empresa','click', function() {
     $('div#logo_empresa').hide();
     $("h4#titulo_form_empresa").text('Nueva empresa');
     $("form#form_empresa").get(0).setAttribute('action', '{{url('empresas/guardar')}}');
@@ -213,58 +193,9 @@ $('body').delegate('.editar_empresa','click', function() {
     $("#formulario_empresa input#fecha_termino").val(fecha_termino);
     $("#formulario_empresa textarea#observaciones").val(observaciones);
 
+    $("input#fecha_inicio").datepicker("update", fecha_inicio);
+    $("input#fecha_termino").datepicker("update", fecha_termino);
     $('#formulario_empresa').modal();
-});
-
-$('body').delegate('#eliminar_multiples_empresas','click', function() {
-    var checking = [];
-    $("input.checkDelete").each(function() {
-        if($(this).is(':checked')) {
-            checking.push($(this).parent().parent().parent().attr('id'));
-        }
-    });
-    if (checking.length > 0) {
-        swal({
-            title: "¿Realmente desea " + swal_msg + " las <span style='color:#F8BB86'>" + checking.length + "</span> empresas seleccionadas?",
-            text: "¡Esta acción no podrá deshacerse!",
-            html: true,
-            type: "warning",
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Si, continuar",
-            showLoaderOnConfirm: true,
-            allowEscapeKey: true,
-            allowOutsideClick: true,
-            closeOnConfirm: false
-        },
-        function() {
-            eliminarMultiplesEmpresas(checking, activar);
-        });
-    }
-});
-
-$('body').delegate('.eliminar_empresa','click', function() {
-    var nombre = $(this).parent().siblings("td:nth-child(3)").text();
-    var id = $(this).parent().parent().attr('id');
-
-    swal({
-        title: "¿Realmente desea " + swal_msg + " la empresa <span style='color:#F8BB86'>" + nombre + "</span>?",
-        text: "¡Cuidado!",
-        html: true,
-        type: "warning",
-        showCancelButton: true,
-        cancelButtonText: "Cancelar",
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Si, continuar",
-        showLoaderOnConfirm: true,
-        allowEscapeKey: true,
-        allowOutsideClick: true,
-        closeOnConfirm: false
-    },
-    function() {
-        eliminarEmpresa(id,activar);
-    });
 });
 
 /**

@@ -344,7 +344,13 @@
         <script src="{{ asset('js/sweetalert.min.js') }}"></script>
         <script src="{{ asset('js/lightbox.js') }}"></script>
 
-        <!-- BEGIN CORE JS FRAMEWORK-->
+        <!-- BEGIN CUSTOM CODE -->
+        <script src="{{ asset('js/generalAjax.js') }}"></script>
+        <script src="{{ asset('js/validFunctions.js') }}"></script>
+        <script src="{{ asset('js/globalFunctions.js') }}"></script>
+        <!-- END CUSTOM CODE -->
+
+        <!-- BEGIN CORE JS FRAMEWORK -->
         <!--<script src="{{ asset('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js') }}" type="text/javascript"></script>-->
         <script src="{{ asset('plugins/boostrapv3/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('plugins/breakpoints.js') }}" type="text/javascript"></script>

@@ -45,7 +45,6 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('guardar','EmpresasController@guardar');//Guarda los datos de una empresa
 		Route::post('editar','EmpresasController@editar');//Edita los datos de una empresa
 		Route::post('baja','EmpresasController@dar_baja');//Cambia el status de una empresa
-		Route::post('baja/multiple','EmpresasController@dar_baja_multiples_empresas');//Cambia el status de una empresa
 		Route::get('exportar/individual/{status}/{id}','EmpresasController@exportar_excel');//Exporta una empresa a excel
 		Route::get('exportar/general/{status}','EmpresasController@exportar_excel');//Exporta las empresas a excel con cierto status
 
