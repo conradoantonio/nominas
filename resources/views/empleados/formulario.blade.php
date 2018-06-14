@@ -78,7 +78,7 @@
                                     <div class="col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label for="rfc">RFC</label>
-                                            <input type="text" class="form-control rfc" value="{{$empleado ? $empleado->rfc : ''}}" id="rfc" name="rfc" placeholder="RFC" data-msg="RFC">
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->rfc : ''}}" id="rfc" name="rfc" placeholder="RFC" data-msg="RFC">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
@@ -127,6 +127,48 @@
                                         <div class="form-group">
                                             <label for="pensionado">Pensionado</label>
                                             <input type="text" class="form-control" value="{{$empleado ? $empleado->pensionado : ''}}" id="pensionado" name="pensionado" placeholder="Pensionado">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="perfil_laboral">Perfil de comportamiento laboral</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->perfil_laboral : ''}}" id="perfil_laboral" name="perfil_laboral" placeholder="Perfil de comportamiento laboral">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="fecha_baja">Fecha de baja</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->fecha_baja : ''}}" id="fecha_baja" name="fecha_baja" placeholder="Fecha de baja">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="motivo_baja">Motivo de baja</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->motivo_baja : ''}}" id="motivo_baja" name="motivo_baja" placeholder="Motivo de baja">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="fecha_finiquito">Fecha de finiquito</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->fecha_finiquito : ''}}" id="fecha_finiquito" name="fecha_finiquito" placeholder="Fecha de finiquito">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="descripcion_finiquito">Descripción de finiquito</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->descripcion_finiquito : ''}}" id="descripcion_finiquito" name="descripcion_finiquito" placeholder="Descripción de finiquito">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="fecha_entrega_papeles">Fecha de entrega de papeles</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->fecha_entrega_papeles : ''}}" id="fecha_entrega_papeles" name="fecha_entrega_papeles" placeholder="Fecha de entrega de papeles">
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="entrega_papeles">Descripción de entrega de papeles</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->entrega_papeles : ''}}" id="entrega_papeles" name="entrega_papeles" placeholder="Descripción de entrega de papeles">
                                         </div>
                                     </div>
                                 </div>
@@ -480,7 +522,7 @@
 {{-- <script src="{{ asset('js/validacionesEmpleados.js') }}"></script> --}}
 <script type="text/javascript">
     $(function(){
-        $( "#fecha_ingreso" ).datepicker({
+        $( "#fecha_ingreso, #fecha_baja, #fecha_finiquito, #fecha_entrega_papeles" ).datepicker({
             autoclose: true,
             todayHighlight: true,
             format: "yyyy-mm-dd",

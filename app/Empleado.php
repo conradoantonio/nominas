@@ -17,7 +17,9 @@ class Empleado extends Model
     protected $fillable = [
     	'nombre', 'apellido', 'num_empleado', 'num_cuenta', 'domicilio', 'ciudad',
         'telefono', 'rfc', 'curp', 'nss', 'telefono_emergencia', 'fecha_ingreso',
-        'escolaridad', 'infonavit', 'vacaciones', 'pensionado', 'status', 'created_at'
+        'escolaridad', 'infonavit', 'vacaciones', 'pensionado', 'perfil_laboral',
+        'fecha_baja', 'motivo_baja', 'fecha_finiquito', 'descripcion_finiquito',
+        'fecha_entrega_papeles', 'entrega_papeles', 'status', 'created_at'
     ];
 
     /**

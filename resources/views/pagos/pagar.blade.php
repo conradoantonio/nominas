@@ -88,6 +88,7 @@ img#company-logo{
 									<th>Dias a pagar</th>
 									<th>Empresa</th>
 									<th>Subtotal</th>
+									<th>Notas</th>
 								</thead>
 								<tbody>
 									@foreach($asistencias as $asistencia)
@@ -102,6 +103,7 @@ img#company-logo{
 										<td>{{$asistencia->total}}</td>
 										<td>{{$pago->empresa->nombre}}</td>
 										<td>${{number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2)}}</td>
+										<td>{{$asistencia->pago->notas}}</td>
 									</tr>
 									@endforeach
 								</tbody>

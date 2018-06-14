@@ -34,9 +34,11 @@ CREATE TABLE `aditamentos` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `aditamentos` */
+
+insert  into `aditamentos`(`id`,`empleado_id`,`fornitura`,`tolete`,`gas`,`aros_aprehensores`,`radio`,`celular`,`lampara`,`otros`,`created_at`,`updated_at`) values (1,3,1,1,1,1,1,1,1,'sdasdasd','2018-06-14 17:05:46','2018-06-14 17:05:46'),(2,2,0,0,0,0,0,0,0,'','2018-06-14 21:48:10','2018-06-14 21:48:10');
 
 /*Table structure for table `asistencias` */
 
@@ -82,14 +84,15 @@ CREATE TABLE `documentacion` (
   `calendario` tinyint(4) DEFAULT NULL,
   `formato_datos_personales` tinyint(4) DEFAULT NULL,
   `solicitud_autorizacion_consulta` tinyint(4) DEFAULT NULL,
+  `licencia_conduccion` text,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `documentacion` */
 
-insert  into `documentacion`(`id`,`empleado_id`,`comprobante_domicilio`,`identificacion`,`curp`,`rfc`,`hoja_imss`,`carta_no_antecedentes_penales`,`acta_nacimiento`,`comprobante_estudios`,`resultado_psicometrias`,`examen_socieconomico`,`examen_toxicologico`,`solicitud_frente_vuelta`,`deposito_uniforme`,`constancia_recepcion_uniforme`,`comprobante_recepcion_reglamento_interno_trabajo`,`autorizacion_pago_tarjeta`,`carta_aceptacion_cambio_lugar`,`finiquito`,`calendario`,`formato_datos_personales`,`solicitud_autorizacion_consulta`,`created_at`,`updated_at`) values (1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,'2017-11-21 23:28:19','2017-11-21 23:28:19'),(2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,'2017-11-21 23:30:09','2017-11-22 00:03:18');
+insert  into `documentacion`(`id`,`empleado_id`,`comprobante_domicilio`,`identificacion`,`curp`,`rfc`,`hoja_imss`,`carta_no_antecedentes_penales`,`acta_nacimiento`,`comprobante_estudios`,`resultado_psicometrias`,`examen_socieconomico`,`examen_toxicologico`,`solicitud_frente_vuelta`,`deposito_uniforme`,`constancia_recepcion_uniforme`,`comprobante_recepcion_reglamento_interno_trabajo`,`autorizacion_pago_tarjeta`,`carta_aceptacion_cambio_lugar`,`finiquito`,`calendario`,`formato_datos_personales`,`solicitud_autorizacion_consulta`,`licencia_conduccion`,`created_at`,`updated_at`) values (1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,NULL,'2017-11-21 23:28:19','2017-11-21 23:28:19'),(2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,'','2017-11-21 23:30:09','2018-06-14 21:48:09'),(3,3,1,0,1,0,1,0,1,0,1,0,0,1,0,1,1,0,1,0,1,1,0,'','2018-06-14 16:56:35','2018-06-14 17:43:55');
 
 /*Table structure for table `empleados` */
 
@@ -114,15 +117,22 @@ CREATE TABLE `empleados` (
   `infonavit` varchar(100) DEFAULT NULL,
   `vacaciones` varchar(100) DEFAULT NULL,
   `pensionado` varchar(100) DEFAULT NULL,
+  `perfil_laboral` varchar(255) DEFAULT NULL,
+  `fecha_baja` date DEFAULT NULL,
+  `motivo_baja` varchar(255) DEFAULT NULL,
+  `fecha_finiquito` date DEFAULT NULL,
+  `descripcion_finiquito` varchar(255) DEFAULT NULL,
+  `fecha_entrega_papeles` date DEFAULT NULL,
+  `entrega_papeles` varchar(255) DEFAULT NULL,
   `status` tinyint(4) DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `empleados` */
 
-insert  into `empleados`(`id`,`nombre`,`apellido_paterno`,`apellido_materno`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`fecha_ingreso`,`escolaridad`,`infonavit`,`vacaciones`,`pensionado`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO','ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',NULL,NULL,NULL,NULL,NULL,1,'2018-01-15 15:37:22','2018-01-15 21:37:22'),(2,'DANIELA','GONZÁLEZ','CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632',NULL,NULL,NULL,NULL,NULL,1,'2018-01-15 15:37:22','2018-01-15 21:37:22');
+insert  into `empleados`(`id`,`nombre`,`apellido_paterno`,`apellido_materno`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`fecha_ingreso`,`escolaridad`,`infonavit`,`vacaciones`,`pensionado`,`perfil_laboral`,`fecha_baja`,`motivo_baja`,`fecha_finiquito`,`descripcion_finiquito`,`fecha_entrega_papeles`,`entrega_papeles`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO','ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2018-06-14 12:14:54','2018-06-14 17:14:54'),(2,'DANIELA','GONZÁLEZ','CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632','2018-06-14','Universidad','','','','','2018-06-15','Se portó mal >:v','2018-06-15','Se le dio su finiquito en cheque','2018-06-14','Todo en orden',1,'2018-06-14 17:05:33','2018-06-14 22:05:33'),(3,'EDGARD JOSÉ','VARGAS','FLORES','003','3127386128','Calle simón Bolivar #594','Guadalajara','6691549832','VECJ880326HNJ','BADD110313HCMLNS09','321','6698542398','2018-06-14','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2018-06-14 16:34:25','2018-06-14 21:34:25');
 
 /*Table structure for table `empresa_servicio` */
 
@@ -226,11 +236,13 @@ CREATE TABLE `uniformes` (
   `corbata` tinyint(4) DEFAULT NULL,
   `otros` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updatd_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `uniformes` */
+
+insert  into `uniformes`(`id`,`empleado_id`,`playera_polo`,`camisa`,`pantalones`,`chaleco`,`sueter`,`chamarra`,`gorra`,`botas`,`traje`,`corbata`,`otros`,`created_at`,`updated_at`) values (1,3,0,1,0,0,1,0,0,1,0,0,'asdasdasd','2018-06-14 17:05:46','2018-06-14 17:05:46'),(2,2,0,0,0,0,0,0,0,0,0,0,'','2018-06-14 21:48:09','2018-06-14 21:48:09');
 
 /*Table structure for table `users` */
 

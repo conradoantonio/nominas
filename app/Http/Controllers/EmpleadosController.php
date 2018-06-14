@@ -114,6 +114,13 @@ class EmpleadosController extends Controller
         $empleado->infonavit = $req->infonavit;
         $empleado->vacaciones = $req->vacaciones;
         $empleado->pensionado = $req->pensionado;
+        $empleado->perfil_laboral = $req->perfil_laboral;
+        $empleado->fecha_baja = $req->fecha_baja;
+        $empleado->motivo_baja = $req->motivo_baja;
+        $empleado->fecha_finiquito = $req->fecha_finiquito;
+        $empleado->descripcion_finiquito = $req->descripcion_finiquito;
+        $empleado->fecha_entrega_papeles = $req->fecha_entrega_papeles;
+        $empleado->entrega_papeles = $req->entrega_papeles;
 
         $empleado->save();
 
@@ -207,6 +214,13 @@ class EmpleadosController extends Controller
             $empleado->infonavit = $req->infonavit;
             $empleado->vacaciones = $req->vacaciones;
             $empleado->pensionado = $req->pensionado;
+            $empleado->perfil_laboral = $req->perfil_laboral;
+            $empleado->fecha_baja = $req->fecha_baja;
+            $empleado->motivo_baja = $req->motivo_baja;
+            $empleado->fecha_finiquito = $req->fecha_finiquito;
+            $empleado->descripcion_finiquito = $req->descripcion_finiquito;
+            $empleado->fecha_entrega_papeles = $req->fecha_entrega_papeles;
+            $empleado->entrega_papeles = $req->entrega_papeles;
 
             $empleado->save();
 
