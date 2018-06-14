@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.1.29-MariaDB : Database - nominas
+MySQL - 5.5.5-10.1.31-MariaDB : Database - nominas
 *********************************************************************
 */
 
@@ -15,6 +15,28 @@ MySQL - 5.5.5-10.1.29-MariaDB : Database - nominas
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`nominas` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `nominas`;
+
+/*Table structure for table `aditamentos` */
+
+DROP TABLE IF EXISTS `aditamentos`;
+
+CREATE TABLE `aditamentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empleado_id` int(11) NOT NULL,
+  `fornitura` tinyint(4) DEFAULT NULL,
+  `tolete` tinyint(4) DEFAULT NULL,
+  `gas` tinyint(4) DEFAULT NULL,
+  `aros_aprehensores` tinyint(4) DEFAULT NULL,
+  `radio` tinyint(4) DEFAULT NULL,
+  `celular` tinyint(4) DEFAULT NULL,
+  `lampara` tinyint(4) DEFAULT NULL,
+  `otros` text,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `aditamentos` */
 
 /*Table structure for table `asistencias` */
 
@@ -140,6 +162,8 @@ CREATE TABLE `empresas` (
   `fecha_inicio` date DEFAULT NULL,
   `fecha_termino` date DEFAULT NULL,
   `observaciones` text,
+  `rfc` varchar(15) DEFAULT NULL,
+  `tipo_pago` varchar(255) DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -148,7 +172,7 @@ CREATE TABLE `empresas` (
 
 /*Data for the table `empresas` */
 
-insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`contrato`,`numero_elementos`,`fecha_inicio`,`fecha_termino`,`observaciones`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116','2 Meses','40','2018-01-14','2018-01-15','Buen cliente',1,'2018-01-15 12:39:44','2018-01-15 16:04:05');
+insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`contrato`,`numero_elementos`,`fecha_inicio`,`fecha_termino`,`observaciones`,`rfc`,`tipo_pago`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116','2 Meses','40','2018-01-14','2018-01-15','Buen cliente','VECJ880326TGH','Quincenal',1,'2018-06-13 12:06:55','2018-06-14 10:20:02');
 
 /*Table structure for table `pagos` */
 
@@ -183,6 +207,31 @@ CREATE TABLE `roles` (
 
 insert  into `roles`(`id`,`rol`) values (1,'Administrador'),(2,'Nóminas'),(3,'Recepción'),(4,'Captura (empleados)'),(5,'Captura (clientes)');
 
+/*Table structure for table `uniformes` */
+
+DROP TABLE IF EXISTS `uniformes`;
+
+CREATE TABLE `uniformes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empleado_id` int(11) NOT NULL,
+  `playera_polo` tinyint(4) DEFAULT NULL,
+  `camisa` tinyint(4) DEFAULT NULL,
+  `pantalones` tinyint(4) DEFAULT NULL,
+  `chaleco` tinyint(4) DEFAULT NULL,
+  `sueter` tinyint(4) DEFAULT NULL,
+  `chamarra` tinyint(4) DEFAULT NULL,
+  `gorra` tinyint(4) DEFAULT NULL,
+  `botas` tinyint(4) DEFAULT NULL,
+  `traje` tinyint(4) DEFAULT NULL,
+  `corbata` tinyint(4) DEFAULT NULL,
+  `otros` text,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatd_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `uniformes` */
+
 /*Table structure for table `users` */
 
 DROP TABLE IF EXISTS `users`;
@@ -203,7 +252,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`role_id`,`status`,`created_at`,`updated_at`) values (1,'conrado.carrillo','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','MhLGk8z7qGI7yMeWALfyQEfMcGYd7wDs1MThG2yNrQHTApGXk3ghU0QxTX0T',1,1,'2017-03-23 11:30:45','2018-01-15 16:49:17'),(2,'nomina','$2y$10$oOcNC86L3Wz9C4QEDBvtPO5tUiM1XhdoAA8U3gJk4BwYD4Zjov1OW','nomina@topali.com','img/user_perfil/default.jpg','Fht9CjGGx9vmdaFCSeDazmuJB7G5yDnguZOUPlN5FvDWcTYnrdGw3VKpTEEj',2,1,'2018-01-15 12:27:49','2018-01-15 18:38:59'),(3,'recepcion','$2y$10$dgshy7FS/T2JO8NjlvoEa.gs0wMo2WJ9oeXXRZlWgidkN/QVVgROy','recepcion@topali.com','img/user_perfil/default.jpg','EFaOXF4hCEfi88jeg4lKPYNAk4F5i9B5DaJmkp74GImFVz5sfP8mgcHIolKa',3,1,'2018-01-15 12:37:15','2018-01-15 18:41:37'),(4,'captura.empleado','$2y$10$vNdpi6CddMTyCZ2/fgUf0uNfyRB5D36TdkpmrI.l.CBxROqGTuz/K','cap_empleado@topali.com','img/user_perfil/default.jpg','3T8PjawO0B6qw5mMinOLR5sfULvnEnGFfuDnKgz56yjoccs1tdCMSC37H0pt',4,1,'2018-01-15 12:37:44','2018-01-15 21:16:23'),(5,'captura.cliente','$2y$10$uBPZ.NY28Mm/ifWl2Boyce0W6Jcm2aSXecf.jo8pxuDpq/PMyveIe','cap_cliente@topali.com','img/user_perfil/default.jpg',NULL,5,1,'2018-01-15 12:38:06','2018-01-15 12:38:06');
+insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`role_id`,`status`,`created_at`,`updated_at`) values (1,'admin','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','MhLGk8z7qGI7yMeWALfyQEfMcGYd7wDs1MThG2yNrQHTApGXk3ghU0QxTX0T',1,1,'2017-03-23 11:30:45','2018-01-15 16:49:17'),(2,'nomina','$2y$10$oOcNC86L3Wz9C4QEDBvtPO5tUiM1XhdoAA8U3gJk4BwYD4Zjov1OW','nomina@topali.com','img/user_perfil/default.jpg','Fht9CjGGx9vmdaFCSeDazmuJB7G5yDnguZOUPlN5FvDWcTYnrdGw3VKpTEEj',2,1,'2018-01-15 12:27:49','2018-01-15 18:38:59'),(3,'recepcion','$2y$10$dgshy7FS/T2JO8NjlvoEa.gs0wMo2WJ9oeXXRZlWgidkN/QVVgROy','recepcion@topali.com','img/user_perfil/default.jpg','EFaOXF4hCEfi88jeg4lKPYNAk4F5i9B5DaJmkp74GImFVz5sfP8mgcHIolKa',3,1,'2018-01-15 12:37:15','2018-01-15 18:41:37'),(4,'captura.empleado','$2y$10$vNdpi6CddMTyCZ2/fgUf0uNfyRB5D36TdkpmrI.l.CBxROqGTuz/K','cap_empleado@topali.com','img/user_perfil/default.jpg','3T8PjawO0B6qw5mMinOLR5sfULvnEnGFfuDnKgz56yjoccs1tdCMSC37H0pt',4,1,'2018-01-15 12:37:44','2018-01-15 21:16:23'),(5,'captura.cliente','$2y$10$uBPZ.NY28Mm/ifWl2Boyce0W6Jcm2aSXecf.jo8pxuDpq/PMyveIe','cap_cliente@topali.com','img/user_perfil/default.jpg',NULL,5,1,'2018-01-15 12:38:06','2018-01-15 12:38:06');
 
 /*Table structure for table `usuario_pagos` */
 

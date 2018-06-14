@@ -32,4 +32,20 @@ class Empleado extends Model
     {
         return $this->hasOne('App\Documentacion', 'empleado_id');
     }
+
+    /**
+     * Obtiene la información del uniforme asociado con el empleado.
+     */
+    public function uniforme()
+    {
+        return $this->hasOne('App\Uniforme', 'empleado_id');
+    }
+
+    /**
+     * Obtiene la información de los aditamentos asociados con el empleado.
+     */
+    public function aditamento()
+    {
+        return $this->hasOne('App\Aditamento', 'empleado_id');
+    }
 }

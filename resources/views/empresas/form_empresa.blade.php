@@ -64,6 +64,18 @@
                         </div>
                         <div class="col-sm-6 col-xs-12">
                             <div class="form-group">
+                                <label for="rfc">RFC</label>
+                                <input type="text" class="form-control rfc" id="rfc" name="rfc" placeholder="RFC" data-msg="RFC">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="tipo_pago">Tipo de pago</label>
+                                <input type="text" class="form-control tipo_pago" id="tipo_pago" name="tipo_pago" placeholder="Tipo de pago" data-msg="Tipo de pago">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
                                 <label for="fecha_inicio">Fecha de inicio</label>
                                 <input type="text" class="form-control date-picker" id="fecha_inicio" name="fecha_inicio" placeholder="Fecha de inicio" data-msg="Fecha de inicio">
                             </div>

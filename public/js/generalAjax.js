@@ -11,7 +11,6 @@ function ajaxForm(form_id, config) {
         contentType: false,
         processData: false,
         success: function(data) {
-            swal.close();
             swal({
                 title: data.status == 'success' ? 'Bien: ' : 'Error',
                 text: "<p class='text-response'>"+data.msg ? data.msg : "¡Cambios guardados exitosamente!"+"</p>",

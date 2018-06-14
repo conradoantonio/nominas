@@ -86,6 +86,8 @@ class EmpresasController extends Controller
         $request->fecha_inicio ?  $empresa->fecha_inicio = $request->fecha_inicio : '';
         $request->fecha_termino ?  $empresa->fecha_termino = $request->fecha_termino : '';
         $empresa->observaciones = $request->observaciones;
+        $empresa->rfc = $request->rfc;
+        $empresa->tipo_pago = $request->tipo_pago;
         $empresa->status = 1;
         $empresa->created_at = $this->actual_datetime;
 
@@ -116,6 +118,8 @@ class EmpresasController extends Controller
             $empresa->fecha_inicio = $request->fecha_inicio;
             $empresa->fecha_termino = $request->fecha_termino;
             $empresa->observaciones = $request->observaciones;
+            $empresa->rfc = $request->rfc;
+            $empresa->tipo_pago = $request->tipo_pago;
 
             $empresa->save();
 
@@ -155,7 +159,7 @@ class EmpresasController extends Controller
         $empresas = Empresa::select(DB::raw("empresas.id, empresas.nombre, empresas.oficina_cargo AS 'oficina a cargo',
             empresas.direccion, empresas.contacto, empresas.telefono, empresas.marcacion_corta AS 'marcación corta',
             empresas.contrato, empresas.numero_elementos AS 'número de elementos', empresas.fecha_inicio AS 'fecha de inicio',
-            empresas.fecha_termino AS 'fecha de término', empresas.observaciones, 
+            empresas.fecha_termino AS 'fecha de término', empresas.rfc, empresas.tipo_pago AS 'Tipo de pago', empresas.observaciones, 
             IF(empresas.status = 1, 'Activa', 'inactiva') as 'status'"));
         
 

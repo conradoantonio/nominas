@@ -2,7 +2,8 @@
 function loadingMessage(msg = false) {
     swal({
         title: msg ? msg : 'Espere un momento porfavor',
-        buttons: false,
+        showCancelButton: false,
+        showConfirmButton: false,
         allowEscapeKey: false,
         allowOutsideClick: false,
         closeOnConfirm: false,
@@ -111,7 +112,7 @@ $(function() {
     });
 
     //Set up the select 2 inputs
-    $("select.select2").select2();
+    /*$("select.select2").select2();*/
 
     //Set up the clockpicker inputs
     /*$('.clockpicker ').clockpicker({

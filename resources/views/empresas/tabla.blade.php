@@ -14,6 +14,8 @@
             <th class="hide">Fecha inicio</th>
             <th class="hide">Fecha término</th>
             <th class="hide">Observaciones</th>
+            <th class="hide">RFC</th>
+            <th class="hide">Tipo de pago</th>
             <th class="hide">Status</th>
             <th>Acciones</th>
         </tr>
@@ -40,9 +42,10 @@
                     <td class="hide"><span>{{$empresa->fecha_inicio}}</span></td>
                     <td class="hide"><span>{{$empresa->fecha_termino}}</span></td>
                     <td class="hide"><span>{{$empresa->observaciones}}</span></td>
+                    <td class="hide"><span>{{$empresa->rfc}}</span></td>
+                    <td class="hide"><span>{{$empresa->tipo_pago}}</span></td>
                     <td class="hide"><span>{{$empresa->status}}</span></td>
                     <td>
-
                         <button type="button" class="btn btn-info editar_empresa">Editar</button>
                         <button type="button" class="btn btn-success ver_servicios">
                             <i class="fa fa-spinner fa-spin" style="display: none"></i>

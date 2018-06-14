@@ -8,6 +8,7 @@ $(function(){
     var wordExtension = ['docx'];
     var inputs = [];
     var msgError = '';
+    var re_rfc = /^([A-Z a-z,Ñ ñ,&]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z a-z|\d]{3})$/;
     var re_email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     var re_num_dec = /^[0-9]+([.][0-9]{1,2})?$/
     var regExprNombre = /^[a-z ñ áéíóúäëïöüâêîôûàèìòùç\d_\s .]{2,50}$/i;
@@ -41,6 +42,16 @@ $(function(){
 
     $(".email").blur(function() {
         if(!$(this).val().match(re_email)) {
+            if ( !$(this).parent().hasClass("has-error") ){
+                $(this).parent().addClass('has-error')
+            }
+        } else {
+            $(this).parent().removeClass('has-error')
+        }
+    });
+
+    $(".rfc").blur(function() {
+        if(!$(this).val().match(re_rfc)) {
             if ( !$(this).parent().hasClass("has-error") ){
                 $(this).parent().addClass('has-error')
             }
@@ -93,6 +104,16 @@ $(function(){
                         $(this).parent().addClass('has-error');
                         inputs.push($(this).data('msg'));
                         msgError = msgError +"<li>"+$(this).data('msg')+": Correo inválido</li>";
+                    }
+                }
+            }
+
+            if ( $(this).hasClass('rfc') ) {
+                if(!$(this).val().match(re_rfc)) {
+                    if ( !$(this).parent().hasClass("has-error") ) {//If has content but it is not the correct
+                        $(this).parent().addClass('has-error')
+                        inputs.push($(this).data('msg'));
+                        msgError = msgError +"<li>"+$(this).data('msg')+": RFC inválido</li>";
                     }
                 }
             }

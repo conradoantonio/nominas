@@ -177,6 +177,8 @@ $('body').delegate('.editar_empresa','click', function() {
     fecha_inicio = $(this).parent().siblings("td:nth-child(11)").text(),
     fecha_termino = $(this).parent().siblings("td:nth-child(12)").text(),
     observaciones = $(this).parent().siblings("td:nth-child(13)").text(),
+    rfc = $(this).parent().siblings("td:nth-child(14)").text(),
+    tipo_pago = $(this).parent().siblings("td:nth-child(15)").text(),
 
     $("h4#titulo_form_empresa").text('Editar empresa');
     $("form#form_empresa").get(0).setAttribute('action', '{{url('empresas/editar')}}');
@@ -192,6 +194,8 @@ $('body').delegate('.editar_empresa','click', function() {
     $("#formulario_empresa input#fecha_inicio").val(fecha_inicio);
     $("#formulario_empresa input#fecha_termino").val(fecha_termino);
     $("#formulario_empresa textarea#observaciones").val(observaciones);
+    $("#formulario_empresa input#rfc").val(rfc);
+    $("#formulario_empresa input#tipo_pago").val(tipo_pago);
 
     $("input#fecha_inicio").datepicker("update", fecha_inicio);
     $("input#fecha_termino").datepicker("update", fecha_termino);
