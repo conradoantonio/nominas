@@ -59,6 +59,7 @@ img#company-logo{
 		        F = Falta (No se considera para ser pagado) <br>
 		        I = Incapacidad (No se considera para ser pagado) <br>
 		        N = Turno nocturno (Se considera para ser pagado) <br>
+		        P = Pagado (No se considera para ser pagado) <br>
 		        V = Vacaciones (Se considera para ser pagado) <br>
 		        X = Asistencia (Se considera para ser pagado) <br>
 		        - = Sin valor (No se considera en cuenta para ser pagado) <br>
@@ -159,6 +160,7 @@ img#company-logo{
 				e.which == 102 || e.which == 70 || /*F*/
 				e.which == 105 || e.which == 73 || /*I*/
 				e.which == 110 || e.which == 78 || /*N*/
+				e.which == 112 || e.which == 80 || /*P*/
 				e.which == 118 || e.which == 86 || /*V*/
 				e.which == 88 || e.which == 120 || /*X*/
 				e.which == 45 /*-*/) {
@@ -239,7 +241,7 @@ img#company-logo{
 		$('table#nomina tbody').find('td.cell').each (function() {
 			var col = $(this).prevAll().length;
 			if ( $(this).parents('table').find('th').eq(col).hasClass('edit') ){
-				if ( $.inArray($(this).text().trim(), ['A', 'C', 'D', 'F', 'I', 'N', 'V', 'X', '-']) < 0 ) {
+				if ( $.inArray($(this).text().trim(), ['A', 'C', 'D', 'F', 'I', 'N', 'P', 'V', 'X', '-']) < 0 ) {
 					empty++;
 				}
 			}
@@ -264,7 +266,7 @@ img#company-logo{
 				} else if( $(this).data('notes') ){
 					obj.notas = $(this).find('input').val()
 				}else if( $(this).hasClass('cell') ){
-					if ( $.inArray(ele.text(), ['A', 'C', 'D', 'F', 'I', 'N', 'V', 'X', '-']) >= 0 ){
+					if ( $.inArray(ele.text(), ['A', 'C', 'D', 'F', 'I', 'N', 'P', 'V', 'X', '-']) >= 0 ){
 						var txt = ele.text();
 					} else {
 						var txt = '';

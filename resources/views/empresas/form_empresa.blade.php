@@ -65,7 +65,7 @@
                         <div class="col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="rfc">RFC</label>
-                                <input type="text" class="form-control rfc" id="rfc" name="rfc" placeholder="RFC" data-msg="RFC">
+                                <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC" data-msg="RFC">
                             </div>
                         </div>
                         <div class="col-sm-6 col-xs-12">
