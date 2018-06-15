@@ -115,7 +115,7 @@ input:-webkit-autofill {
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <div class="row-fluid">
+    <div class="row-fluid" style="display: none">
         <div class="span12">
             <div class="grid simple ">
                 <div class="grid-title">
@@ -163,7 +163,7 @@ $('body').delegate('button#nueva_empresa','click', function() {
     $("form#form_empresa").get(0).setAttribute('action', '{{url('empresas/guardar')}}');
 });
 
-$('body').delegate('.editar_empresa','click', function() {
+$('body').delegate('.editar_empresa, .detalle_empresa','click', function() {
     $('input.form-control').val('');
     id = $(this).parent().siblings("td:nth-child(2)").text(),
     nombre = $(this).parent().siblings("td:nth-child(3)").text(),
@@ -180,7 +180,6 @@ $('body').delegate('.editar_empresa','click', function() {
     rfc = $(this).parent().siblings("td:nth-child(14)").text(),
     tipo_pago = $(this).parent().siblings("td:nth-child(15)").text(),
 
-    $("h4#titulo_form_empresa").text('Editar empresa');
     $("form#form_empresa").get(0).setAttribute('action', '{{url('empresas/editar')}}');
     $("#formulario_empresa input#id").val(id);
     $("#formulario_empresa input#nombre").val(nombre);
@@ -199,6 +198,18 @@ $('body').delegate('.editar_empresa','click', function() {
 
     $("input#fecha_inicio").datepicker("update", fecha_inicio);
     $("input#fecha_termino").datepicker("update", fecha_termino);
+
+            
+    $('form#form_empresa input, form#form_empresa textarea').attr('disabled', $(this).hasClass('detalle_empresa') ? true : false);
+
+    if ($(this).hasClass('detalle_empresa')) {
+        $("h4#titulo_form_empresa").text('Detalle de empresa');
+        $('form#form_empresa button.save').addClass('hide');
+    } else {
+        $("h4#titulo_form_empresa").text('Editar empresa');
+        $('form#form_empresa button.save').removeClass('hide');
+    }
+
     $('#formulario_empresa').modal();
 });
 

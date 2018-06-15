@@ -326,28 +326,53 @@ class EmpleadosController extends Controller
     {
         $nombre_excel = 'Empleado Info';
         $empleados = Empleado::select(DB::raw("empleados.*, 
-            IF(documentacion.comprobante_domicilio = 0, 'No', 'Si') as 'Comprobante domicilio', 
-            IF(documentacion.identificacion = 0, 'No', 'Si') as 'Identificación',
-            IF(documentacion.curp = 0, 'No', 'Si') as 'CURP',
-            IF(documentacion.rfc = 0, 'No', 'Si') as 'RFC',
-            IF(documentacion.hoja_imss = 0, 'No', 'Si') as 'Hoja del IMSS',
-            IF(documentacion.carta_no_antecedentes_penales = 0, 'No', 'Si') as 'Carta de no antecedentes penales',
-            IF(documentacion.acta_nacimiento = 0, 'No', 'Si') as 'Acta de nacimiento',
-            IF(documentacion.comprobante_estudios = 0, 'No', 'Si') as 'Comprobante de estudios',
-            IF(documentacion.resultado_psicometrias = 0, 'No', 'Si') as 'Resultado de psicometrías',
-            IF(documentacion.examen_socieconomico = 0, 'No', 'Si') as 'Examen socieconómico',
-            IF(documentacion.examen_toxicologico = 0, 'No', 'Si') as 'Examen toxicológico',
-            IF(documentacion.solicitud_frente_vuelta = 0, 'No', 'Si') as 'Solicitud frente y vuelta',
-            IF(documentacion.deposito_uniforme = 0, 'No', 'Si') as 'Depósito de uniforme',
-            IF(documentacion.constancia_recepcion_uniforme = 0, 'No', 'Si') as 'Constancia de recepción de uniforme',
-            IF(documentacion.comprobante_recepcion_reglamento_interno_trabajo = 0, 'No', 'Si') as 'Comprobante de recepción del reglamento interno de trabajo',
-            IF(documentacion.autorizacion_pago_tarjeta = 0, 'No', 'Si') as 'Autorización pago con tarjeta',
-            IF(documentacion.carta_aceptacion_cambio_lugar = 0, 'No', 'Si') as 'Carta de aceptación por cambio de lugar',
-            IF(documentacion.finiquito = 0, 'No', 'Si') as 'Finiquito',
-            IF(documentacion.calendario = 0, 'No', 'Si') as 'Calendario',
-            IF(documentacion.formato_datos_personales = 0, 'No', 'Si') as 'Formato de datos personales',
-            IF(documentacion.solicitud_autorizacion_consulta = 0, 'No', 'Si') as 'Solicitud de autorización de consulta'"))
-        ->leftJoin('documentacion', 'empleados.id', '=', 'documentacion.empleado_id');
+            IF(documentacion.comprobante_domicilio = 1, 'Si', 'No') as 'Comprobante domicilio', 
+            IF(documentacion.identificacion = 1, 'Si', 'No') as 'Identificación',
+            IF(documentacion.curp = 1, 'Si', 'No') as 'CURP',
+            IF(documentacion.rfc = 1, 'Si', 'No') as 'RFC',
+            IF(documentacion.hoja_imss = 1, 'Si', 'No') as 'Hoja del IMSS',
+            IF(documentacion.carta_no_antecedentes_penales = 1, 'Si', 'No') as 'Carta de no antecedentes penales',
+            IF(documentacion.acta_nacimiento = 1, 'Si', 'No') as 'Acta de nacimiento',
+            IF(documentacion.comprobante_estudios = 1, 'Si', 'No') as 'Comprobante de estudios',
+            IF(documentacion.resultado_psicometrias = 1, 'Si', 'No') as 'Resultado de psicometrías',
+            IF(documentacion.examen_socieconomico = 1, 'Si', 'No') as 'Examen socieconómico',
+            IF(documentacion.examen_toxicologico = 1, 'Si', 'No') as 'Examen toxicológico',
+            IF(documentacion.solicitud_frente_vuelta = 1, 'Si', 'No') as 'Solicitud frente y vuelta',
+            IF(documentacion.deposito_uniforme = 1, 'Si', 'No') as 'Depósito de uniforme',
+            IF(documentacion.constancia_recepcion_uniforme = 1, 'Si', 'No') as 'Constancia de recepción de uniforme',
+            IF(documentacion.comprobante_recepcion_reglamento_interno_trabajo = 1, 'Si', 'No') as 'Comprobante de recepción del reglamento interno de trabajo',
+            IF(documentacion.autorizacion_pago_tarjeta = 1, 'Si', 'No') as 'Autorización pago con tarjeta',
+            IF(documentacion.carta_aceptacion_cambio_lugar = 1, 'Si', 'No') as 'Carta de aceptación por cambio de lugar',
+            IF(documentacion.finiquito = 1, 'Si', 'No') as 'Finiquito',
+            IF(documentacion.calendario = 1, 'Si', 'No') as 'Calendario',
+            IF(documentacion.formato_datos_personales = 1, 'Si', 'No') as 'Formato de datos personales',
+            IF(documentacion.solicitud_autorizacion_consulta = 1, 'Si', 'No') as 'Solicitud de autorización de consulta',
+            IF(documentacion.licencia_conduccion = 1, 'Si', 'No') as 'Licencia de conducir',
+            IF(uniformes.playera_polo = 1, 'Si', 'No') as 'Playera polo',
+            IF(uniformes.camisa = 1, 'Si', 'No') as 'Camisa',
+            IF(uniformes.pantalones = 1, 'Si', 'No') as 'Pantalones',
+            IF(uniformes.chaleco = 1, 'Si', 'No') as 'Chaleco',
+            IF(uniformes.sueter = 1, 'Si', 'No') as 'Sueter',
+            IF(uniformes.chamarra = 1, 'Si', 'No') as 'Chamarra',
+            IF(uniformes.gorra = 1, 'Si', 'No') as 'Gorra',
+            IF(uniformes.botas = 1, 'Si', 'No') as 'Botas',
+            IF(uniformes.traje = 1, 'Si', 'No') as 'Traje',
+            IF(uniformes.corbata = 1, 'Si', 'No') as 'Corbata',
+            IF(ISNULL(uniformes.otros),'',uniformes.otros) as 'Otros uniformes',
+            IF(aditamentos.fornitura = 1, 'Si', 'No') as 'Fornitura',
+            IF(aditamentos.tolete = 1, 'Si', 'No') as 'Tolete',
+            IF(aditamentos.gas = 1, 'Si', 'No') as 'Gas',
+            IF(aditamentos.aros_aprehensores = 1, 'Si', 'No') as 'Aros aprehensores',
+            IF(aditamentos.radio = 1, 'Si', 'No') as 'Radio',
+            IF(aditamentos.celular = 1, 'Si', 'No') as 'Celular',
+            IF(aditamentos.lampara = 1, 'Si', 'No') as 'Lampara',
+            IF(ISNULL(aditamentos.otros),'',aditamentos.otros) as 'Otros aditamentos'
+            "
+        ))
+        ->leftJoin('documentacion', 'empleados.id', '=', 'documentacion.empleado_id')
+        ->leftJoin('aditamentos', 'empleados.id', '=', 'aditamentos.empleado_id')
+        ->leftJoin('uniformes', 'empleados.id', '=', 'uniformes.empleado_id');
+
 
         if ($id) {
             $empleados = $empleados->where('empleados.id', $id)->get();
@@ -360,12 +385,12 @@ class EmpleadosController extends Controller
 
         Excel::create($nombre_excel, function($excel) use($empleados) {
             $excel->sheet('Hoja 1', function($sheet) use($empleados) {
-                $sheet->cells('A:AN', function($cells) {
+                $sheet->cells('A:BO', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
                 
-                $sheet->cells('A1:AN1', function($cells) {
+                $sheet->cells('A1:BO1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 

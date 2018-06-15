@@ -32,7 +32,7 @@ input:-webkit-autofill {
     </div>
     @endif
     <h2>{{$title}}</h2>
-    <div class="row-fluid">
+    <div class="row-fluid" style="display: none">
         <div class="span12">
             <div class="grid simple ">
                 <div class="grid-title">

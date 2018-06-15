@@ -174,12 +174,12 @@ class EmpresasController extends Controller
 
         Excel::create($nombre_excel, function($excel) use($empresas) {
             $excel->sheet('Hoja 1', function($sheet) use($empresas) {
-                $sheet->cells('A:M', function($cells) {
+                $sheet->cells('A:O', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
                 
-                $sheet->cells('A1:M1', function($cells) {
+                $sheet->cells('A1:O1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 

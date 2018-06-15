@@ -38,7 +38,7 @@ CREATE TABLE `aditamentos` (
 
 /*Data for the table `aditamentos` */
 
-insert  into `aditamentos`(`id`,`empleado_id`,`fornitura`,`tolete`,`gas`,`aros_aprehensores`,`radio`,`celular`,`lampara`,`otros`,`created_at`,`updated_at`) values (1,3,1,1,1,1,1,1,1,'sdasdasd','2018-06-14 17:05:46','2018-06-14 17:05:46'),(2,2,0,0,0,0,0,0,0,'','2018-06-14 21:48:10','2018-06-14 21:48:10');
+insert  into `aditamentos`(`id`,`empleado_id`,`fornitura`,`tolete`,`gas`,`aros_aprehensores`,`radio`,`celular`,`lampara`,`otros`,`created_at`,`updated_at`) values (1,3,1,1,1,1,1,1,1,'sdasdasd','2018-06-14 17:05:46','2018-06-14 17:05:46'),(2,2,1,1,1,0,0,0,0,'NO','2018-06-14 17:07:05','2018-06-14 22:07:05');
 
 /*Table structure for table `asistencias` */
 
@@ -52,9 +52,11 @@ CREATE TABLE `asistencias` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `asistencias` */
+
+insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (5,1,13,'X','2018-06-14 22:11:18','2018-06-14 22:11:18'),(6,1,14,'X','2018-06-14 22:11:18','2018-06-14 22:11:18'),(7,2,13,'X','2018-06-14 22:11:18','2018-06-14 22:11:18'),(8,2,14,'X','2018-06-14 22:11:18','2018-06-14 22:11:18');
 
 /*Table structure for table `documentacion` */
 
@@ -132,7 +134,7 @@ CREATE TABLE `empleados` (
 
 /*Data for the table `empleados` */
 
-insert  into `empleados`(`id`,`nombre`,`apellido_paterno`,`apellido_materno`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`fecha_ingreso`,`escolaridad`,`infonavit`,`vacaciones`,`pensionado`,`perfil_laboral`,`fecha_baja`,`motivo_baja`,`fecha_finiquito`,`descripcion_finiquito`,`fecha_entrega_papeles`,`entrega_papeles`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO','ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2018-06-14 12:14:54','2018-06-14 17:14:54'),(2,'DANIELA','GONZÁLEZ','CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632','2018-06-14','Universidad','','','','','2018-06-15','Se portó mal >:v','2018-06-15','Se le dio su finiquito en cheque','2018-06-14','Todo en orden',1,'2018-06-14 17:05:33','2018-06-14 22:05:33'),(3,'EDGARD JOSÉ','VARGAS','FLORES','003','3127386128','Calle simón Bolivar #594','Guadalajara','6691549832','VECJ880326HNJ','BADD110313HCMLNS09','321','6698542398','2018-06-14','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2018-06-14 16:34:25','2018-06-14 21:34:25');
+insert  into `empleados`(`id`,`nombre`,`apellido_paterno`,`apellido_materno`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`fecha_ingreso`,`escolaridad`,`infonavit`,`vacaciones`,`pensionado`,`perfil_laboral`,`fecha_baja`,`motivo_baja`,`fecha_finiquito`,`descripcion_finiquito`,`fecha_entrega_papeles`,`entrega_papeles`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO','ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2018-06-14 12:14:54','2018-06-14 17:14:54'),(2,'DANIELA','GONZÁLEZ','CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632','2018-06-14','Universidad','NO','El 1 de septiembre cumple el año','NO','Buen perfil pesicológico','2018-06-15','Se portó mal >:v','2018-06-15','Se le dio su finiquito en cheque','2018-06-16','Todo en orden',1,'2018-06-14 17:07:05','2018-06-14 22:07:05'),(3,'EDGARD JOSÉ','VARGAS','FLORES','003','3127386128','Calle simón Bolivar #594','Guadalajara','6691549832','VECJ880326HNJ','BADD110313HCMLNS09','321','6698542398','2018-06-14','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2018-06-14 16:34:25','2018-06-14 21:34:25');
 
 /*Table structure for table `empresa_servicio` */
 
@@ -199,9 +201,11 @@ CREATE TABLE `pagos` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pagos` */
+
+insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`num_empleados`,`status`,`created_at`,`updated_at`) values (1,1,1,'2018-06-13','2018-06-14','21',0,'2018-06-14 17:11:22',NULL);
 
 /*Table structure for table `roles` */
 
@@ -242,7 +246,7 @@ CREATE TABLE `uniformes` (
 
 /*Data for the table `uniformes` */
 
-insert  into `uniformes`(`id`,`empleado_id`,`playera_polo`,`camisa`,`pantalones`,`chaleco`,`sueter`,`chamarra`,`gorra`,`botas`,`traje`,`corbata`,`otros`,`created_at`,`updated_at`) values (1,3,0,1,0,0,1,0,0,1,0,0,'asdasdasd','2018-06-14 17:05:46','2018-06-14 17:05:46'),(2,2,0,0,0,0,0,0,0,0,0,0,'','2018-06-14 21:48:09','2018-06-14 21:48:09');
+insert  into `uniformes`(`id`,`empleado_id`,`playera_polo`,`camisa`,`pantalones`,`chaleco`,`sueter`,`chamarra`,`gorra`,`botas`,`traje`,`corbata`,`otros`,`created_at`,`updated_at`) values (1,3,0,1,0,0,1,0,0,1,0,0,'asdasdasd','2018-06-14 17:05:46','2018-06-14 17:05:46'),(2,2,1,0,1,0,1,0,1,0,1,0,'NO','2018-06-14 17:07:05','2018-06-14 22:07:05');
 
 /*Table structure for table `users` */
 
@@ -276,9 +280,11 @@ CREATE TABLE `usuario_pagos` (
   `pago_id` int(11) DEFAULT NULL,
   `notas` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `usuario_pagos` */
+
+insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (1,1,1,NULL),(2,2,1,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
