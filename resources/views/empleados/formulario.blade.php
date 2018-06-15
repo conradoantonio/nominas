@@ -18,7 +18,7 @@
                 <div class="grid-title">
                     <div class="grid-body">
                         <h3>Datos generales</h3>
-                    	<div class="container-fluid content-body">
+                        <div class="container-fluid content-body">
                             <form id="form-data" action="{{url('empleados')}}/{{ $empleado ? 'actualizar' : 'guardar' }}" onsubmit="return false;" enctype="multipart/form-data" method="POST" autocomplete="off" data-ajax-type="ajax-form" data-column="0" data-refresh="0" data-redirect="1" data-table_id="example3" data-container_id="table_container">
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12 hidden">
@@ -512,7 +512,7 @@
                                     <a href="{{url("empleados/exportar/individual/1/$empleado->id")}}"><button type="button" class="btn btn-info" data-dismiss="modal">Exportar</button></a>
                                 @endif
                             </form>
-                    	</div>
+                        </div>
                     </div>
                 </div>
             </div>
