@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 
 	/*-- Rutas para la pestaña de empresas--*/
-	Route::group(['prefix' => 'empresas', 'middleware' => 'role:Administrador,Nóminas,Recepción,Captura (clientes)'], function () {
+	Route::group(['prefix' => 'empresas'], function () {
 		Route::get('/','EmpresasController@index');//Carga la tabla de empresas
 		Route::get('/inactivas','EmpresasController@inactivas');//Carga la tabla de empresas inactivas
 		Route::post('guardar','EmpresasController@guardar');//Guarda los datos de una empresa
@@ -58,7 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 
 	/*-- Rutas para la pestaña de empleados--*/
-	Route::group(['prefix' => 'empleados', 'middleware' => 'role:Administrador,Nóminas,Recepción,Captura (empleados)'], function () {
+	Route::group(['prefix' => 'empleados'], function () {
 		Route::get('/','EmpleadosController@index');//Carga la tabla de empleados con status activo
 		Route::get('/inactivos','EmpleadosController@inactivos');//Carga la tabla de empleados con status inactivo
 		Route::get('formulario/{id?}','EmpleadosController@cargar_formulario');//Carga el formulario para editar un sólo empleado
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 
 	/*--- Modulo pagos ---*/
-	Route::group(['middleware' => 'role:Administrador,Nóminas,Recepción'], function () {
+	/*Route::group(['middleware' => 'role:Administrador,Nóminas,Recepción'], function () {*/
 		Route::get('nominas/excel_master', 'PagosController@descargar_excel_master');
 		Route::post('nominas/eliminar_listas', 'PagosController@eliminar_listas');
 
@@ -91,5 +91,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 		#PDF
 		Route::get('nominas/pdf/{id}', 'PagosController@descargar_pdf_asistencias');
-	});
+	/*});*/
 });

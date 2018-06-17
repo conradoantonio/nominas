@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.1.31-MariaDB : Database - nominas
+SQLyog Ultimate v11.11 (64 bit)
+MySQL - 5.5.5-10.1.21-MariaDB : Database - nominas
 *********************************************************************
 */
 
@@ -34,7 +34,7 @@ CREATE TABLE `aditamentos` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `aditamentos` */
 
@@ -90,7 +90,7 @@ CREATE TABLE `documentacion` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `documentacion` */
 
@@ -130,11 +130,11 @@ CREATE TABLE `empleados` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `empleados` */
 
-insert  into `empleados`(`id`,`nombre`,`apellido_paterno`,`apellido_materno`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`fecha_ingreso`,`escolaridad`,`infonavit`,`vacaciones`,`pensionado`,`perfil_laboral`,`fecha_baja`,`motivo_baja`,`fecha_finiquito`,`descripcion_finiquito`,`fecha_entrega_papeles`,`entrega_papeles`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO','ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2018-06-14 12:14:54','2018-06-14 17:14:54'),(2,'DANIELA','GONZÁLEZ','CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632','2018-06-14','Universidad','NO','El 1 de septiembre cumple el año','NO','Buen perfil pesicológico','2018-06-15','Se portó mal >:v','2018-06-15','Se le dio su finiquito en cheque','2018-06-16','Todo en orden',1,'2018-06-14 17:07:05','2018-06-14 22:07:05'),(3,'EDGARD JOSÉ','VARGAS','FLORES','003','3127386128','Calle simón Bolivar #594','Guadalajara','6691549832','VECJ880326HNJ','BADD110313HCMLNS09','321','6698542398','2018-06-14','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2018-06-14 16:34:25','2018-06-14 21:34:25');
+insert  into `empleados`(`id`,`nombre`,`apellido_paterno`,`apellido_materno`,`num_empleado`,`num_cuenta`,`domicilio`,`ciudad`,`telefono`,`rfc`,`curp`,`nss`,`telefono_emergencia`,`fecha_ingreso`,`escolaridad`,`infonavit`,`vacaciones`,`pensionado`,`perfil_laboral`,`fecha_baja`,`motivo_baja`,`fecha_finiquito`,`descripcion_finiquito`,`fecha_entrega_papeles`,`entrega_papeles`,`status`,`created_at`,`updated_at`) values (1,'CONRADO ANTONIO','CARRILLO','ROSALES','001','0016415225','Hector Hernández #5712 A Colonia Paseos del Sol','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','45136684587745','6699854621',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2018-06-17 11:47:33','2018-06-17 17:47:33'),(2,'DANIELA','GONZÁLEZ','CASTRO','002','0025621598','Cuautitlán 211 Colonia Chapalita','Zapopan','9801010','SARL600830L21','BEML920313HMCLNS09','986562147','6699875632','2018-06-14','Universidad','NO','El 1 de septiembre cumple el año','NO','Buen perfil pesicológico','2018-06-15','Se portó mal >:v','2018-06-15','Se le dio su finiquito en cheque','2018-06-16','Todo en orden',1,'2018-06-17 17:06:03','2018-06-17 23:05:52'),(3,'EDGARD JOSÉ','VARGAS','FLORES','003','3127386128','Calle simón Bolivar #594','Guadalajara','6691549832','VECJ880326HNJ','BADD110313HCMLNS09','321','6698542398','2018-06-14','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2018-06-14 16:34:25','2018-06-14 21:34:25');
 
 /*Table structure for table `empresa_servicio` */
 
@@ -155,7 +155,7 @@ CREATE TABLE `empresa_servicio` (
 
 /*Data for the table `empresa_servicio` */
 
-insert  into `empresa_servicio`(`id`,`empresa_id`,`servicio`,`horario`,`sueldo`,`sueldo_diario_guardia`,`status`,`created_at`,`updated_at`) values (1,1,'01 de 24x24 hrs','1 servicio de lunes a viernes de 7:00 a 7:00','2600','300.50',1,'2017-12-14 11:35:13','2017-12-13 17:22:52');
+insert  into `empresa_servicio`(`id`,`empresa_id`,`servicio`,`horario`,`sueldo`,`sueldo_diario_guardia`,`status`,`created_at`,`updated_at`) values (1,1,'01 de 24x24 hrs','1 servicio de lunes a viernes de 7:00 a 7:00',2600,300.50,1,'2017-12-14 11:35:13','2017-12-13 17:22:52');
 
 /*Table structure for table `empresas` */
 
@@ -184,7 +184,7 @@ CREATE TABLE `empresas` (
 
 /*Data for the table `empresas` */
 
-insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`contrato`,`numero_elementos`,`fecha_inicio`,`fecha_termino`,`observaciones`,`rfc`,`tipo_pago`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116','2 Meses','40','2018-01-14','2018-01-15','Buen cliente','VECJ880326TGH','Quincenal',1,'2018-06-13 12:06:55','2018-06-14 10:20:02');
+insert  into `empresas`(`id`,`nombre`,`oficina_cargo`,`direccion`,`contacto`,`telefono`,`marcacion_corta`,`contrato`,`numero_elementos`,`fecha_inicio`,`fecha_termino`,`observaciones`,`rfc`,`tipo_pago`,`status`,`created_at`,`updated_at`) values (1,'Bridge Studio','Guadalajara, Jal','Colonia Chapalita, Cuautitlan','Edgard','33658974','116','2 Meses','40','2018-01-14','2018-01-15','Buen cliente','VECJ880326TGH','Quincenal',1,'2018-06-13 12:06:55','2018-06-17 17:42:35');
 
 /*Table structure for table `pagos` */
 
@@ -206,6 +206,32 @@ CREATE TABLE `pagos` (
 /*Data for the table `pagos` */
 
 insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`num_empleados`,`status`,`created_at`,`updated_at`) values (1,1,1,'2018-06-13','2018-06-14','21',0,'2018-06-14 17:11:22',NULL);
+
+/*Table structure for table `privilegios` */
+
+DROP TABLE IF EXISTS `privilegios`;
+
+CREATE TABLE `privilegios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cli_act` tinyint(4) DEFAULT NULL,
+  `cli_act_mod` tinyint(4) DEFAULT NULL,
+  `cli_baj` tinyint(4) DEFAULT NULL,
+  `cli_baj_mod` tinyint(4) DEFAULT NULL,
+  `emp_act` tinyint(4) DEFAULT NULL,
+  `emp_act_mod` tinyint(4) DEFAULT NULL,
+  `emp_baj` tinyint(4) DEFAULT NULL,
+  `emp_baj_mod` tinyint(4) DEFAULT NULL,
+  `usuarios` tinyint(4) DEFAULT NULL,
+  `asistencias` tinyint(4) DEFAULT NULL,
+  `historial_asistencias` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+/*Data for the table `privilegios` */
+
+insert  into `privilegios`(`id`,`cli_act`,`cli_act_mod`,`cli_baj`,`cli_baj_mod`,`emp_act`,`emp_act_mod`,`emp_baj`,`emp_baj_mod`,`usuarios`,`asistencias`,`historial_asistencias`,`created_at`,`updated_at`) values (1,1,1,1,1,1,1,1,1,1,1,1,'2018-06-17 17:09:15','2018-06-17 16:41:19'),(2,1,1,1,1,1,1,1,1,1,0,1,'2018-06-17 17:15:45','2018-06-17 18:15:45');
 
 /*Table structure for table `roles` */
 
@@ -242,7 +268,7 @@ CREATE TABLE `uniformes` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `uniformes` */
 
@@ -259,16 +285,17 @@ CREATE TABLE `users` (
   `email` varchar(100) DEFAULT NULL,
   `foto_usuario` varchar(255) DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
+  `privilegio_id` tinyint(4) NOT NULL,
   `role_id` tinyint(4) DEFAULT '1',
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`role_id`,`status`,`created_at`,`updated_at`) values (1,'admin','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','MhLGk8z7qGI7yMeWALfyQEfMcGYd7wDs1MThG2yNrQHTApGXk3ghU0QxTX0T',1,1,'2017-03-23 11:30:45','2018-01-15 16:49:17'),(2,'nomina','$2y$10$oOcNC86L3Wz9C4QEDBvtPO5tUiM1XhdoAA8U3gJk4BwYD4Zjov1OW','nomina@topali.com','img/user_perfil/default.jpg','Fht9CjGGx9vmdaFCSeDazmuJB7G5yDnguZOUPlN5FvDWcTYnrdGw3VKpTEEj',2,1,'2018-01-15 12:27:49','2018-01-15 18:38:59'),(3,'recepcion','$2y$10$dgshy7FS/T2JO8NjlvoEa.gs0wMo2WJ9oeXXRZlWgidkN/QVVgROy','recepcion@topali.com','img/user_perfil/default.jpg','EFaOXF4hCEfi88jeg4lKPYNAk4F5i9B5DaJmkp74GImFVz5sfP8mgcHIolKa',3,1,'2018-01-15 12:37:15','2018-01-15 18:41:37'),(4,'captura.empleado','$2y$10$vNdpi6CddMTyCZ2/fgUf0uNfyRB5D36TdkpmrI.l.CBxROqGTuz/K','cap_empleado@topali.com','img/user_perfil/default.jpg','3T8PjawO0B6qw5mMinOLR5sfULvnEnGFfuDnKgz56yjoccs1tdCMSC37H0pt',4,1,'2018-01-15 12:37:44','2018-01-15 21:16:23'),(5,'captura.cliente','$2y$10$uBPZ.NY28Mm/ifWl2Boyce0W6Jcm2aSXecf.jo8pxuDpq/PMyveIe','cap_cliente@topali.com','img/user_perfil/default.jpg',NULL,5,1,'2018-01-15 12:38:06','2018-01-15 12:38:06');
+insert  into `users`(`id`,`user`,`password`,`email`,`foto_usuario`,`remember_token`,`privilegio_id`,`role_id`,`status`,`created_at`,`updated_at`) values (1,'admin','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','anton_con@hotmail.com','img/user_perfil/default.jpg','MhLGk8z7qGI7yMeWALfyQEfMcGYd7wDs1MThG2yNrQHTApGXk3ghU0QxTX0T',1,1,1,'2017-03-23 11:30:45','2018-01-15 16:49:17'),(2,'nomina','$2y$10$oOcNC86L3Wz9C4QEDBvtPO5tUiM1XhdoAA8U3gJk4BwYD4Zjov1OW','nomina@topali.com','img/user_perfil/default.jpg','Fht9CjGGx9vmdaFCSeDazmuJB7G5yDnguZOUPlN5FvDWcTYnrdGw3VKpTEEj',0,2,1,'2018-01-15 12:27:49','2018-01-15 18:38:59'),(3,'recepcion','$2y$10$dgshy7FS/T2JO8NjlvoEa.gs0wMo2WJ9oeXXRZlWgidkN/QVVgROy','recepcion@topali.com','img/user_perfil/default.jpg','EFaOXF4hCEfi88jeg4lKPYNAk4F5i9B5DaJmkp74GImFVz5sfP8mgcHIolKa',0,3,1,'2018-01-15 12:37:15','2018-06-17 16:42:17'),(4,'captura.empleado','$2y$10$vNdpi6CddMTyCZ2/fgUf0uNfyRB5D36TdkpmrI.l.CBxROqGTuz/K','cap_empleado@topali.com','img/user_perfil/default.jpg','3T8PjawO0B6qw5mMinOLR5sfULvnEnGFfuDnKgz56yjoccs1tdCMSC37H0pt',0,4,1,'2018-01-15 12:37:44','2018-01-15 21:16:23'),(5,'captura.cliente','$2y$10$uBPZ.NY28Mm/ifWl2Boyce0W6Jcm2aSXecf.jo8pxuDpq/PMyveIe','cap_cliente@topali.com','img/user_perfil/default.jpg',NULL,0,5,1,'2018-01-15 12:38:06','2018-01-15 12:38:06'),(7,'new_user','$2y$10$UpoeuWNzFK8yZ5D8ErdMl.u4Qu6n7qyQS7RvuWYIyvIYmWNN8gJJ2','antony@gmail.com','img/user_perfil/default.jpg',NULL,2,1,1,'2018-06-17 16:15:43','2018-06-17 16:15:43');
 
 /*Table structure for table `usuario_pagos` */
 

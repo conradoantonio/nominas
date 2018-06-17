@@ -22,14 +22,19 @@ class EmpleadosController extends Controller
      */
     public function index(Request $req)
     {
-        $title = $menu = "Empleados (Activos)";
-        $status = 1;
-        $empleados = Empleado::where('status', $status)->get();
-        
-        if ($req->ajax()) {
-            return view('empleados.tabla', ['empleados' => $empleados, 'status' => $status]);
+        if (auth()->user()->privilegios && auth()->user()->privilegios->emp_act == 1) {
+            $modify = auth()->user()->privilegios->emp_act_mod == 1 ? 1 : 0;
+            $title = $menu = "Empleados (Activos)";
+            $status = 1;
+            $empleados = Empleado::where('status', $status)->get();
+            
+            if ($req->ajax()) {
+                return view('empleados.tabla', ['empleados' => $empleados, 'status' => $status, 'modify' => $modify]);
+            }
+            return view('empleados.empleados', ['empleados' => $empleados, 'status' => $status, 'modify' => $modify, 'menu' => $menu, 'title' => $title]);
+        } else {
+            return view('errors.503');
         }
-        return view('empleados.empleados', ['empleados' => $empleados, 'status' => $status, 'menu' => $menu, 'title' => $title]);
     }
 
     /**
@@ -39,14 +44,19 @@ class EmpleadosController extends Controller
      */
     public function inactivos(Request $req)
     {
-        $title = $menu = "Empleados (Inactivos)";
-        $status = 0;
-        $empleados = Empleado::where('status', $status)->get();
-        
-        if ($req->ajax()) {
-            return view('empleados.tabla', ['empleados' => $empleados, 'status' => $status]);
+        if (auth()->user()->privilegios && auth()->user()->privilegios->emp_baj == 1) {
+            $modify = auth()->user()->privilegios->emp_baj_mod == 1 ? 1 : 0;
+            $title = $menu = "Empleados (Inactivos)";
+            $status = 0;
+            $empleados = Empleado::where('status', $status)->get();
+            
+            if ($req->ajax()) {
+                return view('empleados.tabla', ['empleados' => $empleados, 'status' => $status, 'modify' => $modify]);
+            }
+            return view('empleados.empleados', ['empleados' => $empleados, 'status' => $status, 'modify' => $modify, 'menu' => $menu, 'title' => $title]);
+        } else {
+            return view('errors.503');
         }
-        return view('empleados.empleados', ['empleados' => $empleados, 'status' => $status, 'menu' => $menu, 'title' => $title]);
     }
 
     /**
@@ -56,15 +66,26 @@ class EmpleadosController extends Controller
      */
     public function cargar_formulario($id = 0)
     {
-        $title = "Formulario de empleados";
-        $menu = "Empleados";
-        $empleado = null;
-        $editable = 1;
-        if ($id) {
-            $empleado = Empleado::find($id);
-            $empleado->documentacion = $empleado->documentacion;
+        if (auth()->user()->privilegios && (auth()->user()->privilegios->emp_baj == 1 || auth()->user()->privilegios->emp_act == 1)) {
+            $title = "Formulario de empleados";
+            $modify = 0;
+            $menu = "Empleados";
+            $empleado = null;
+            $editable = 1;
+            if ($id) {
+                $empleado = Empleado::find($id);
+                if ($empleado) {
+                    $modify = (($empleado->status == 1 && auth()->user()->privilegios->emp_act_mod == 1) || ($empleado->status == 0 && auth()->user()->privilegios->emp_baj_mod == 1)) ? 1 : 0;
+                    if ($modify == 0) { return view('errors.503');}
+                } else {
+                    if (!(auth()->user()->privilegios->emp_act_mod == 1)) { return view('errors.503');}
+                }
+            }
+            if (!(auth()->user()->privilegios->emp_act_mod == 1)) { return view('errors.503');}
+            return view('empleados.formulario', ['empleado' => $empleado, 'editable' => $editable, 'modify' => $modify, 'menu' => $menu, 'title' => $title]);
+        } else {
+            return view('errors.503');
         }
-        return view('empleados.formulario', ['empleado' => $empleado, 'editable' => $editable, 'menu' => $menu, 'title' => $title]);
     }
 
     /**
@@ -74,18 +95,21 @@ class EmpleadosController extends Controller
      */
     public function detalle_empleado($id)
     {
-        $title = "Detalle de empleado";
-        $menu = "Empleados";
-        $empleado = null;
-        $editable = 0;
-        if ($id) {
-            $empleado = Empleado::find($id);
-            $empleado->documentacion = $empleado->documentacion;
+        if (auth()->user()->privilegios && (auth()->user()->privilegios->emp_baj == 1 || auth()->user()->privilegios->emp_act == 1)) {
+            $title = "Detalle de empleado";
+            $menu = "Empleados";
+            $empleado = null;
+            $editable = 0;
+            if ($id) {
+                $empleado = Empleado::find($id);
+                $empleado->documentacion = $empleado->documentacion;
+            } else {
+                return view('empleados.formulario', ['empleado' => $empleado, 'editable' => 1, 'menu' => $menu, 'title' => $title]);//Se regresa la vista para dar de alta un formulario
+            }
+            return view('empleados.formulario', ['empleado' => $empleado, 'editable' => $editable, 'menu' => $menu, 'title' => $title]);
         } else {
-            return view('empleados.formulario', ['empleado' => $empleado, 'editable' => 1, 'menu' => $menu, 'title' => $title]);//Se regresa la vista para dar de alta un formulario
+            return view('errors.503');
         }
-
-        return view('empleados.formulario', ['empleado' => $empleado, 'editable' => $editable, 'menu' => $menu, 'title' => $title]);
     }
 
     /**

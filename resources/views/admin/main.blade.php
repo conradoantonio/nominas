@@ -150,7 +150,7 @@
                 </li>
                 <!-- END SELECTED LINK -->
 
-                @if(auth()->user()->role->rol == 'Administrador' || auth()->user()->role->rol == 'Nóminas' || auth()->user()->role->rol == 'Recepción' || auth()->user()->role->rol == 'Captura (clientes)')
+                @if(auth()->user()->privilegios && auth()->user()->privilegios->cli_act == 1)
                     <!-- BEGIN SINGLE LINK -->
                     <li class="{{$menu == 'Clientes (Activos)' ? 'active' : ''}}">
                         <a href="{{url('empresas')}}">
@@ -161,7 +161,7 @@
                     <!-- END SINGLE LINK -->
                 @endif
 
-                @if(auth()->user()->role->rol == 'Administrador' || auth()->user()->role->rol == 'Nóminas' || auth()->user()->role->rol == 'Recepción' || auth()->user()->role->rol == 'Captura (clientes)')
+                @if(auth()->user()->privilegios && auth()->user()->privilegios->cli_baj == 1)
                     <!-- BEGIN SINGLE LINK -->
                     <li class="{{$menu == 'Clientes (Inactivos)' ? 'active' : ''}}">
                         <a href="{{url('empresas/inactivas')}}">
@@ -172,7 +172,7 @@
                     <!-- END SINGLE LINK -->
                 @endif
 
-                @if(auth()->user()->role->rol == 'Administrador' || auth()->user()->role->rol == 'Nóminas' || auth()->user()->role->rol == 'Recepción' || auth()->user()->role->rol == 'Captura (empleados)')
+                @if(auth()->user()->privilegios && auth()->user()->privilegios->emp_act == 1)
                     <!-- BEGIN SINGLE LINK -->
                     <li class="{{$menu == 'Empleados (Activos)' ? 'active' : ''}}">
                         <a href="{{url('empleados')}}">
@@ -183,7 +183,7 @@
                     <!-- END SINGLE LINK -->
                 @endif
 
-                @if(auth()->user()->role->rol == 'Administrador' || auth()->user()->role->rol == 'Nóminas' || auth()->user()->role->rol == 'Recepción' || auth()->user()->role->rol == 'Captura (empleados)')
+                @if(auth()->user()->privilegios && auth()->user()->privilegios->emp_baj == 1)
                     <!-- BEGIN SINGLE LINK -->
                     <li class="{{$menu == 'Empleados (Inactivos)' ? 'active' : ''}}">
                         <a href="{{url('empleados/inactivos')}}">
