@@ -80,7 +80,7 @@
                         <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom" data-content="">
                             <div class="user-details">
                                 <div class="username">
-                                    <span class="badge badge-important"></span><span>Rol: {{auth()->user()->role->rol}}</span>
+                                    {{-- <span class="badge badge-important"></span><span>Rol: {{auth()->user()->role->rol}}</span> --}}
                                 </div>
                             </div>
                             <div class="iconset"></div>
@@ -194,7 +194,7 @@
                     <!-- END SINGLE LINK -->
                 @endif
 
-                @if(auth()->user()->role->rol == 'Administrador')
+                @if(auth()->user()->privilegios && auth()->user()->privilegios->usuarios == 1)
                     <!-- BEGIN ONE LEVEL MENU -->
                     <li class="{{$menu == 'Usuarios' ? 'active' : ''}}">
                         <a href="{{url('usuarios/sistema')}}">
@@ -205,7 +205,7 @@
                     <!-- END SINGLE LINK -->
                 @endif
 
-                @if(auth()->user()->role->rol == 'Administrador' || auth()->user()->role->rol == 'Nóminas' || auth()->user()->role->rol == 'Recepción')
+                @if(auth()->user()->privilegios && auth()->user()->privilegios->asistencias == 1)
                     <!-- BEGIN SINGLE LINK -->
                     <li class="{{$menu == 'Lista de asistencia' ? 'active' : ''}}">
                         <a href="{{url('nominas')}}">
@@ -216,7 +216,7 @@
                     <!-- END SINGLE LINK -->
                 @endif
 
-                @if(auth()->user()->role->rol == 'Administrador' || auth()->user()->role->rol == 'Nóminas' || auth()->user()->role->rol == 'Recepción')
+                @if(auth()->user()->privilegios && auth()->user()->privilegios->historial_asistencias == 1)
                     <!-- BEGIN SINGLE LINK -->
                     <li class="{{$menu == 'Historial' ? 'active' : ''}}">
                         <a href="{{url('historial')}}">
