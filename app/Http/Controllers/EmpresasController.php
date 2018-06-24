@@ -95,7 +95,7 @@ class EmpresasController extends Controller
 
         $empresa->save();
 
-        return response(['msg' => 'Cliente editado exitosamente', 'status' => 'success', 'url' => url('empresas')], 200);
+        return response(['msg' => 'Cliente guardado exitosamente', 'status' => 'success', 'url' => url('empresas')], 200);
     }
 
     /**

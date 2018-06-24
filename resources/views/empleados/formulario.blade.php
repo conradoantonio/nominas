@@ -53,8 +53,8 @@
                                     </div>
                                     <div class="col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            <label for="num_cuenta" class="required">No. de cuenta</label>
-                                            <input type="text" class="form-control not-empty" value="{{$empleado ? $empleado->num_cuenta : ''}}" id="num_cuenta" name="num_cuenta" maxlength="10" placeholder="No. de cuenta" data-msg="No. de cuenta">
+                                            <label for="num_cuenta">No. de cuenta</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->num_cuenta : ''}}" id="num_cuenta" name="num_cuenta" maxlength="10" placeholder="No. de cuenta" data-msg="No. de cuenta">
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-xs-12">

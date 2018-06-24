@@ -376,18 +376,19 @@ class PagosController extends Controller
 				'Dias festivos' => $asistencia->festivo,
 				'Turnos diurnos' => $asistencia->diurno,
 				'Turnos nocturnos' => $asistencia->nocturno,
-				'Empresa ' => $pago->empresa->nombre
+				'Empresa ' => $pago->empresa->nombre,
+				'Notas' => $asistencia->pago->notas
 			];
 		}
 
         Excel::create("Resumen de asistencias del $intervalo", function($excel) use($array) {
             $excel->sheet('Hoja 1', function($sheet) use($array) {
-                $sheet->cells('A:J', function($cells) {
+                $sheet->cells('A:K', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
 
-                $sheet->cells('A1:J1', function($cells) {
+                $sheet->cells('A1:K1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 

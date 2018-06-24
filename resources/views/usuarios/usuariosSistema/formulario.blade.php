@@ -48,7 +48,7 @@
                                     <div class="col-sm-4 col-xs-12">
                                         <div class="form-group">
                                             <label for="password" class="{{ $usuario ? '' : 'required'}}">Contraseña</label>
-                                            <input type="password" class="form-control {{ $usuario ? '' : 'not-empty'}}" id="password" name="Contraseña" placeholder="Contraseña" data-msg="Contraseña">
+                                            <input type="password" class="form-control {{ $usuario ? '' : 'not-empty'}}" id="password" name="password" placeholder="Contraseña" data-msg="Contraseña">
                                         </div>
                                     </div>
                                 </div>

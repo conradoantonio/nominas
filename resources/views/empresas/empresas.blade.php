@@ -129,7 +129,7 @@ input:-webkit-autofill {
                         @endif
                             
                         @if($status == 1 && $modify)
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empresa" id="nuevo_empresa"><i class="fa fa-plus" aria-hidden="true"></i> Nueva empresa</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empresa" id="nueva_empresa"><i class="fa fa-plus" aria-hidden="true"></i> Nueva empresa</button>
                         @endif
                     </div>
                     <div class="grid-body">
