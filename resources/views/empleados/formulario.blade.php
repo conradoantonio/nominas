@@ -71,8 +71,8 @@
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <label for="telefono" class="required">Teléfono</label>
-                                            <input type="text" class="form-control not-empty" value="{{$empleado ? $empleado->telefono : ''}}" id="telefono" name="telefono" placeholder="Teléfono" data-msg="Teléfono">
+                                            <label for="telefono">Teléfono</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->telefono : ''}}" id="telefono" name="telefono" placeholder="Teléfono" data-msg="Teléfono">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
@@ -89,14 +89,14 @@
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <label for="nss" class="required">NSS</label>
-                                            <input type="text" class="form-control not-empty" value="{{$empleado ? $empleado->nss : ''}}" id="nss" name="nss" placeholder="NSS" data-msg="NSS">
+                                            <label for="nss">NSS</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->nss : ''}}" id="nss" name="nss" placeholder="NSS" data-msg="NSS">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <label for="telefono_emergencia" class="required">Télefono de emergencia</label>
-                                            <input type="text" class="form-control not-empty" value="{{$empleado ? $empleado->telefono_emergencia : ''}}" id="telefono_emergencia" name="telefono_emergencia" placeholder="Télefono de emergencia" data-msg="Télefono de emergencia">
+                                            <label for="telefono_emergencia">Télefono de emergencia</label>
+                                            <input type="text" class="form-control" value="{{$empleado ? $empleado->telefono_emergencia : ''}}" id="telefono_emergencia" name="telefono_emergencia" placeholder="Télefono de emergencia" data-msg="Télefono de emergencia">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
