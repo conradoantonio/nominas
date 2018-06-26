@@ -203,7 +203,7 @@ class PagosController extends Controller
 				$asistencia = new Asistencia();
 				$asistencia->usuario_pago_id = $usuarioPago->id;
 				$asistencia->dia = $d;
-				$asistencia->status = '';
+				$asistencia->status = '-';
 				$asistencia->save();
 			}
 		}
