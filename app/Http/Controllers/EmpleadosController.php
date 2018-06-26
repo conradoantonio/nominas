@@ -171,6 +171,7 @@ class EmpleadosController extends Controller
         $documentacion->calendario = $req->calendario ? 1 : 0;
         $documentacion->formato_datos_personales = $req->formato_datos_personales ? 1 : 0;
         $documentacion->solicitud_autorizacion_consulta = $req->solicitud_autorizacion_consulta ? 1 : 0;
+        $documentacion->cartilla_militar = $req->cartilla_militar ? 1 : 0;
         $documentacion->licencia_conduccion = $req->licencia_conduccion;
 
         $documentacion->save();
@@ -270,6 +271,7 @@ class EmpleadosController extends Controller
             $documentacion->calendario = $req->calendario ? 1 : 0;
             $documentacion->formato_datos_personales = $req->formato_datos_personales ? 1 : 0;
             $documentacion->solicitud_autorizacion_consulta = $req->solicitud_autorizacion_consulta ? 1 : 0;
+            $documentacion->cartilla_militar = $req->cartilla_militar ? 1 : 0;
             $documentacion->licencia_conduccion = $req->licencia_conduccion;
 
             $documentacion->save();
@@ -371,7 +373,8 @@ class EmpleadosController extends Controller
             IF(documentacion.calendario = 1, 'Si', 'No') as 'Calendario',
             IF(documentacion.formato_datos_personales = 1, 'Si', 'No') as 'Formato de datos personales',
             IF(documentacion.solicitud_autorizacion_consulta = 1, 'Si', 'No') as 'Solicitud de autorización de consulta',
-            IF(documentacion.licencia_conduccion = 1, 'Si', 'No') as 'Licencia de conducir',
+            IF(documentacion.cartilla_militar = 1, 'Si', 'No') as 'Cartilla militar',
+            IF(ISNULL(documentacion.licencia_conduccion),'',documentacion.licencia_conduccion) as 'Licencia de conducir',
             IF(uniformes.playera_polo = 1, 'Si', 'No') as 'Playera polo',
             IF(uniformes.camisa = 1, 'Si', 'No') as 'Camisa',
             IF(uniformes.pantalones = 1, 'Si', 'No') as 'Pantalones',
@@ -409,12 +412,12 @@ class EmpleadosController extends Controller
 
         Excel::create($nombre_excel, function($excel) use($empleados) {
             $excel->sheet('Hoja 1', function($sheet) use($empleados) {
-                $sheet->cells('A:BO', function($cells) {
+                $sheet->cells('A:BP', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
                 
-                $sheet->cells('A1:BO1', function($cells) {
+                $sheet->cells('A1:BP1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 

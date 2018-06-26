@@ -265,6 +265,13 @@
                                             <label for="examen_toxicologico" style="padding-left:0px;"></label>
                                         </div>
                                     </div>
+                                    <div class="col-sm-4 col-xs-12" style="padding-bottom: 20px;">
+                                        <label for="cartilla_militar">Cartilla militar</label>
+                                        <div class="checkbox check-primary">
+                                            <input id="cartilla_militar" name="cartilla_militar" type="checkbox" {{($empleado ? ($empleado->documentacion->cartilla_militar ? 'checked' : '') : '')}}>
+                                            <label for="cartilla_militar" style="padding-left:0px;"></label>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-4 col-xs-12">
                                         <div class="form-group">
                                             <label for="licencia_conduccion">Licencia de conducir</label>
