@@ -11,11 +11,9 @@ use Excel, File;
 use App\Pago;
 use App\Empresa;
 use App\Empleado;
-use App\Deduccion;
 use App\Asistencia;
 use App\UsuarioPago;
 use App\EmpresaServicio;
-use App\DeduccionDetalle;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;

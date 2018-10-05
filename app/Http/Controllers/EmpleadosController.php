@@ -29,9 +29,9 @@ class EmpleadosController extends Controller
             $empleados = Empleado::where('status', $status)->get();
             
             if ($req->ajax()) {
-                return view('empleados.tabla', ['empleados' => $empleados, 'status' => $status, 'modify' => $modify]);
+                return view('empleados.tabla', compact(['empleados', 'status', 'modify']));
             }
-            return view('empleados.empleados', ['empleados' => $empleados, 'status' => $status, 'modify' => $modify, 'menu' => $menu, 'title' => $title]);
+            return view('empleados.empleados', compact(['empleados', 'status', 'modify', 'menu', 'title']));
         } else {
             return view('errors.503');
         }
@@ -51,9 +51,9 @@ class EmpleadosController extends Controller
             $empleados = Empleado::where('status', $status)->get();
             
             if ($req->ajax()) {
-                return view('empleados.tabla', ['empleados' => $empleados, 'status' => $status, 'modify' => $modify]);
+                return view('empleados.tabla', compact(['empleados', 'status', 'modify']));
             }
-            return view('empleados.empleados', ['empleados' => $empleados, 'status' => $status, 'modify' => $modify, 'menu' => $menu, 'title' => $title]);
+            return view('empleados.empleados', compact(['empleados', 'status', 'modify', 'menu', 'title']));
         } else {
             return view('errors.503');
         }

@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="titulo_tipo_servicio">Servicios</h4>
+                <h4 class="modal-title" id="titulo_tipo_servicio">Nueva deducción</h4>
             </div>
             <form enctype="multipart/form-data" action="{{url('deducciones/guardar')}}" method="POST" onsubmit="return false;" autocomplete="off" id="form-deducciones" data-ajax-type="ajax-form-modal" data-column="0" data-refresh="table" data-redirect="" data-table_id="example3" data-container_id="div_tabla_empleados">
                 <div class="modal-body">
@@ -11,7 +11,7 @@
                         <div class="col-sm-6 col-xs-12 hide">
                             <div class="form-group">
                                 <label for="id">ID</label>
-                                <input type="text" class="form-control not-empty" id="empleado_id" name="empleado_id" data-msg="ID empleado">
+                                <input type="text" class="form-control not-empty" name="empleado_id" data-msg="ID empleado">
                             </div>
                         </div>
                         <div class="col-sm-12 col-xs-12">

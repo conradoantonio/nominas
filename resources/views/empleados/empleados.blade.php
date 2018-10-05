@@ -133,6 +133,10 @@ $('body').delegate('.baja_empleado','click', function() {
 });
 
 $('body').delegate('.agregar_deduccion','click', function() {
+    var id = $(this).parent().parent().attr('id');
+
+    $("form#form-deducciones input[name='empleado_id']").val(id);
+    
     $('div#md-deducciones').modal();
 });
 

@@ -4,84 +4,48 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Empleado;
+use App\Deduccion;
+use App\DeduccionDetalle;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class DeduccionesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Guarda los registros de deducciones
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function guardar(Request $req)
     {
-        //
-    }
+        $empleado = Empleado::find($req->empleado_id);
+        if ( !$empleado ) { return response(['msg' => 'ID de empleado inválido, trate nuevamente', 'status' => 'error'], 404); }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $cantidad = $req->total / $req->num_pagos;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $row = New Deduccion;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $row->empleado_id = $req->empleado_id;
+        $row->total = $req->total;
+        $row->comentarios = $req->comentarios;
+        $row->num_pagos = $req->num_pagos;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $row->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        for ($i=0; $i < $req->num_pagos; $i++) { 
+            $detail = New DeduccionDetalle;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            $detail->deduccion_id = $row->id;
+            $detail->cantidad = $cantidad;
+            $detail->status = 0;//Not paid
+
+            $detail->save();
+        }
+
+        $url = url($empleado->status == 1 ? 'empleados' : 'empleados/inactivas');
+
+        return response(['msg' => 'Deducción registrada correctamente', 'status' => 'success', 'url' => $url], 200);
     }
 }
