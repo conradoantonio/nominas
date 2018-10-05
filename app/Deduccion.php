@@ -24,10 +24,18 @@ class Deduccion extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     /**
-     * Obtiene la documentación asociada con el empleado.
+     * Obtiene la el empleado asociado con la deducción.
      */
     public function empleado()
     {
         return $this->belongsTo('App\Empleado', 'empleado_id');
+    }
+
+    /**
+     * Obtiene los detalles asociados con la deducción.
+     */
+    public function detalles()
+    {
+        return $this->hasMany('App\DeduccionDetalle', 'deduccion_id');
     }
 }

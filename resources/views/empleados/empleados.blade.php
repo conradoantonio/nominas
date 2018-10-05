@@ -29,6 +29,8 @@ input:-webkit-autofill {
 
     <h2>Lista de empleados</h2>
 
+    @include('empleados.modal')
+
     <div class="row-fluid" style="display: none">
         <div class="span12">
             <div class="grid simple ">
@@ -128,6 +130,10 @@ $('body').delegate('.baja_empleado','click', function() {
     function() {
         bajaEmpleado(id, activar);
     });
+});
+
+$('body').delegate('.agregar_deduccion','click', function() {
+    $('div#md-deducciones').modal();
 });
 
 </script>

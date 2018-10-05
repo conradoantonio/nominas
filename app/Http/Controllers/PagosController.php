@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Pago;
-use App\Empresa;
-use App\Empleado;
-use App\Asistencia;
-use App\UsuarioPago;
-use App\EmpresaServicio;
 use DB;
 use PDF;
 use Excel, File;
+
+use App\Pago;
+use App\Empresa;
+use App\Empleado;
+use App\Deduccion;
+use App\Asistencia;
+use App\UsuarioPago;
+use App\EmpresaServicio;
+use App\DeduccionDetalle;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
 
 class PagosController extends Controller
 {
@@ -84,7 +89,7 @@ class PagosController extends Controller
 					$asistencia = new Asistencia();
 					$asistencia->usuario_pago_id = $usuarioPago->id;
 					$asistencia->dia = $d;
-					$asistencia->status = '';
+					$asistencia->status = '-';
 					$asistencia->save();
 				}
 			}
@@ -110,9 +115,9 @@ class PagosController extends Controller
 		$endTime = strtotime( $pago->fecha_fin );
 		$days_ago = date('d', strtotime('-3 days'));
 		
-		$date1=date_create(date('Y-m-d'));
-		$date2=date_create(date('Y-m-d', strtotime( "-3 days")));
-		$diff=date_diff($date1,$date2);
+		$date1 = date_create(date('Y-m-d'));
+		$date2 = date_create(date('Y-m-d', strtotime( "-3 days")));
+		$diff = date_diff($date1,$date2);
 
 		// Loop between timestamps, 24 hours at a time
 
