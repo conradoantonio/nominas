@@ -71,9 +71,11 @@ CREATE TABLE `deducciones` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `deducciones` */
+
+insert  into `deducciones`(`id`,`empleado_id`,`total`,`comentarios`,`num_pagos`,`created_at`,`updated_at`) values (1,10,'3000','chido',10,'2018-10-05 21:21:41','2018-10-05 21:21:41');
 
 /*Table structure for table `deducciones_detalles` */
 
@@ -88,9 +90,11 @@ CREATE TABLE `deducciones_detalles` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `deducciones_detalles` */
+
+insert  into `deducciones_detalles`(`id`,`deduccion_id`,`cantidad`,`usuario_pago_id`,`status`,`created_at`,`updated_at`) values (1,1,'300',NULL,1,'2018-10-05 16:34:47','2018-10-05 21:21:41'),(2,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(3,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(4,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(5,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(6,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(7,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(8,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(9,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(10,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41');
 
 /*Table structure for table `documentacion` */
 
