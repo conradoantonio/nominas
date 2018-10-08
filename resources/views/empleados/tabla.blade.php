@@ -8,7 +8,7 @@
             <th class="">Apellido materno</th>
             <th class="">No. Empleado</th>
             <th class="">Deducciones</th>
-            <th class="">Pagos</th>
+            <th class="">Pagado</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -30,24 +30,24 @@
                     <td class="">${{$empleado->deducciones->sum('total')}}</td>
                     <td class="">
                         <?php $cont = 0; ?>
-                        @if (count($empleado->deducciones()) )
-                            {{count($empleado->deducciones())}}
-
-                            @foreach($empleado->deducciones() as $deduccion)
+                        @if (count($empleado->deducciones) )
+                            @foreach($empleado->deducciones as $deduccion)
                                 @foreach($deduccion->detalles as $detalle)
-                                    <?php $cont += $detalle->cantidad; ?>
+                                    @if ($detalle->status == 1)
+                                        <?php $cont += $detalle->cantidad; ?>
+                                    @endif
                                 @endforeach
                             @endforeach
                         @endif
-                        {{$cont}}
+                        ${{$cont}}
                     </td>
                     <td>
                         <a href="{{url('empleados/detalle')}}/{{$empleado->id}}"><button type="button" class="btn btn-success detalle_empleado">Info</button></a>
                         @if ( $modify == 1 )
                             <a href="{{url('empleados/formulario')}}/{{$empleado->id}}"><button type="button" class="btn btn-info editar_empleado">Editar</button></a>
-                            <button type="button" change-to={{$empleado->status == 1 ? '0' : '1'}} class="btn btn-danger baja_empleado">{{$empleado->status == 1 ? 'Baja' : 'Reactivar'}}</button>
                             <button type="button" class="btn btn-primary agregar_deduccion">Deducción</button>
                             <button type="button" class="btn btn-warning agregar_retencion">Retención</button>
+                            <button type="button" change-to={{$empleado->status == 1 ? '0' : '1'}} class="btn btn-danger baja_empleado">{{$empleado->status == 1 ? 'Baja' : 'Reactivar'}}</button>
                         @endif
                     </td>
                 </tr>

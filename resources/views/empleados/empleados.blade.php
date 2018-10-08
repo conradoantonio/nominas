@@ -1,7 +1,6 @@
 @extends('admin.main')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('plugins/bootstrap-select2/select2.css')}}"  type="text/css" media="screen"/>
 <link rel="stylesheet" href="{{ asset('plugins/jquery-datatable/css/jquery.dataTables.css')}}"  type="text/css" media="screen"/>
 <style>
 textarea {
@@ -74,6 +73,24 @@ $(function(){
     global_status = <?php echo $status;?>;
     swal_msg = global_status == 1 ? 'dar de baja' : 'reactivar';
     activar = global_status == 1 ? 0 : 1;
+
+    $(".select2").select2();
+
+    $( "input[name='fecha_inicio'" ).datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "yyyy-mm-dd",
+    }).on( "changeDate", function(e) {
+        $( "input[name='fecha_fin']" ).setStartDate = e.date;
+    });
+
+    $( "input[name='fecha_fin']" ).datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "yyyy-mm-dd",
+    }).on( "changeDate", function(e) {
+        $( "input[name='fecha_inicio'" ).setEndDate = e.date;
+    });
 })
 
 $('#formulario_empleado').on('hidden.bs.modal', function (e) {
@@ -138,6 +155,14 @@ $('body').delegate('.agregar_deduccion','click', function() {
     $("form#form-deducciones input[name='empleado_id']").val(id);
     
     $('div#md-deducciones').modal();
+});
+
+$('body').delegate('.agregar_retencion','click', function() {
+    var id = $(this).parent().parent().attr('id');
+
+    $("form#form-retenciones input[name='empleado_id']").val(id);
+
+    $('div#md-retenciones').modal();
 });
 
 </script>

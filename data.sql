@@ -272,6 +272,26 @@ CREATE TABLE `privilegios` (
 
 insert  into `privilegios`(`id`,`cli_act`,`cli_act_mod`,`cli_baj`,`cli_baj_mod`,`emp_act`,`emp_act_mod`,`emp_baj`,`emp_baj_mod`,`usuarios`,`asistencias`,`historial_asistencias`,`created_at`,`updated_at`) values (1,1,1,1,1,1,1,1,1,1,1,1,'2018-06-18 13:15:16','0000-00-00 00:00:00'),(2,1,0,1,0,1,0,1,0,0,1,1,'2018-06-21 13:55:43','2018-06-21 13:55:43'),(3,1,1,1,1,1,1,1,1,1,1,1,'2018-06-18 13:59:33','2018-06-18 13:59:33'),(4,0,0,0,0,1,1,1,1,0,0,1,'2018-06-25 11:03:06','2018-06-25 11:03:06'),(5,1,1,1,1,1,1,1,1,0,1,1,'2018-06-25 11:19:35','2018-06-25 11:19:35'),(6,1,1,1,1,1,1,1,1,0,1,1,'2018-06-25 11:03:33','2018-06-25 11:03:33'),(7,1,1,1,1,0,0,0,0,0,0,0,'2018-06-19 12:25:40','2018-06-19 12:25:40'),(8,1,0,1,0,1,0,1,0,0,1,1,'2018-06-20 09:42:56','2018-06-20 09:42:56'),(9,1,0,1,0,1,0,1,0,0,1,1,'2018-06-19 15:14:49','2018-06-19 15:14:49'),(10,1,0,1,0,1,0,1,0,0,1,1,'2018-06-19 15:15:28','2018-06-19 15:15:28'),(11,1,1,1,1,0,0,0,0,0,0,0,'2018-08-07 16:51:41','2018-08-07 16:51:41'),(12,1,1,1,1,1,1,1,0,0,1,1,'2018-09-08 11:34:56','2018-09-08 11:34:56');
 
+/*Table structure for table `retenciones` */
+
+DROP TABLE IF EXISTS `retenciones`;
+
+CREATE TABLE `retenciones` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empleado_id` int(11) NOT NULL,
+  `empresa_id` int(11) NOT NULL COMMENT 'Lugar trabajado',
+  `importe` varchar(50) NOT NULL COMMENT 'Monto a retener',
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `num_dias` int(11) NOT NULL,
+  `comentarios` text,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `retenciones` */
+
 /*Table structure for table `roles` */
 
 DROP TABLE IF EXISTS `roles`;

@@ -72,8 +72,14 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('exportar/general/{status}','EmpleadosController@exportar_excel');//Exporta los empleados a excel con cierto status
 	});
 
+	/*Rutas para deducciones*/
 	Route::group(['prefix' => 'deducciones'], function () {
 		Route::post('guardar','DeduccionesController@guardar');//Guarda los datos de una deducción
+	});
+
+	/*Rutas para retenciones*/
+	Route::group(['prefix' => 'retenciones'], function () {
+		Route::post('guardar','RetencionesController@guardar');//Guarda los datos de una retención
 	});
 
 

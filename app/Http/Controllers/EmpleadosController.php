@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use DB;
 use Excel;
+use App\Empresa;
 use App\Empleado;
 use App\Uniforme;
 use App\Aditamento;
@@ -27,11 +28,12 @@ class EmpleadosController extends Controller
             $title = $menu = "Empleados (Activos)";
             $status = 1;
             $empleados = Empleado::where('status', $status)->get();
-            
+            $empresas = Empresa::where('status', 1)->get();
+
             if ($req->ajax()) {
                 return view('empleados.tabla', compact(['empleados', 'status', 'modify']));
             }
-            return view('empleados.empleados', compact(['empleados', 'status', 'modify', 'menu', 'title']));
+            return view('empleados.empleados', compact(['empleados', 'status', 'modify', 'empresas', 'menu', 'title']));
         } else {
             return view('errors.503');
         }
@@ -49,11 +51,12 @@ class EmpleadosController extends Controller
             $title = $menu = "Empleados (Inactivos)";
             $status = 0;
             $empleados = Empleado::where('status', $status)->get();
-            
+            $empresas = Empresa::where('status', 1)->get();
+
             if ($req->ajax()) {
                 return view('empleados.tabla', compact(['empleados', 'status', 'modify']));
             }
-            return view('empleados.empleados', compact(['empleados', 'status', 'modify', 'menu', 'title']));
+            return view('empleados.empleados', compact(['empleados', 'status', 'modify', 'empresas', 'menu', 'title']));
         } else {
             return view('errors.503');
         }
@@ -69,12 +72,13 @@ class EmpleadosController extends Controller
         if (auth()->user()->privilegios && (auth()->user()->privilegios->emp_baj == 1 || auth()->user()->privilegios->emp_act == 1)) {
             $title = "Formulario de empleados";
             $modify = 0;
-            $menu = "Empleados";
+            $menu = "Empleados (Activos)";
             $empleado = null;
             $editable = 1;
             if ($id) {
                 $empleado = Empleado::find($id);
                 if ($empleado) {
+                    $menu = $empleado->status == 0 ? "Empleados (Inactivos)" : "Empleados (Activos)";
                     $modify = (($empleado->status == 1 && auth()->user()->privilegios->emp_act_mod == 1) || ($empleado->status == 0 && auth()->user()->privilegios->emp_baj_mod == 1)) ? 1 : 0;
                     if ($modify == 0) { return view('errors.503');}
                 } else {
@@ -82,7 +86,7 @@ class EmpleadosController extends Controller
                 }
             }
             if (!(auth()->user()->privilegios->emp_act_mod == 1)) { return view('errors.503');}
-            return view('empleados.formulario', ['empleado' => $empleado, 'editable' => $editable, 'modify' => $modify, 'menu' => $menu, 'title' => $title]);
+            return view('empleados.formulario', compact(['empleado', 'editable', 'modify', 'menu', 'title']));
         } else {
             return view('errors.503');
         }
