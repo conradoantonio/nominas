@@ -45,8 +45,8 @@
                         <a href="{{url('empleados/detalle')}}/{{$empleado->id}}"><button type="button" class="btn btn-success detalle_empleado">Info</button></a>
                         @if ( $modify == 1 )
                             <a href="{{url('empleados/formulario')}}/{{$empleado->id}}"><button type="button" class="btn btn-info editar_empleado">Editar</button></a>
-                            <button type="button" class="btn btn-primary agregar_deduccion">Deducción</button>
-                            <button type="button" class="btn btn-warning agregar_retencion">Retención</button>
+                            <button type="button" class="btn btn-primary agregar_deduccion">Deducir</button>
+                            <button type="button" class="btn btn-warning agregar_retencion">Retener</button>
                             <button type="button" change-to={{$empleado->status == 1 ? '0' : '1'}} class="btn btn-danger baja_empleado">{{$empleado->status == 1 ? 'Baja' : 'Reactivar'}}</button>
                         @endif
                     </td>

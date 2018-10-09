@@ -61,9 +61,9 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="empresa_id">Empresa (Lugar)</label>
-                            <select name="empresa_id" class="select2 not-empty" style="width: 100%;">
+                            <select name="empresa_id" class="select2 not-empty" style="width: 100%;" data-msg="Empresa (Lugar)">
                                 <option value="0">Seleccionar empresa</option>
-                                @if($empresas)
+                                @if(isset($empresas))
                                     @foreach($empresas as $empresa)
                                         <option value="{{$empresa->id}}">{{$empresa->nombre}}</option>
                                     @endforeach
@@ -72,16 +72,16 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="fecha_inicio">Fecha inicio</label>
-                            <input type="text" class="form-control not-empty" name="fecha_inicio" data-msg="">
+                            <input type="text" class="form-control not-empty" name="fecha_inicio" data-msg="Fecha inicio">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="fecha_fin">Fecha fin</label>
-                            <input type="text" class="form-control not-empty" name="fecha_fin" data-msg="">
+                            <input type="text" class="form-control not-empty" name="fecha_fin" data-msg="Fecha fin">
                         </div>
                         <div class="col-sm-12 col-xs-12">
                             <div class="form-group">
                                 <label for="importe">Importe</label>
-                                <input type="text" class="form-control not-empty" name="importe" data-msg="Monto">
+                                <input type="text" class="form-control not-empty" name="importe" data-msg="Importe">
                             </div>
                         </div>
                         <div class="col-sm-12 col-xs-12">
