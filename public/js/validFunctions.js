@@ -18,12 +18,8 @@ $(function(){
     var form = '';
     var btn_form = $(".save");
 
-        /*$(select).parent().children('div.select2-container').addClass("select-error");
-
-        $(select).parent().children('div.select2-container').removeClass("select-error");*/
-
-    $(".not-empty").change(function() {
-        if ( $(this).val() || $(this).val() != 0 ) {
+    $(".not-empty").on('blur change' , function() {
+        if ( $(this).val() && $(this).val() != 0 ) {
             if ($(this).hasClass('select2')) {//Si es un select2 se remueve un error especial
                 //$(this).parent().children('div.select2').children('ul.select2-choices').removeClass("select-error");
                 $(this).parent().children('div.select2-container').removeClass("select-error");
@@ -44,22 +40,6 @@ $(function(){
             }
         }
     });
-
-    /*$(".not-empty").change(function() {//For select2
-        console.log($(this).val());
-        if ( $(this).val() && $(this).val() != 0 ) {
-            console.log('tiene valor');
-            if ($(this).hasClass('select2')) {//Si es un select2 se remueve un error especial
-                $(this).parent().children('div.select2-container').removeClass("select-error");
-            } 
-        } else {
-            console.log('no tiene valor');
-            if ($(this).hasClass('select2')) {//Si es un select2 se agrega un error especial
-                $(this).parent().children('div.select2-container').addClass("select-error");
-            }
-        }
-    });*/
-
 
     $(".email").blur(function() {
         if(!$(this).val().match(re_email)) {

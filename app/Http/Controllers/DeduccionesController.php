@@ -44,7 +44,7 @@ class DeduccionesController extends Controller
             $detail->save();
         }
 
-        $url = url($empleado->status == 1 ? 'empleados' : 'empleados/inactivas');
+        $url = url($empleado->status == 1 ? 'empleados' : 'empleados/inactivos');
 
         return response(['msg' => 'Deducción registrada correctamente', 'status' => 'success', 'url' => $url], 200);
     }
