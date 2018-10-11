@@ -50,7 +50,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="titulo_tipo_servicio">Nueva retención</h4>
             </div>
-            <form enctype="multipart/form-data" action="{{url('retencion/guardar')}}" method="POST" onsubmit="return false;" autocomplete="off" id="form-retenciones" data-ajax-type="ajax-form-modal" data-column="0" data-refresh="table" data-redirect="" data-table_id="example3" data-container_id="div_tabla_empleados">
+            <form enctype="multipart/form-data" action="{{url('retenciones/guardar')}}" method="POST" onsubmit="return false;" autocomplete="off" id="form-retenciones" data-ajax-type="ajax-form-modal" data-column="0" data-refresh="table" data-redirect="" data-table_id="example3" data-container_id="div_tabla_empleados">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6 col-xs-12 hide">

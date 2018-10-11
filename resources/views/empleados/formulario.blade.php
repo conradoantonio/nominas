@@ -579,7 +579,50 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="tabla_retenciones">
-
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @if ( count( $empleado->retenciones ) )
+                                        <table class="table" id="empleado_retenciones">
+                                            <thead>
+                                                <tr>
+                                                    <td>ID</td>
+                                                    <td>Lugar</td>
+                                                    <td>Importe</td>
+                                                    <td>Rango de fechas</td>
+                                                    <td>No. días</td>
+                                                    <td>Comentarios</td>
+                                                    <td>Fecha creación</td>
+                                                    <td>Status</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach( $empleado->retenciones as $retencion )
+                                                    <tr>
+                                                        <td>{{$retencion->id}}</td>
+                                                        <td>{{$retencion->empresa->nombre}}</td>
+                                                        <td>${{$retencion->importe}}</td>
+                                                        <td>{{date('d/M/Y', strtotime($retencion->fecha_inicio))}} - {{date('d/M/Y', strtotime($retencion->fecha_fin))}}</td>
+                                                        <td>{{$retencion->num_dias}}</td>
+                                                        <td>{{$retencion->comentarios}}</td>
+                                                        <td>
+                                                            {{strftime('%d', strtotime($retencion->created_at)).' de '.strftime('%B', strtotime($retencion->created_at)). ' del '.strftime('%Y', strtotime($retencion->created_at))}}
+                                                        </td>
+                                                        <td>
+                                                            {!!
+                                                                ( $retencion->status == 0 ? "<span class='label label-danger'>Pendiente</span>" : 
+                                                                    ($retencion->status == 1 ? "<span class='label label-success'>Atendido</span>" : "<span class='label label-default'>Desconocido</span>" )
+                                                                )
+                                                            !!}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <h5>No hay retenciones registradas para este empleado</h5>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     @endif
                 </div>

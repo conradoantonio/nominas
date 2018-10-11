@@ -58,4 +58,12 @@ class Empleado extends Model
     {
         return $this->hasMany('App\Deduccion', 'empleado_id');
     }
+
+    /**
+     * Obtiene las posibles retenciones del empleado.
+     */
+    public function retenciones()
+    {
+        return $this->hasMany('App\Retencion', 'empleado_id');
+    }
 }

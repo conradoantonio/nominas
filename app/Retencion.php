@@ -15,7 +15,7 @@ class Retencion extends Model
      * Define el nombre de los campos que podrán ser alterados de la tabla del modelo.
      */
     protected $fillable = [
-    	'empleado_id', 'empresa_id', 'importe', 'fecha_inicio', 'fecha_fin', 'num_dias', 'comentarios'
+    	'empleado_id', 'empresa_id', 'importe', 'fecha_inicio', 'fecha_fin', 'num_dias', 'comentarios', 'status'
     ];
 
     /**

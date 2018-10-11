@@ -285,12 +285,15 @@ CREATE TABLE `retenciones` (
   `fecha_fin` date DEFAULT NULL,
   `num_dias` int(11) NOT NULL,
   `comentarios` text,
+  `status` tinyint(4) DEFAULT '0' COMMENT '0 => Pendiente, 1 => Atendido',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `retenciones` */
+
+insert  into `retenciones`(`id`,`empleado_id`,`empresa_id`,`importe`,`fecha_inicio`,`fecha_fin`,`num_dias`,`comentarios`,`status`,`created_at`,`updated_at`) values (1,753,6,'1000','2018-10-01','2018-10-15',3,'Dejó de venir de repente.',0,'2018-10-11 16:57:10','2018-10-11 21:43:15'),(2,753,3,'1000','2018-10-01','2018-10-15',3,'Muy mal',0,'2018-10-11 22:02:25','2018-10-11 22:02:25');
 
 /*Table structure for table `roles` */
 
