@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Excel;
+
 use App\Empleado;
 use App\Deduccion;
 use App\DeduccionDetalle;
@@ -47,5 +49,50 @@ class DeduccionesController extends Controller
         $url = url($empleado->status == 1 ? 'empleados' : 'empleados/inactivos');
 
         return response(['msg' => 'Deducción registrada correctamente', 'status' => 'success', 'url' => $url], 200);
+    }
+
+    /**
+     * Exporta el excel con las deducciones del empleado
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function exportar_excel($id)
+    {
+        $empleado = Empleado::findOrFail($id);
+        $array = array();
+
+        if (count($empleado->deducciones)) {
+            foreach ($empleado->deducciones as $deduccion) {
+                foreach ($deduccion->detalles as $detalle) {
+                    $array[] = [
+                        'Nombre completo' => $empleado->nombre.' '.$empleado->apellido_paterno.' '.$empleado->apellido_materno,
+                        'Importe ' => number_format($deduccion->importe,2),
+                        'Número de días ' => $deduccion->num_dias,
+                        'Número de cuenta' => $empleado->num_cuenta,
+                        'Número de empleado' => $empleado->num_empleado,
+                        'Rango de fechas' => date('d M Y', strtotime($deduccion->fecha_inicio)).' - '.date('d M Y', strtotime($deduccion->fecha_fin)),
+                        'Empresa ' => $deduccion->empresa->nombre,
+                        'Notas' => $deduccion->comentarios
+                    ];
+                }
+            }
+        }
+
+        Excel::create("Deducciones de empleado $empleado->nombre", function($excel) use($array) {
+            $excel->sheet('Hoja 1', function($sheet) use($array) {
+                $sheet->cells('A:H', function($cells) {
+                    $cells->setAlignment('center');
+                    $cells->setValignment('center');
+                });
+
+                $sheet->cells('A1:H1', function($cells) {
+                    $cells->setFontWeight('bold');
+                });
+
+                $sheet->fromArray($array);
+            });
+        })->export('xlsx');
+
+        return ['msg'=>'Excel creado'];
     }
 }

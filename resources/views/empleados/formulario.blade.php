@@ -543,6 +543,12 @@
                         <div class="tab-pane" id="tabla_deducciones">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div id="opciones-adicionales">
+                                        <h4>Opciones <span class="semi-bold">adicionales</span></h4>
+                                        <div>
+                                            <button class="btn btn-success exportar-excel-deducciones" data-row-id="{{$empleado->id}}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar excel</button>
+                                        </div>
+                                    </div>
                                     @if ( count( $empleado->deducciones ) )
                                         <table class="table" id="empleado_deducciones">
                                             <thead>
@@ -581,6 +587,12 @@
                         <div class="tab-pane" id="tabla_retenciones">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div id="opciones-adicionales">
+                                        <h4>Opciones <span class="semi-bold">adicionales</span></h4>
+                                        <div>
+                                            <button class="btn btn-success exportar-excel-retenciones" data-row-id="{{$empleado->id}}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar excel</button>
+                                        </div>
+                                    </div>
                                     @if ( count( $empleado->retenciones ) )
                                         <table class="table" id="empleado_retenciones">
                                             <thead>
@@ -610,7 +622,7 @@
                                                         <td>
                                                             {!!
                                                                 ( $retencion->status == 0 ? "<span class='label label-danger'>Pendiente</span>" : 
-                                                                    ($retencion->status == 1 ? "<span class='label label-success'>Atendido</span>" : "<span class='label label-default'>Desconocido</span>" )
+                                                                    ( $retencion->status == 1 ? "<span class='label label-success'>Atendido</span>" : "<span class='label label-default'>Desconocido</span>" )
                                                                 )
                                                             !!}
                                                         </td>
@@ -638,7 +650,19 @@
             todayHighlight: true,
             format: "yyyy-mm-dd",
         });
-    })
+    });
+
+    //Set up the button to download the excel file
+    $('body').delegate('button.exportar-excel-retenciones','click', function() {
+        var id = $(this).data('row-id');
+        window.location.href = baseUrl+'/retenciones/excel/export/'+id;
+    });
+
+    //Set up the button to download the excel file
+    $('body').delegate('button.exportar-excel-deducciones','click', function() {
+        var id = $(this).data('row-id');
+        window.location.href = baseUrl+'/deducciones/excel/export/'+id;
+    });
 
     $('body').delegate('.detalle_deduccion','click', function() {
         var data = $(this).data('row-data');
