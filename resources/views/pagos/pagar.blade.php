@@ -87,6 +87,7 @@ img#company-logo{
 									<th>Turno nocturno</th>
 									<th>Dias a pagar</th>
 									<th>Empresa</th>
+									<th>Deducciones</th>
 									<th>Subtotal</th>
 									<th>Notas</th>
 								</thead>
@@ -102,6 +103,7 @@ img#company-logo{
 										<td>{{$asistencia->nocturno}}</td>
 										<td>{{$asistencia->total}}</td>
 										<td>{{$pago->empresa->nombre}}</td>
+										<td>${{number_format($asistencia->pago->deducciones_detalles->sum('cantidad'),2)}}</td>
 										<td>${{number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2)}}</td>
 										<td>{{$asistencia->pago->notas}}</td>
 									</tr>

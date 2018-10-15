@@ -171,7 +171,13 @@ class PagosController extends Controller
 		$listas = Pago::whereIn('id', $req->checking);
 		if ($listas->get()) {
 			foreach ($listas->get() as $key => $lista) {
-				foreach ($lista->PagoUsuarios as $pago_usuario){
+				foreach ($lista->PagoUsuarios as $pago_usuario) {
+					//Desvincula las deducciones en caso de ser necesario
+					if ( count ($pago_usuario->deducciones_detalles ) ) {
+						foreach ($pago_usuario->deducciones_detalles as $detalle) {
+							$detalle->update(['usuario_pago_id' => null, 'status' => 0]);
+						}
+					}
 					$pago_usuario->asistencia()->delete();//Elimina las asistencias
 				}
 				$lista->PagoUsuarios()->delete();//Elimina los PagoUsuarios
@@ -220,7 +226,19 @@ class PagosController extends Controller
 	 */
 	public function eliminar_empleados_lista(Request $req)
 	{
-		$usuario_pagos = UsuarioPago::whereIn('id', $req->checking)->delete();
+		$usuario_pagos = UsuarioPago::whereIn('id', $req->checking)->get();
+
+		if ( count( $usuario_pagos ) ) {
+			foreach ($usuario_pagos as $pago) {
+				if ( count ($pago->deducciones_detalles ) ) {
+					foreach ($pago->deducciones_detalles as $detalle) {
+						$detalle->update(['usuario_pago_id' => null, 'status' => 0]);
+					}
+				}
+			}
+
+			$pago->delete();
+		}
 		$asistencias = Asistencia::whereIn('usuario_pago_id', $req->checking)->delete();
 
 		if ($asistencias && $usuario_pagos){
@@ -254,7 +272,7 @@ class PagosController extends Controller
 
 		$pago_actualizado = DB::table('pagos')->where('id', $id)->update(['status' => 0]);//Se marca el pago como pagado
 
-		return view('pagos.pagar', ['pago' => $pago,'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias, 'pago_id' => $id]);
+		return view('pagos.pagar', ['pago' => $pago, 'menu' => $menu, 'title' => $title, 'asistencias' => $asistencias, 'pago_id' => $id]);
 	}
 
 	public function formulario() 
@@ -380,18 +398,19 @@ class PagosController extends Controller
 				'Turnos diurnos' => $asistencia->diurno,
 				'Turnos nocturnos' => $asistencia->nocturno,
 				'Empresa ' => $pago->empresa->nombre,
+				'Deducciones' => number_format($asistencia->pago->deducciones_detalles->sum('cantidad'),2),
 				'Notas' => $asistencia->pago->notas
 			];
 		}
 
         Excel::create("Resumen de asistencias del $intervalo", function($excel) use($array) {
             $excel->sheet('Hoja 1', function($sheet) use($array) {
-                $sheet->cells('A:K', function($cells) {
+                $sheet->cells('A:L', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
 
-                $sheet->cells('A1:K1', function($cells) {
+                $sheet->cells('A1:L1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 
