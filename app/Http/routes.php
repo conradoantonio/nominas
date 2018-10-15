@@ -75,6 +75,8 @@ Route::group(['middleware' => 'auth'], function () {
 	/*Rutas para deducciones*/
 	Route::group(['prefix' => 'deducciones'], function () {
 		Route::post('guardar','DeduccionesController@guardar');//Guarda los datos de una deducción
+		Route::post('pagar','DeduccionesController@asignar_pago');//Adjunta los pagos de deducción a una hoja de pago
+		Route::post('mostrar-detalles','DeduccionesController@mostrar_detalles');//Muestra las deducciones de un empleado
 		Route::get('excel/export/{empleado_id}','DeduccionesController@exportar_excel');//Exporta las reducciones del empleado
 	});
 

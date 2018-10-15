@@ -589,9 +589,14 @@
                                 <div class="col-md-12">
                                     <div id="opciones-adicionales">
                                         <h4>Opciones <span class="semi-bold">adicionales</span></h4>
+                                        <div class="alert alert-info alert-dismissible text-left" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                                            <strong>Nota: </strong>Descargar el excel hará que todas las retenciones se marquen como atendidas.
+                                        </div>
                                         <div>
                                             <button class="btn btn-success exportar-excel-retenciones" data-row-id="{{$empleado->id}}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar excel</button>
                                         </div>
+                                        
                                     </div>
                                     @if ( count( $empleado->retenciones ) )
                                         <table class="table" id="empleado_retenciones">

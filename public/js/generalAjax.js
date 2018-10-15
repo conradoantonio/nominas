@@ -102,7 +102,7 @@ function ajaxSimple(config) {
             } else if (config.refresh == 'galery') {
                 refreshGalery(data.url, config.container_id);
             } else if(config.callback) {
-                window[config.callback](data);
+                window[config.callback](data, config);
             } else if(config.redirect) {
                 setTimeout( function() {
                     window.location.href = data.url;
