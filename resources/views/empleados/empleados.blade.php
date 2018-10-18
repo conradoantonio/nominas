@@ -36,13 +36,15 @@ input:-webkit-autofill {
                 <div class="grid-title">
                     <h4>Opciones <span class="semi-bold">adicionales</span></h4>
                     <div>
-                        <a href="{{url("empleados/exportar/general/{$status}")}}"><button type="button" class="btn btn-info {{count($empleados) ? '' : 'hide'}}" id="exportar_empleados_excel"><i class="fa fa-download" aria-hidden="true"></i> Exportar empleados</button></a>
+                        <button type="button" data-redirect="{{url("empleados/exportar/general/{$status}")}}" class="btn btn-info export_excel {{count($empleados) ? '' : 'hide'}}" id="exportar_empleados_excel"><i class="fa fa-download" aria-hidden="true"></i> Exportar empleados</button>
+                        <button type="button" data-redirect="{{url("deducciones/excel/export/general/{$status}")}}" class="btn btn-primary export_excel {{count($empleados) ? '' : 'hide'}}" id="exportar_deducciones"><i class="fa fa-download" aria-hidden="true"></i> Exportar deducciones</button>
+                        <button type="button" data-redirect="{{url("retenciones/excel/export/general/{$status}")}}" class="btn btn-warning export_excel {{count($empleados) ? '' : 'hide'}}" id="exportar_retenciones"><i class="fa fa-download" aria-hidden="true"></i> Exportar retenciones</button>
                         @if($modify == 1)
                             <button type="button" class="btn btn-danger {{count($empleados) ? '' : 'hide'}}" id="dar_baja_empleados"><i class="fa {{$status == 1 ? 'fa-trash' : 'fa-undo'}}" aria-hidden="true"></i> {{$status == 1 ? 'Dar de baja' : 'Reactivar empleados'}}</button>
                         @endif
 
                         @if($status == 1 && $modify == 1)
-                            <a href="{{url('empleados/formulario')}}"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formulario_empleado" id="nuevo_empleado"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo empleado</button></a>
+                            <a href="{{url('empleados/formulario')}}"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#formulario_empleado" id="nuevo_empleado"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo empleado</button></a>
                         @endif
                     </div>
                     <div class="grid-body">
@@ -163,6 +165,12 @@ $('body').delegate('.agregar_retencion','click', function() {
     $("form#form-retenciones input[name='empleado_id']").val(id);
 
     $('div#md-retenciones').modal();
+});
+
+$('body').delegate('.export_excel','click', function() {
+    var redirect = $(this).data('redirect');
+
+    window.location.href = redirect;
 });
 
 </script>

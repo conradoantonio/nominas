@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.5-10.1.32-MariaDB : Database - nominas
+MySQL - 5.5.5-10.1.31-MariaDB : Database - nominas
 *********************************************************************
 */
 
@@ -52,11 +52,11 @@ CREATE TABLE `asistencias` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 /*Data for the table `asistencias` */
 
-insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (149,5,15,'-','2018-10-15 00:23:05','2018-10-15 00:23:05'),(150,5,16,'-','2018-10-15 00:23:05','2018-10-15 00:23:05'),(151,5,17,'-','2018-10-15 00:23:05','2018-10-15 00:23:05'),(152,5,18,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(153,5,19,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(154,5,20,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(155,5,21,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(156,6,15,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(157,6,16,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(158,6,17,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(159,6,18,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(160,6,19,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(161,6,20,'-','2018-10-15 00:23:06','2018-10-15 00:23:06'),(162,6,21,'-','2018-10-15 00:23:06','2018-10-15 00:23:06');
+insert  into `asistencias`(`id`,`usuario_pago_id`,`dia`,`status`,`created_at`,`updated_at`) values (1,1,15,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(2,1,16,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(3,1,17,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(4,1,18,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(5,1,19,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(6,1,20,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(7,1,21,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(8,2,15,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(9,2,16,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(10,2,17,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(11,2,18,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(12,2,19,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(13,2,20,'-','2018-10-18 17:39:52','2018-10-18 17:39:52'),(14,2,21,'-','2018-10-18 17:39:52','2018-10-18 17:39:52');
 
 /*Table structure for table `deducciones` */
 
@@ -71,11 +71,9 @@ CREATE TABLE `deducciones` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `deducciones` */
-
-insert  into `deducciones`(`id`,`empleado_id`,`total`,`comentarios`,`num_pagos`,`created_at`,`updated_at`) values (1,10,'3000','chido',10,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(2,753,'1000','Comentario 2',2,'2018-10-12 19:54:28','2018-10-12 19:54:28');
 
 /*Table structure for table `deducciones_detalles` */
 
@@ -90,11 +88,9 @@ CREATE TABLE `deducciones_detalles` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `deducciones_detalles` */
-
-insert  into `deducciones_detalles`(`id`,`deduccion_id`,`cantidad`,`usuario_pago_id`,`status`,`created_at`,`updated_at`) values (1,1,'300',NULL,1,'2018-10-05 16:34:47','2018-10-05 21:21:41'),(2,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(3,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(4,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(5,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(6,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(7,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(8,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(9,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(10,1,'300',NULL,0,'2018-10-05 21:21:41','2018-10-05 21:21:41'),(11,2,'500',6,1,'2018-10-15 02:13:18','2018-10-15 07:13:18'),(12,2,'500',NULL,0,'2018-10-15 02:17:10','2018-10-15 07:13:35');
 
 /*Table structure for table `documentacion` */
 
@@ -240,11 +236,11 @@ CREATE TABLE `pagos` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pagos` */
 
-insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`num_empleados`,`status`,`created_at`,`updated_at`) values (3,7,46,'2018-10-15','2018-10-21','2',2,'2018-10-14 19:23:03',NULL);
+insert  into `pagos`(`id`,`empresa_id`,`servicio_id`,`fecha_inicio`,`fecha_fin`,`num_empleados`,`status`,`created_at`,`updated_at`) values (1,3,47,'2018-10-15','2018-10-21','2',1,'2018-10-18 12:39:51',NULL);
 
 /*Table structure for table `privilegios` */
 
@@ -289,11 +285,9 @@ CREATE TABLE `retenciones` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `retenciones` */
-
-insert  into `retenciones`(`id`,`empleado_id`,`empresa_id`,`importe`,`fecha_inicio`,`fecha_fin`,`num_dias`,`comentarios`,`status`,`created_at`,`updated_at`) values (1,753,6,'1000','2018-10-01','2018-10-15',3,'Dejó de venir de repente.',1,'2018-10-12 13:33:26','2018-10-12 18:33:26'),(2,753,3,'1000','2018-10-01','2018-10-15',3,'Muy mal',1,'2018-10-12 13:33:26','2018-10-12 18:33:26');
 
 /*Table structure for table `roles` */
 
@@ -369,11 +363,11 @@ CREATE TABLE `usuario_pagos` (
   `pago_id` int(11) DEFAULT NULL,
   `notas` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `usuario_pagos` */
 
-insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (5,15,3,''),(6,753,3,'');
+insert  into `usuario_pagos`(`id`,`trabajador_id`,`pago_id`,`notas`) values (1,10,1,NULL),(2,12,1,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

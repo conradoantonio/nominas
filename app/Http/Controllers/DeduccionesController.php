@@ -25,7 +25,7 @@ class DeduccionesController extends Controller
         $empleado = Empleado::find($req->empleado_id);
         if ( !$empleado ) { return response(['msg' => 'ID de empleado inválido, trate nuevamente', 'status' => 'error'], 404); }
 
-        $cantidad = $req->total / $req->num_pagos;
+        $cantidad = number_format($req->total / $req->num_pagos, 2);
 
         $row = New Deduccion;
 
@@ -120,6 +120,53 @@ class DeduccionesController extends Controller
         }
 
         Excel::create("Deducciones de empleado $empleado->nombre", function($excel) use($array) {
+            $excel->sheet('Hoja 1', function($sheet) use($array) {
+                $sheet->cells('A:F', function($cells) {
+                    $cells->setAlignment('center');
+                    $cells->setValignment('center');
+                });
+
+                $sheet->cells('A1:F1', function($cells) {
+                    $cells->setFontWeight('bold');
+                });
+
+                $sheet->fromArray($array);
+            });
+        })->export('xlsx');
+
+        return ['msg'=>'Excel creado'];
+    }
+
+    /**
+     * Exporta el excel con las deducciones del empleado
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function exportar_excel_multiple($status)
+    {
+        $empleados = Empleado::where('status', $status)->get();
+        $array = array();
+
+        if (count($empleados)) {
+            foreach ($empleados as $empleado) {
+                if (count($empleado->deducciones)) {
+                    foreach ($empleado->deducciones as $deduccion) {
+                        foreach ($deduccion->detalles as $detalle) {
+                            $array[] = [
+                                'Nombre completo' => $empleado->nombre.' '.$empleado->apellido_paterno.' '.$empleado->apellido_materno,
+                                'Monto total de deduccion ' => number_format($deduccion->total,2),
+                                'Número de pagos ' => $deduccion->num_pagos,
+                                'Cantidad de pago' => $detalle->cantidad,
+                                'Status ' => $detalle->status == 0 ? 'Por pagar' : 'Pagado',
+                                'Notas' => $deduccion->comentarios
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
+        Excel::create("Deducciones de empleados", function($excel) use($array) {
             $excel->sheet('Hoja 1', function($sheet) use($array) {
                 $sheet->cells('A:F', function($cells) {
                     $cells->setAlignment('center');

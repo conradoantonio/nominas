@@ -77,13 +77,15 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('guardar','DeduccionesController@guardar');//Guarda los datos de una deducción
 		Route::post('pagar','DeduccionesController@asignar_pago');//Adjunta los pagos de deducción a una hoja de pago
 		Route::post('mostrar-detalles','DeduccionesController@mostrar_detalles');//Muestra las deducciones de un empleado
-		Route::get('excel/export/{empleado_id}','DeduccionesController@exportar_excel');//Exporta las reducciones del empleado
+		Route::get('excel/export/{empleado_id}','DeduccionesController@exportar_excel');//Exporta las deducciones del empleado
+		Route::get('excel/export/general/{status}','DeduccionesController@exportar_excel_multiple');//Exporta las deducciones de los empleados dependiendo de su status
 	});
 
 	/*Rutas para retenciones*/
 	Route::group(['prefix' => 'retenciones'], function () {
 		Route::post('guardar','RetencionesController@guardar');//Guarda los datos de una retención
 		Route::get('excel/export/{empleado_id}','RetencionesController@exportar_excel');//Exporta las retenciones del empleado y cambia su status
+		Route::get('excel/export/general/{status}','RetencionesController@exportar_excel_multiple');//Exporta las retenciones de los empleados dependiendo de su status
 	});
 
 

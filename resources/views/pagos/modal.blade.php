@@ -19,7 +19,7 @@
                             <select name="trabajadores[]" id="trabajadores_id" class="select2" multiple="multiple" style="width: 100%;">
                                 <option value="0" disabled>Seleccionar trabajadores</option>
                                 @foreach($trabajadores as $trabajador)
-                                    <option value="{{$trabajador->id}}">{{$trabajador->num_empleado}} - {{$trabajador->nombre}}</option>
+                                    <option value="{{$trabajador->id}}">{{$trabajador->num_empleado}} - {{$trabajador->nombre.' '.$trabajador->apellido_paterno.' '.$trabajador->apellido_materno}}</option>
                                 @endforeach
                             </select>
                         </div>
