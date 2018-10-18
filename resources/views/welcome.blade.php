@@ -21,7 +21,7 @@
                 src: url({{asset('fonts/gill-sans/GillSansStd-Light.otf')}}) format("opentype");
             }
             .body-login {
-                background: url('{{url('')}}/img/bg_login.png');
+                background: url('{{url('img/bg_login.png')}}');
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
             }
@@ -94,7 +94,7 @@
             <div class="col-lg-12 text-center">
                 <div class="col-xs-12 col-sm-8 col-sm-push-2 col-sm-pull-2 col col-md-6 col-md-push-3 col-md-pull-3">
                     <div class="p-t-20 p-l-15 p-r-15 p-b-30">
-                        <img style="width: 20%;" src="{{asset('img/logo_topali.png')}}">
+                        <img style="width: 20%;" src="{{asset('img/company_logo.png')}}">
                         <div id="form-container">
                             <h1 class="login-header">BIENVENIDO</h1>
                             <form class="m-t-30 m-l-15 m-r-15" method="POST" action="login" autocomplete="off">

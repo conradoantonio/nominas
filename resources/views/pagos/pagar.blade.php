@@ -70,7 +70,7 @@ img#company-logo{
 								</ul>
 							</div>
 							<div class="col-md-6 visible-lg visible-md hidden-sm hidden-xs text-right" style="float: right;">
-								<img src="{{asset('img/logo_topali.png')}}" class="" id="company-logo" alt="company-logo">
+								<img src="{{asset('img/company_logo.png')}}" class="" id="company-logo" alt="company-logo">
 							</div>
 						</div>
 					</div>
