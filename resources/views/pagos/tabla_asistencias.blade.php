@@ -43,7 +43,7 @@
 			@endif
 		@endforeach
 		<th>Notas</th>
-		<th>Retención a pagar</th>
+		<th>Deducción a pagar</th>
 		<th>Acciones</th>
 	</thead>
 	<tbody>
