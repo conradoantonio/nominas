@@ -172,6 +172,13 @@ class PagosController extends Controller
 		if ($listas->get()) {
 			foreach ($listas->get() as $key => $lista) {
 				foreach ($lista->PagoUsuarios as $pago_usuario) {
+					//Desvincula las retenciones en caso de ser necesario
+					if ( count ($pago_usuario->retenciones ) ) {
+						foreach ($pago_usuario->retenciones as $retencion) {
+							$retencion->update(['usuario_pago_id' => null, 'status' => 0]);
+						}
+					}
+
 					//Desvincula las deducciones en caso de ser necesario
 					if ( count ($pago_usuario->deducciones_detalles ) ) {
 						foreach ($pago_usuario->deducciones_detalles as $detalle) {
@@ -230,6 +237,15 @@ class PagosController extends Controller
 
 		if ( count( $usuario_pagos ) ) {
 			foreach ($usuario_pagos as $pago) {
+
+				#Desvinculamos las retenciones
+				if ( count ($pago->retenciones ) ) {
+					foreach ($pago->retenciones as $retencion) {
+						$retencion->update(['usuario_pago_id' => null, 'status' => 0]);
+					}
+				}
+
+				#Desvinculamos las deducciones
 				if ( count ($pago->deducciones_detalles ) ) {
 					foreach ($pago->deducciones_detalles as $detalle) {
 						$detalle->update(['usuario_pago_id' => null, 'status' => 0]);
