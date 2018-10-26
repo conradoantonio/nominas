@@ -90,7 +90,7 @@ class RetencionesController extends Controller
             $query->whereDoesntHave('usuario_pago')->where('status', 0);
         })->find($req->empleado_id);
 
-        if (!$empleado) { return response(['msg' => 'Este empleado no cuenta con retenciones por pagar', 'status' => 'error'], 404); }
+        if (!$empleado) { return response(['msg' => 'Este empleado no cuenta con retenciones por pagar', 'status' => 'info'], 404); }
 
         return $empleado;
     }
@@ -118,9 +118,9 @@ class RetencionesController extends Controller
                     'Notas' => $retencion->comentarios
                 ];
 
-                $retencion->status = 1;
+                #$retencion->status = 1;
 
-                $retencion->save();
+                #$retencion->save();
             }
         }
 

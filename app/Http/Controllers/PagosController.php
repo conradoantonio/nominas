@@ -149,7 +149,7 @@ class PagosController extends Controller
 	    #if (($today >= $inicio_d) && ($today < $fin_d)){
 			foreach ($days as &$day) {
 				#echo $dia."<br>";
-				if ( $day['num'] == $dia[0] || $day['num'] == $dia[1] || $day['num'] == $dia[2] || $day['num'] == date('d') ){
+				if ( $day['num'] == $dia[0] || $day['num'] == $dia[1] || $day['num'] == $dia[2] || $day['num'] == date('d')/* || $day['num'] == date('d', strtotime($today . ' +1 day'))*/ ){
 		    		$day['edit'] = true;
 		    	}
 			}
@@ -358,7 +358,7 @@ class PagosController extends Controller
 	 */
 	public function descargar_excel_master(Request $request)
 	{
-		$file = public_path()."/excel/Master_TP.xlsm";
+		$file = public_path("excel/Master_TP.xlsm");
 		return response()->download($file, 'Master_TP.xlsm');
 	}
 
@@ -401,11 +401,19 @@ class PagosController extends Controller
 		->get();
 
 		$array = array();
+		$notas_ded = '';
 
 		foreach ($asistencias as $asistencia) {
+			
+			if ( count($asistencia->pago->deducciones_detalles) ) {
+				foreach ( $asistencia->pago->deducciones_detalles as $detalle ) {
+					$notas_ded .= $detalle->deduccion->comentarios."\n";
+				}
+			}
+
 			$array[] = [
 				'Nombre completo' => $asistencia->pago->usuarios->nombre.' '.$asistencia->pago->usuarios->apellido_paterno.' '.$asistencia->pago->usuarios->apellido_materno,
-				'Importe ' => number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2),
+				'Importe ' => count($asistencia->pago->retenciones) ? '0' : number_format($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total,2),
 				'Número de cuenta' => $asistencia->pago->usuarios->num_cuenta,
 				'Número de empleado' => $asistencia->pago->usuarios->num_empleado,
 				'Fecha de pagos' => date('d M Y', strtotime($asistencia->pago->pago->fecha_inicio)).' - '.date('d M Y', strtotime($asistencia->pago->pago->fecha_fin)),
@@ -415,7 +423,9 @@ class PagosController extends Controller
 				'Turnos nocturnos' => $asistencia->nocturno,
 				'Empresa ' => $pago->empresa->nombre,
 				'Deducciones' => number_format($asistencia->pago->deducciones_detalles->sum('cantidad'),2),
-				'Notas' => $asistencia->pago->notas
+				'Retenciones' => number_format($asistencia->pago->retenciones->sum('importe'),2),
+				'Notas' => $asistencia->pago->notas,
+				'Notas (Deducciones)' => $notas_ded
 			];
 		}
 

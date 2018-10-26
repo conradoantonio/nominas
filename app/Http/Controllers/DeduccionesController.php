@@ -95,9 +95,16 @@ class DeduccionesController extends Controller
      */
     public function mostrar_detalles(Request $req)
     {
-        $empleado = Empleado::find($req->empleado_id);
+        $empleado = Empleado::with('deducciones')->whereHas('deducciones', function($query){
+            $query->with('detalles')->whereHas('detalles', function($que) {
+                $que->whereDoesntHave('usuario_pago');
+            });
+        })->find($req->empleado_id);
 
-        if (!$empleado) { return response(['msg' => 'ID de empleado inválido', 'status' => 'error'], 404); }
+
+        //$empleado = Empleado::find($req->empleado_id);
+
+        if (!$empleado) { return response(['msg' => 'El empleado no cuenta con deducciones pendientes de asignar', 'status' => 'info'], 404); }
 
         if ( count( $empleado->deducciones ) ) {
             foreach ( $empleado->deducciones as $deduccion ) {
