@@ -185,6 +185,13 @@ class PagosController extends Controller
 							$detalle->update(['usuario_pago_id' => null, 'status' => 0]);
 						}
 					}
+
+					//Desvincula los conceptos en caso de ser necesario
+					if ( count ($pago_usuario->conceptos ) ) {
+						foreach ($pago_usuario->conceptos as $concepto) {
+							$concepto->update(['usuario_pago_id' => null, 'status' => 0]);
+						}
+					}
 					$pago_usuario->asistencia()->delete();//Elimina las asistencias
 				}
 				$lista->PagoUsuarios()->delete();//Elimina los PagoUsuarios
@@ -249,6 +256,13 @@ class PagosController extends Controller
 				if ( count ($pago->deducciones_detalles ) ) {
 					foreach ($pago->deducciones_detalles as $detalle) {
 						$detalle->update(['usuario_pago_id' => null, 'status' => 0]);
+					}
+				}
+
+				#Desvinculamos los conceptos
+				if ( count ($pago->conceptos ) ) {
+					foreach ($pago->conceptos as $concepto) {
+						$concepto->update(['usuario_pago_id' => null, 'status' => 0]);
 					}
 				}
 			}
@@ -411,9 +425,9 @@ class PagosController extends Controller
 			if ( count( $asistencia->pago->retenciones ) ) {
 				$importe = 0;
 			} elseif ( count( $asistencia->pago->deducciones_detalles ) ) {
-				$importe = ($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total) - ($asistencia->pago->deducciones_detalles->sum('cantidad'));
+				$importe = $asistencia->pago->conceptos->sum('importe') + ($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total) - ($asistencia->pago->deducciones_detalles->sum('cantidad'));
 			} else {
-				$importe = $asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total;
+				$importe = $asistencia->pago->conceptos->sum('importe') + ($asistencia->pago->pago->servicio->sueldo_diario_guardia*$asistencia->total);
 			}
 
 			if ( count($asistencia->pago->deducciones_detalles) ) {
@@ -435,6 +449,7 @@ class PagosController extends Controller
 				'Empresa ' => $pago->empresa->nombre,
 				'Deducciones' => number_format($asistencia->pago->deducciones_detalles->sum('cantidad'),2),
 				'Retenciones' => number_format($asistencia->pago->retenciones->sum('importe'),2),
+				'Conceptos' => number_format($asistencia->pago->conceptos->sum('importe'),2),
 				'Notas' => $asistencia->pago->notas,
 				'Notas (Deducciones)' => $notas_ded
 			];
@@ -442,12 +457,12 @@ class PagosController extends Controller
 
         Excel::create("Resumen de asistencias del $intervalo", function($excel) use($array) {
             $excel->sheet('Hoja 1', function($sheet) use($array) {
-                $sheet->cells('A:L', function($cells) {
+                $sheet->cells('A:M', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setValignment('center');
                 });
 
-                $sheet->cells('A1:L1', function($cells) {
+                $sheet->cells('A1:M1', function($cells) {
                     $cells->setFontWeight('bold');
                 });
 

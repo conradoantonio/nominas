@@ -47,6 +47,7 @@
                             <a href="{{url('empleados/formulario')}}/{{$empleado->id}}"><button type="button" class="btn btn-info editar_empleado">Editar</button></a>
                             <button type="button" class="btn btn-primary agregar_deduccion">Deducir</button>
                             <button type="button" class="btn btn-warning agregar_retencion">Retener</button>
+                            <button type="button" class="btn btn-default agregar_concepto">Concepto</button>
                             <button type="button" change-to={{$empleado->status == 1 ? '0' : '1'}} class="btn btn-danger baja_empleado">{{$empleado->status == 1 ? 'Baja' : 'Reactivar'}}</button>
                         @endif
                     </td>
