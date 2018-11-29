@@ -18,7 +18,9 @@
                         <td>Comentarios</td>
                         <td>Fecha creación</td>
                         <td>Status</td>
-                        <td>Acciones</td>
+                        @if ( auth()->user()->privilegios->emp_mod_prop == 1 )
+                            <td>Acciones</td>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -40,9 +42,11 @@
                                     )
                                 !!}
                             </td>
-                            <td>
-                                <button type="button" class="btn btn-danger eliminar_retencion" data-txt_msg="la retención" data-container_id="table_retenciones" data-route_fix="retenciones" data-row_id="{{$retencion->id}}">Eliminar</button>
-                            </td>
+                            @if ( auth()->user()->privilegios->emp_mod_prop == 1 )
+                                <td>
+                                    <button type="button" class="btn btn-danger eliminar_retencion" data-txt_msg="la retención" data-container_id="table_retenciones" data-route_fix="retenciones" data-row_id="{{$retencion->id}}">Eliminar</button>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

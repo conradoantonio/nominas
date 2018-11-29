@@ -99,14 +99,16 @@ img#company-logo{
                 </div>
             </div>
             <a href="{{$pago->status != 0 ? url('nominas') : url('historial')}}" class="btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</a>
-            <button id="agregar_empleado" class="btn btn-success {{$pago->status == 0 ? 'hide' : ''}}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar empleado</button>
-            <button id="guardar" class="btn btn-primary {{$pago->status != 0 ? '' : 'hide'}}">
-            	<i class="fa fa-floppy-o" aria-hidden="true"></i>
-                <i class="fa fa-spinner fa-spin" style="display: none;"></i>
-            	Guardar
-            </button>
-            <button id="borrar_empleados" class="btn btn-danger {{$pago->status == 0 ? 'hide' : ''}}" disabled><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empleados</button>
-			<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar"><i class="fa fa-money" aria-hidden="true"></i> Pagar</a>
+            @if( $modify )
+	            <button id="agregar_empleado" class="btn btn-success {{$pago->status == 0 ? 'hide' : ''}}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar empleado</button>
+	            <button id="guardar" class="btn btn-primary {{$pago->status != 0 ? '' : 'hide'}}">
+	            	<i class="fa fa-floppy-o" aria-hidden="true"></i>
+	                <i class="fa fa-spinner fa-spin" style="display: none;"></i>
+	            	Guardar
+	            </button>
+	            <button id="borrar_empleados" class="btn btn-danger {{$pago->status == 0 ? 'hide' : ''}}" disabled><i class="fa fa-trash" aria-hidden="true"></i> Eliminar empleados</button>
+				<a href="{{url('pagar-nomina/'.$pago->id)}}" class="btn btn-success {{$pago->status != 2 ? 'hide' : ''}}" id="btn-pagar"><i class="fa fa-money" aria-hidden="true"></i> Pagar</a>
+			@endif
 			<a href="{{url('nominas/pdf/'.$pago->id)}}" target="_blank" class="btn btn-info" id="btn-pagar"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Descargar PDF</a>
         </div>
     </div>

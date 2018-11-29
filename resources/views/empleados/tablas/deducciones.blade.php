@@ -14,7 +14,9 @@
                             <td>Número de pagos</td>
                             <td>Comentarios</td>
                             <td>Fecha creación</td>
-                            <td>Acciones</td>
+                            @if ( auth()->user()->privilegios->emp_mod_prop == 1 )
+                                <td>Acciones</td>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -27,10 +29,12 @@
                                 <td>
                                     {{strftime('%d', strtotime($deduccion->created_at)).' de '.strftime('%B', strtotime($deduccion->created_at)). ' del '.strftime('%Y', strtotime($deduccion->created_at))}}
                                 </td>
-                                <td>
-                                    <button type="button" class="btn btn-success detalle_deduccion" data-row-data="{{$deduccion->detalles}}">Detalles</button>
-                                    <button type="button" class="btn btn-danger eliminar_deduccion" data-txt_msg="la deducción" data-container_id="table_deducciones" data-route_fix="deducciones" data-row_id="{{$deduccion->id}}">Eliminar</button>
-                                </td>
+                                @if ( auth()->user()->privilegios->emp_mod_prop == 1 )
+                                    <td>
+                                        <button type="button" class="btn btn-success detalle_deduccion" data-row-data="{{$deduccion->detalles}}">Detalles</button>
+                                        <button type="button" class="btn btn-danger eliminar_deduccion" data-txt_msg="la deducción" data-container_id="table_deducciones" data-route_fix="deducciones" data-row_id="{{$deduccion->id}}">Eliminar</button>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
