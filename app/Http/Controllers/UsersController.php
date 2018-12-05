@@ -31,8 +31,7 @@ class UsersController extends Controller
         if (auth()->user()->privilegios && auth()->user()->privilegios->usuarios == 1) {
             $title = "Usuarios Sistema";
             $menu = "Usuarios";
-            $usuarios = User::all();
-            #$usuarios = User::where('user', '!=', auth()->user()->user)->get();
+            $usuarios = User::where('user', '!=', auth()->user()->user)->get();
             $roles = Role::all();
 
             if ($request->ajax()) {

@@ -56,7 +56,7 @@ class ConceptosController extends Controller
 
         $html = view('empleados.tablas.conceptos', compact(['empleado']))->render();
 
-        return response(['msg' => 'Retención eliminada correctamente', 'status' => 'success', 'url' => $url, 'html' => $html], 200);
+        return response(['msg' => 'Concepto eliminado correctamente', 'status' => 'success', 'url' => $url, 'html' => $html], 200);
     }
 
     /**
@@ -83,7 +83,7 @@ class ConceptosController extends Controller
     }
 
     /**
-     * Remueve la relación entre una retención y la hoja de pago (Reinicia)
+     * Remueve la relación entre un concepto y la hoja de pago (Reinicia)
      *
      * @return \Illuminate\Http\Response
      */
