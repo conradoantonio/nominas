@@ -84,6 +84,7 @@ img#company-logo{
 									<li>Número de empleados: {{$pago->num_empleados}}</li>
 									<li>Horario: {{$pago->servicio->horario}}</li>
 									<li>Sueldo: <strong>${{$pago->servicio->sueldo}}</strong></li>
+									<li>Rango de fechas: {{date('d/M/Y', strtotime($pago->fecha_inicio))}} - {{date('d/M/Y', strtotime($pago->fecha_fin))}}</li>
 								</ul>
 							</div>
 							<div class="col-md-6 visible-lg visible-md hidden-sm hidden-xs text-right" style="float: right;">
