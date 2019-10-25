@@ -205,9 +205,7 @@ class PagosController extends Controller
 							$concepto->update(['usuario_pago_id' => null, 'status' => 0]);
 						}
 					}
-					$pago_usuario->asistencia()->delete();//Elimina las asistencias
 				}
-				$lista->PagoUsuarios()->delete();//Elimina los PagoUsuarios
 			}
 			$listas->delete();//Elimina la lista
 			return response(['msg' => 'Éxito borrando la lista', 'status' => 'ok'], 200);
@@ -279,12 +277,11 @@ class PagosController extends Controller
 					}
 				}
 			}
-
-			$pago->delete();
 		}
-		$asistencias = Asistencia::whereIn('usuario_pago_id', $req->checking)->delete();
 
-		if ($asistencias && $usuario_pagos){
+		$result = UsuarioPago::whereIn('id', $req->checking)->delete();
+
+		if ( $result ){
         	return response(['msg' => 'Empleados eliminados correctamente', 'status' => 'ok'], 200);
 		} else {
 	        return response(['msg' => 'Error al eliminar los empleados de la lista', 'status' => 'error'], 404);
